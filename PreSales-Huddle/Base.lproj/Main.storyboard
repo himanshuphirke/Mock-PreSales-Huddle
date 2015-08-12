@@ -10,7 +10,7 @@
         <!--Prospects-->
         <scene sceneID="FN2-ur-YJ7">
             <objects>
-                <tableViewController id="G89-Wo-PF6" customClass="AllProspects" customModule="PreSales_Huddle" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="G89-Wo-PF6" customClass="AllProspects" customModule="PreSales_Huddle_Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="47" sectionHeaderHeight="22" sectionFooterHeight="22" id="iAa-a7-WYP">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -70,7 +70,7 @@
         <!--Add Prospect-->
         <scene sceneID="ul4-Ad-qeE">
             <objects>
-                <viewController id="oEm-za-de6" customClass="Prospect" customModule="PreSales_Huddle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="oEm-za-de6" customClass="Prospect" customModule="PreSales_Huddle_Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qAj-Yl-AAS"/>
                         <viewControllerLayoutGuide type="bottom" id="Dbw-bA-TrH"/>
@@ -292,7 +292,7 @@
         <!--View Client-->
         <scene sceneID="HDd-J4-Ojt">
             <objects>
-                <viewController id="QSp-eI-3bt" customClass="Client" customModule="PreSales_Huddle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="QSp-eI-3bt" customClass="Client" customModule="PreSales_Huddle_Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L9R-i9-UfF"/>
                         <viewControllerLayoutGuide type="bottom" id="9Xh-fQ-n45"/>
@@ -486,7 +486,7 @@
         <!--Schedule Call-->
         <scene sceneID="gfo-vW-oYy">
             <objects>
-                <viewController id="uFE-6i-fMI" customClass="ScheduleCall" customModule="PreSales_Huddle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="uFE-6i-fMI" customClass="ScheduleCall" customModule="PreSales_Huddle_Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tEi-fT-ygF"/>
                         <viewControllerLayoutGuide type="bottom" id="j0T-EK-4mW"/>
@@ -688,7 +688,7 @@
         <!--Convert to Client-->
         <scene sceneID="tOR-aX-I50">
             <objects>
-                <viewController id="o5C-KG-ha7" customClass="ConvertClient" customModule="PreSales_Huddle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="o5C-KG-ha7" customClass="ConvertClient" customModule="PreSales_Huddle_Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Wgn-dA-5Oy"/>
                         <viewControllerLayoutGuide type="bottom" id="KYZ-fr-zJQ"/>
@@ -833,7 +833,7 @@
         <!--Discussions-->
         <scene sceneID="cQV-4N-1br">
             <objects>
-                <tableViewController id="63M-Ug-tbd" customClass="Discussions" customModule="PreSales_Huddle" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="63M-Ug-tbd" customClass="Discussions" customModule="PreSales_Huddle_Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="mzf-Nv-pxW">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -885,7 +885,7 @@
         <!--Clients-->
         <scene sceneID="GlB-cY-sJP">
             <objects>
-                <tableViewController id="kGM-lH-djJ" customClass="AllClients" customModule="PreSales_Huddle" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="kGM-lH-djJ" customClass="AllClients" customModule="PreSales_Huddle_Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="WNu-lp-d9y">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -935,7 +935,7 @@
         <!--Login-->
         <scene sceneID="xXO-R7-jI7">
             <objects>
-                <viewController id="rVu-AX-iK7" customClass="Login" customModule="PreSales_Huddle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="rVu-AX-iK7" customClass="Login" customModule="PreSales_Huddle_Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GCO-RT-8yD"/>
                         <viewControllerLayoutGuide type="bottom" id="eJV-0Y-ke1"/>
@@ -1103,12 +1103,12 @@
                                 <include reference="oe5-wI-Ajd"/>
                                 <exclude reference="uW1-8B-YyB"/>
                                 <include reference="zr1-5X-S2A"/>
-                                <exclude reference="mm5-OT-fCM"/>
                                 <exclude reference="3oG-q8-pp4"/>
                                 <include reference="AgH-B7-Yrd"/>
                                 <exclude reference="HAm-Or-h0g"/>
                                 <include reference="II9-36-NfC"/>
                                 <exclude reference="JzV-2A-wib"/>
+                                <exclude reference="mm5-OT-fCM"/>
                             </mask>
                         </variation>
                     </view>
@@ -1126,7 +1126,7 @@
         <!--Tab Bar-->
         <scene sceneID="8Km-q4-E0d">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="mqe-dC-iZ1" customClass="TabBar" customModule="PreSales_Huddle" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="mqe-dC-iZ1" customClass="TabBar" customModule="PreSales_Huddle_Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="IFV-hy-cNo">
@@ -1165,7 +1165,7 @@
         <!--Reports-->
         <scene sceneID="TjI-U2-aI3">
             <objects>
-                <tableViewController id="uRr-LG-Agx" customClass="Reports" customModule="PreSales_Huddle" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="uRr-LG-Agx" customClass="Reports" customModule="PreSales_Huddle_Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="yCe-ay-Mrp">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1201,7 +1201,7 @@
         <!--Charts-->
         <scene sceneID="o4G-oL-6Zc">
             <objects>
-                <tableViewController id="4sz-Gt-REe" customClass="Charts" customModule="PreSales_Huddle" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="4sz-Gt-REe" customClass="Charts" customModule="PreSales_Huddle_Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hze-F6-EuE">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1239,7 +1239,7 @@
         <!--Pie Chart-->
         <scene sceneID="k7r-QK-8me">
             <objects>
-                <viewController id="iUu-dC-ieJ" customClass="PieChart" customModule="PreSales_Huddle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="iUu-dC-ieJ" customClass="PieChart" customModule="PreSales_Huddle_Mock" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ltz-mj-t9U"/>
                         <viewControllerLayoutGuide type="bottom" id="UQW-kT-Gu5"/>

@@ -25,7 +25,7 @@ class AllProspects: UITableViewController, ProspectDelgate {
     }
   let prospectName = "Name"
   let calNotifier = CalendarNotification()
-  var allPropects = [[String: AnyObject]]()
+  var allProspects = [[String: AnyObject]]()
   var allProspectsCopy = [[String: AnyObject]]()
   private let concurrentUpdateAllPropspects = dispatch_queue_create(
         "com.synerzip.PreSalesHuddle.updateAllProspects", DISPATCH_QUEUE_SERIAL)
@@ -58,13 +58,13 @@ class AllProspects: UITableViewController, ProspectDelgate {
 
   // MARK: tableView Functions
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return allPropects.count
+    return allProspects.count
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
     let cell = tableView.dequeueReusableCellWithIdentifier("prospect-id") as! UITableViewCell
-    let prospect = allPropects[indexPath.row] as [String: AnyObject]
+    let prospect = allProspects[indexPath.row] as [String: AnyObject]
     populateCellData(cell, withProspectDictionary: prospect)
     stylizeCell(cell, index: indexPath.row)
     return cell
@@ -144,32 +144,43 @@ class AllProspects: UITableViewController, ProspectDelgate {
   private func commonHandler() {
     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
     dispatch_async(dispatch_get_main_queue()) {
-      self.hud?.hide(true)
+      self.hud?.hide(true, afterDelay: 0.5)
       self.refreshControl?.endRefreshing()
     }
   }
 
-  func fetch_success(data: NSData) -> Void {
+  class func fillData() -> [[String: AnyObject]] {
+    let prospect1 = ["ProspectID": 1, "Name":"Emerson","Domain":"Office Documents","DesiredTeamSize":10, "CreateDate":"1439373335.63184","TechStack":"C++, Java","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "", "ConfDateEnd": ""]
+    let prospect2 = ["ProspectID": 2, "Name":"HP","Domain":"IT Services","DesiredTeamSize":14, "CreateDate":"1439373335.63184","TechStack":"C++","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "1442225434.0", "ConfDateEnd": "1442229047.0" ]
+    let prospect3 = ["ProspectID": 3, "Name":"Tesla","Domain":"Automotive","DesiredTeamSize":20, "CreateDate":"1439373335.63184","TechStack":"C++, JavaScript","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "1442229434.0", "ConfDateEnd": "1442232047.0"]
+    
+        let prospect4 = ["ProspectID": 4, "Name":"QuickOffice","Domain":"Office Documents","BUHead":"Salil", "CreateDate":"1439373335.63184","TechStack":"C++, Java, JavaScript","SalesID":"Hemant","Notes":"Acquired by Google", "ConfDateStart": "1442229434.0", "ConfDateEnd": "1442232047.0", "TeamSize": 25]
+
+    var allPros = [[String: AnyObject]]()
+    allPros.append(prospect1)
+    allPros.append(prospect2)
+    allPros.append(prospect3)
+        allPros.append(prospect4)
+    return allPros
+  }
+  func fetch_success() {
     commonHandler()
-    var error: NSError?
-    if let dict_array = NSJSONSerialization.JSONObjectWithData(data,
-        options: NSJSONReadingOptions.MutableContainers, error: &error) as? [AnyObject] {
-      allPropects = []
-      for item in dict_array  {
-        let dict = item as! [String: AnyObject]
-        if let teamSize = dict["TeamSize"] as? Int {
-          if teamSize == 0 {
-            allPropects.append(dict)
-          }
-        }
+    allProspects = [[String: AnyObject]]()
+    
+    for dict in AllProspects.fillData()  {
+      if let teamSize = dict["TeamSize"] as? Int {
+
+      } else {
+        allProspects.append(dict)
       }
     }
+    
     dispatch_async(concurrentUpdateAllPropspects) {
-      self.allProspectsCopy = self.allPropects
+      self.allProspectsCopy = self.allProspects
       self.addCalendarInvites()
     }
     dispatch_async(dispatch_get_main_queue()) {
-      if self.allPropects.count == 0 {
+      if self.allProspects.count == 0 {
         self.showNoData()
       } else {
         self.tableView.backgroundView = nil
@@ -194,23 +205,24 @@ class AllProspects: UITableViewController, ProspectDelgate {
 
   }
   
-  private func fetch_success_notifications(data: NSData) -> Void {
+  private func fetch_success_notifications() -> Void {
     commonHandler()
     var error: NSError?
     var addNotificatios = [Int]()
     
     if let user = NSUserDefaults.standardUserDefaults().stringForKey("userID") {
         
-        if let dict_array = NSJSONSerialization.JSONObjectWithData(data,
-            options: NSJSONReadingOptions.MutableContainers, error: &error) as? [AnyObject] {
-          for item in dict_array  {
-            let included = item["Included"] as! String
-            let participation = item["Participation"] as! String
-            if included == "Yes" && participation == "Yes" {
-              addNotificatios += [item["ProspectID"] as! Int]
-            }
-          }
-        }
+//        if let dict_array = NSJSONSerialization.JSONObjectWithData(data,
+//            options: NSJSONReadingOptions.MutableContainers, error: &error) as? [AnyObject] {
+//          for item in dict_array  {
+//            let included = item["Included"] as! String
+//            let participation = item["Participation"] as! String
+//            if included == "Yes" && participation == "Yes" {
+//              addNotificatios += [item["ProspectID"] as! Int]
+//            }
+//          }
+//        }
+        addNotificatios = [1, 2, 3]
         var events: String = ""
         for prospect in allProspectsCopy {
           let prospectID = prospect["ProspectID"] as! Int
@@ -237,7 +249,7 @@ class AllProspects: UITableViewController, ProspectDelgate {
           hudMessage.detailsLabelText = events
           hudMessage.detailsLabelFont = UIFont.systemFontOfSize(12)
           hudMessage.sizeToFit()
-          hudMessage.hide(true, afterDelay: 5)
+          hudMessage.hide(true, afterDelay: 2)
           hudMessage.opacity = 0.4
           hudMessage.yOffset = Float(self.view.frame.size.height/2 - 200)
           hudMessage.userInteractionEnabled = false
@@ -247,12 +259,7 @@ class AllProspects: UITableViewController, ProspectDelgate {
   }
   
   private func addCalendarInvites() {
-    let nc = NetworkCommunication()
-    if let url = viewAllNotifications {
-      let retValue = nc.fetchData(url,
-        successHandler: fetch_success_notifications, serviceErrorHandler: service_error,
-        errorHandler: network_error)
-    }
+    fetch_success_notifications()
   }
   
   func network_error( error: NSError) -> Void {
@@ -284,11 +291,9 @@ class AllProspects: UITableViewController, ProspectDelgate {
     dispatch_async(dispatch_get_main_queue()) {
       self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
       self.hud?.labelText = "Loading.."
+      self.hud?.detailsLabelText = "Delay added for display"
     }
-    let nc = NetworkCommunication()
-    let retValue = nc.fetchData(viewAllURL,
-        successHandler: fetch_success, serviceErrorHandler: service_error,
-        errorHandler: network_error)
+    fetch_success()
   }
   
   private func stylizeControls() {
@@ -304,7 +309,7 @@ class AllProspects: UITableViewController, ProspectDelgate {
     targetView.delegate = self
     if segue.identifier == "EditProspect" {
       if let indexPath = tableView.indexPathForCell(sender as! UITableViewCell) {
-        targetView.itemToEdit = allPropects[indexPath.row]
+        targetView.itemToEdit = allProspects[indexPath.row]
       }
     } else if segue.identifier == "AddProspect" {
       // Add Prospect operation required

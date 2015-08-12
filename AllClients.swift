@@ -94,20 +94,16 @@ class AllClients: UITableViewController {
     }
 
   }
-  func fetch_success(data: NSData) -> Void {
+  func fetch_success() -> Void {
     commonHandler()
     var error: NSError?
-    if let dict_array = NSJSONSerialization.JSONObjectWithData(data,
-      options: NSJSONReadingOptions.MutableContainers, error: &error) as? [AnyObject] {
-        allClients = []
-        for item in dict_array  {
-          let dict = item as! [String: AnyObject]
-          if let teamSize = dict["TeamSize"] as? Int {
-            if teamSize > 0 {
-              allClients.append(dict)
-            }
-          }
+    allClients = []
+    for dict in AllProspects.fillData()  {
+      if let teamSize = dict["TeamSize"] as? Int {
+        if teamSize > 0 {
+          allClients.append(dict)
         }
+    }
     }
     
     dispatch_async(dispatch_get_main_queue()) {
@@ -145,10 +141,7 @@ class AllClients: UITableViewController {
       self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
       self.hud?.labelText = "Loading.."
     }
-    let nc = NetworkCommunication()
-    let retValue = nc.fetchData(viewAllURL,
-      successHandler: fetch_success, serviceErrorHandler: service_error,
-      errorHandler: network_error)
+    fetch_success()
   }
 
   // MARK: Segue Functions

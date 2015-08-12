@@ -53,7 +53,7 @@ class ConvertClient: UIViewController, DateSelectorDelegate {
     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
   }
 
-  func saveProspectSuccess(data: NSData) -> Void {
+  func saveProspectSuccess() -> Void {
     commonHandler()
     dispatch_async(dispatch_get_main_queue()) {
       self.showMessage("Success",
@@ -79,15 +79,7 @@ class ConvertClient: UIViewController, DateSelectorDelegate {
 
   private func saveProspectToWebService(dict: [String: AnyObject], method: String) {
     println("Prospect save:  \(dict)")
-    if let data = getNSData(dict) {
-      let nc = NetworkCommunication()
-      nc.postData(method, data: data,
-        successHandler: saveProspectSuccess,
-        serviceErrorHandler: serviceError,
-        errorHandler: networkError)
-    } else {
-      showMessage("Failure", message: "Failed to convert data")
-    }
+    saveProspectSuccess()
   }
   
   private func getFormData() -> [String: AnyObject] {

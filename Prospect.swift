@@ -89,13 +89,15 @@ class Prospect: UIViewController, UITextFieldDelegate {
       self.hud?.labelText = "Saving data"
       self.hud?.detailsLabelText = "Please wait..."
     }
-    if let prospect = itemToEdit {
-      // Edit
-      updateProspectToWebService(updateProspectURL)
-    } else {
-      // Add
-      updateProspectToWebService(addProspectURL)
-    }
+    
+    saveProspectSuccessMock()
+//    if let prospect = itemToEdit {
+//      // Edit
+//      updateProspectToWebService(updateProspectURL)
+//    } else {
+//      // Add
+//      updateProspectToWebService(addProspectURL)
+//    }
   }
 
   @IBAction func participateInCall(sender: UISwitch) {
@@ -231,15 +233,7 @@ class Prospect: UIViewController, UITextFieldDelegate {
   private func saveParticipantWebService(dict: [String: AnyObject], method: String) {
     println("Participant operation:  \(method)")
     println("Participant save:  \(dict)")
-    if let data = getNSData(dict) {
-      let nc = NetworkCommunication()
-      nc.postData(method, data: data,
-        successHandler: participantSaveSuccess,
-        serviceErrorHandler: participantServiceError,
-        errorHandler: participantNetworkError)
-    } else {
-      showMessage("Failure", message: "Failed to convert data")
-    }
+    participantSaveSuccess()
   }
   
   private func showMessage(title:String, message: String) {
@@ -256,7 +250,7 @@ class Prospect: UIViewController, UITextFieldDelegate {
   private func commonHandler() {
     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
     dispatch_async(dispatch_get_main_queue()) {
-      self.hud?.hide(true)
+      self.hud?.hide(true, afterDelay: 1.0)
     }
   }
   
@@ -273,30 +267,23 @@ class Prospect: UIViewController, UITextFieldDelegate {
     return false
   }
   
-  func fetchParticipantSuccess(data: NSData) -> Void {
+  func fetchParticipantSuccess() -> Void {
     commonHandler()
-    var error: NSError?
-    if let dict_array = NSJSONSerialization.JSONObjectWithData(data,
-      options: NSJSONReadingOptions.MutableContainers, error: &error) as? [AnyObject] {
-        println(dict_array)
-        for item in dict_array  {
-          let dict = item as! [String: AnyObject]
-          if let fetchID = dict["ProspectID"] as? Int {
-            if fetchID == prospectID {
-              let retValue = setParticipantSwitch(dict)
-              if retValue == true {
-                println("Participant Data found")
-                break
-              }
-            }
-          }
+    if let id = prospectID {
+      if id == 3 {
+        dispatch_async(dispatch_get_main_queue()) {
+          self.participate_switch.on = false
         }
-    } else {
-      println("No Data for participant found")
-      dispatch_async(dispatch_get_main_queue()) {
-        self.participate_switch.on = false
+      } else {
+        dispatch_async(dispatch_get_main_queue()) {
+          self.participate_switch.on = true
+        }
       }
     }
+  }
+  func saveProspectSuccessMock() -> Void {
+    commonHandler()
+    delegate?.saveProspectFinish(name.text)
   }
   
   func saveProspectSuccess(data: NSData) -> Void {
@@ -320,7 +307,7 @@ class Prospect: UIViewController, UITextFieldDelegate {
     }
   }
   
-  func participantSaveSuccess(data: NSData) -> Void {
+  func participantSaveSuccess() -> Void {
     commonHandler()
     participantEntryPresent = true
     dispatch_async(dispatch_get_main_queue()) {
@@ -356,11 +343,7 @@ class Prospect: UIViewController, UITextFieldDelegate {
 
   private func fetchParticipantDetails() {
     if let userName = NSUserDefaults.standardUserDefaults().stringForKey("userID") {
-      let url = viewParticipantsByUserIDURL + userName
-      let nc = NetworkCommunication()
-      let retValue = nc.fetchData(url,
-        successHandler: fetchParticipantSuccess, serviceErrorHandler: serviceError,
-        errorHandler: networkError)
+      fetchParticipantSuccess()
     }
   }
 

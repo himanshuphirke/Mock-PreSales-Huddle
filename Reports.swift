@@ -161,22 +161,18 @@ class Reports: UITableViewController {
     }
   }
   
-  func fetch_success(data: NSData) -> Void {
+  func fetch_success() -> Void {
     commonHandler()
-    var error: NSError?
-    if let dict_array = NSJSONSerialization.JSONObjectWithData(data,
-      options: NSJSONReadingOptions.MutableContainers, error: &error) as? [AnyObject] {
-        for item in dict_array  {
-          let dict = item as! [String: AnyObject]
-          let teamSize = dict["TeamSize"] as! Int
-          // if (teamSize > 0) {
-          let teckStack = dict["TechStack"] as! String
-          populateTeckStack(teckStack)
-          let domain = dict["Domain"] as! String
-          populateDomain(domain)
-          // }
-        }
+    let all = AllProspects.fillData()
+    for dict in all  {
+      // if (teamSize > 0) {
+      let teckStack = dict["TechStack"] as! String
+      populateTeckStack(teckStack)
+      let domain = dict["Domain"] as! String
+      populateDomain(domain)
+      // }
     }
+
   }
   
   func network_error( error: NSError) -> Void {
@@ -204,10 +200,7 @@ class Reports: UITableViewController {
   }
   
   func fetchData() {
-    let nc = NetworkCommunication()
-    let retValue = nc.fetchData(viewAllURL,
-      successHandler: fetch_success, serviceErrorHandler: service_error,
-      errorHandler: network_error)
+    fetch_success()
   }
   
 }

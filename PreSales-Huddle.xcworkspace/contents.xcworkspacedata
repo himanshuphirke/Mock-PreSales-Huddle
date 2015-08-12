@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:PreSales-Huddle.xcodeproj">
+      location = "group:/Volumes/hpData/hp/Mock-PreSales-Huddle/PreSales-Huddle-Mock.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:README.md">

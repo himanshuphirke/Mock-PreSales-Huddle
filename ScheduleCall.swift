@@ -48,7 +48,8 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
     let from = (DateHandler.getDBDate(fromDate) as NSString).doubleValue
     let to = (DateHandler.getDBDate(toDate) as NSString).doubleValue
     if to > from {
-      updateProspectToWebService(updateProspectURL)
+      // updateProspectToWebService(updateProspectURL)
+      saveProspectSuccessMock()
     } else {
       showMessage("Date Error",
         message: "Select valid From and To date")
@@ -177,14 +178,7 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
       self.hud?.labelText = "Loading.."
     }
 
-    if let id = prospectID {
-      let url = viewParticipantsURL + "\(id)"
-      println("Participant fetch: \(url)")
-      let nc = NetworkCommunication()
-      let retValue = nc.fetchData(url,
-        successHandler: fetch_success, serviceErrorHandler: service_error,
-        errorHandler: network_error)
-    }
+    fetch_success()
   }
 
   private func commonHandler() {
@@ -194,34 +188,39 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
     }
   }
   
-  func fetch_success(data: NSData) -> Void {
-    commonHandler()
-    var error: NSError?
-    if let dict_array = NSJSONSerialization.JSONObjectWithData(data,
-      options: NSJSONReadingOptions.MutableContainers, error: &error) as? [AnyObject] {
-        allParticipants = []
-        for item in dict_array  {
-          let dict = item as! [String: AnyObject]
-          let isIncluded = dict["Included"] as! String
-          let userID = dict["UserID"] as! String
-          let partipant = Participant(userID: userID, isIncluded: isIncluded)
-          allParticipants.append(partipant)
-        }
+  class func fillData() -> [Participant] {
+    let prospect1 = Participant(userID: "Himanshu", isIncluded: "Yes")
+    let prospect2 = Participant(userID: "Vinaya", isIncluded: "Yes")
+    let prospect3 = Participant(userID: "Sachin", isIncluded: "No")
+    
+    var allPros = [Participant]()
 
-        allParticipants = sorted(allParticipants)
-        dispatch_async(dispatch_get_main_queue()) {
-          self.currentTableView.reloadData()
-        }
-    } else {
-      if (allParticipants.count == 0) {
-        dispatch_async(dispatch_get_main_queue()) {
-          self.noParticipantsLabel.hidden = false
-          self.currentTableView.hidden = true
-          self.done.enabled = false
-          self.selection_note.hidden = true
-        }
+    allPros.append(prospect1)
+    allPros.append(prospect2)
+    allPros.append(prospect3)
+    return allPros
+  }
+  
+  func fetch_success() -> Void {
+    commonHandler()
+    if let id = prospectID {
+      if id == 2 {
+          allParticipants = [Participant]()
+      } else {
+          allParticipants = ScheduleCall.fillData()
       }
     }
+
+    
+    if (allParticipants.count == 0) {
+      dispatch_async(dispatch_get_main_queue()) {
+        self.noParticipantsLabel.hidden = false
+        self.currentTableView.hidden = true
+        self.done.enabled = false
+        self.selection_note.hidden = true
+      }
+    }
+    
   }
   
   func network_error( error: NSError) -> Void {
@@ -251,7 +250,7 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
     presentViewController(alert, animated: true, completion: nil)
   }
   
-  func selectionSaveSuccess(data: NSData) -> Void {
+  func selectionSaveSuccess() -> Void {
     commonHandler()
     dispatch_async(dispatch_get_main_queue()) {
       let hudMessage = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
@@ -281,11 +280,7 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
   
   private func saveToWebService(data: NSData, operation: String) {
     println("Operation:  \(operation)")
-    let nc = NetworkCommunication()
-    nc.postData(operation, data: data,
-      successHandler: selectionSaveSuccess,
-      serviceErrorHandler: selectionServiceError,
-      errorHandler: selectionNetworkError)
+    selectionSaveSuccess()
   }
   
   private func getFormData() -> [String: AnyObject] {
@@ -298,6 +293,14 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
     return prospect
   }
 
+  func saveProspectSuccessMock() -> Void {
+    commonHandler()
+    dispatch_async(dispatch_get_main_queue()) {
+      self.showMessage("Data saved",
+        message: "Data saved succesfully.")
+    }
+  }
+  
   func saveProspectSuccess(data: NSData) -> Void {
     commonHandler()
     dispatch_async(dispatch_get_main_queue()) {
