@@ -201,8 +201,6 @@ class Discussions: UITableViewController {
                     cell.frame = labelFrame
                 }
                 cell.sizeToFit()
-                print(cell.textLabel?.frame.size.height)
-                print(cell.frame.size.height)
                 
             } else {
                 let answerblock = UITextView(frame: CGRect(x: 10, y: 10, width: tableView.frame.size.width-20, height: cell.bounds.height)) as UITextView
