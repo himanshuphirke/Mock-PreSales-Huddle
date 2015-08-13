@@ -56,12 +56,12 @@
 		A3456AEC1B66169000D22C21 /* DateSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateSelector.swift; sourceTree = "<group>"; };
 		A3456AED1B66169000D22C21 /* DateSelector.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DateSelector.xib; sourceTree = "<group>"; };
 		A3456AF01B664E1600D22C21 /* DateHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHandler.swift; sourceTree = "<group>"; };
-		A35BF76B1B5F943300D78515 /* PreSales-Huddle-Mock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PreSales-Huddle-Mock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A35BF76B1B5F943300D78515 /* PreSales-Huddle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PreSales-Huddle.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A35BF76F1B5F943300D78515 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A35BF7701B5F943300D78515 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A35BF7771B5F943300D78515 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A35BF77C1B5F943300D78515 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		A35BF7821B5F943300D78515 /* PreSales-Huddle-MockTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PreSales-Huddle-MockTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A35BF7821B5F943300D78515 /* PreSales-HuddleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PreSales-HuddleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A35BF7871B5F943300D78515 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A35BF7881B5F943300D78515 /* PreSales_HuddleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreSales_HuddleTests.swift; sourceTree = "<group>"; };
 		A35BF7931B5FB7EF00D78515 /* NetworkCommunication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkCommunication.swift; sourceTree = "<group>"; };
@@ -151,8 +151,8 @@
 		A35BF76C1B5F943300D78515 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A35BF76B1B5F943300D78515 /* PreSales-Huddle-Mock.app */,
-				A35BF7821B5F943300D78515 /* PreSales-Huddle-MockTests.xctest */,
+				A35BF76B1B5F943300D78515 /* PreSales-Huddle.app */,
+				A35BF7821B5F943300D78515 /* PreSales-HuddleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -289,9 +289,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A35BF76A1B5F943300D78515 /* PreSales-Huddle-Mock */ = {
+		A35BF76A1B5F943300D78515 /* PreSales-Huddle */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A35BF78C1B5F943300D78515 /* Build configuration list for PBXNativeTarget "PreSales-Huddle-Mock" */;
+			buildConfigurationList = A35BF78C1B5F943300D78515 /* Build configuration list for PBXNativeTarget "PreSales-Huddle" */;
 			buildPhases = (
 				C898727653CFA8B943763CA9 /* Check Pods Manifest.lock */,
 				A35BF7671B5F943300D78515 /* Sources */,
@@ -303,14 +303,14 @@
 			);
 			dependencies = (
 			);
-			name = "PreSales-Huddle-Mock";
+			name = "PreSales-Huddle";
 			productName = "PreSales-Huddle";
-			productReference = A35BF76B1B5F943300D78515 /* PreSales-Huddle-Mock.app */;
+			productReference = A35BF76B1B5F943300D78515 /* PreSales-Huddle.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A35BF7811B5F943300D78515 /* PreSales-Huddle-MockTests */ = {
+		A35BF7811B5F943300D78515 /* PreSales-HuddleTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A35BF78F1B5F943300D78515 /* Build configuration list for PBXNativeTarget "PreSales-Huddle-MockTests" */;
+			buildConfigurationList = A35BF78F1B5F943300D78515 /* Build configuration list for PBXNativeTarget "PreSales-HuddleTests" */;
 			buildPhases = (
 				A35BF77E1B5F943300D78515 /* Sources */,
 				A35BF77F1B5F943300D78515 /* Frameworks */,
@@ -321,9 +321,9 @@
 			dependencies = (
 				A35BF7841B5F943300D78515 /* PBXTargetDependency */,
 			);
-			name = "PreSales-Huddle-MockTests";
+			name = "PreSales-HuddleTests";
 			productName = "PreSales-HuddleTests";
-			productReference = A35BF7821B5F943300D78515 /* PreSales-Huddle-MockTests.xctest */;
+			productReference = A35BF7821B5F943300D78515 /* PreSales-HuddleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -345,7 +345,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A35BF7661B5F943300D78515 /* Build configuration list for PBXProject "PreSales-Huddle-Mock" */;
+			buildConfigurationList = A35BF7661B5F943300D78515 /* Build configuration list for PBXProject "PreSales-Huddle" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -358,8 +358,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A35BF76A1B5F943300D78515 /* PreSales-Huddle-Mock */,
-				A35BF7811B5F943300D78515 /* PreSales-Huddle-MockTests */,
+				A35BF76A1B5F943300D78515 /* PreSales-Huddle */,
+				A35BF7811B5F943300D78515 /* PreSales-HuddleTests */,
 			);
 		};
 /* End PBXProject section */
@@ -460,7 +460,7 @@
 /* Begin PBXTargetDependency section */
 		A35BF7841B5F943300D78515 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A35BF76A1B5F943300D78515 /* PreSales-Huddle-Mock */;
+			target = A35BF76A1B5F943300D78515 /* PreSales-Huddle */;
 			targetProxy = A35BF7831B5F943300D78515 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -576,7 +576,7 @@
 				INFOPLIST_FILE = "PreSales-Huddle/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "PreSales-Huddle-Mock";
+				PRODUCT_NAME = "PreSales-Huddle";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 			};
 			name = Debug;
@@ -589,7 +589,7 @@
 				INFOPLIST_FILE = "PreSales-Huddle/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "PreSales-Huddle-Mock";
+				PRODUCT_NAME = "PreSales-Huddle";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 			};
 			name = Release;
@@ -608,7 +608,7 @@
 				);
 				INFOPLIST_FILE = "PreSales-HuddleTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "PreSales-Huddle-MockTests";
+				PRODUCT_NAME = "PreSales-HuddleTests";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PreSales-Huddle.app/PreSales-Huddle";
 			};
 			name = Debug;
@@ -623,7 +623,7 @@
 				);
 				INFOPLIST_FILE = "PreSales-HuddleTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "PreSales-Huddle-MockTests";
+				PRODUCT_NAME = "PreSales-HuddleTests";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PreSales-Huddle.app/PreSales-Huddle";
 			};
 			name = Release;
@@ -631,7 +631,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A35BF7661B5F943300D78515 /* Build configuration list for PBXProject "PreSales-Huddle-Mock" */ = {
+		A35BF7661B5F943300D78515 /* Build configuration list for PBXProject "PreSales-Huddle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A35BF78A1B5F943300D78515 /* Debug */,
@@ -640,7 +640,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A35BF78C1B5F943300D78515 /* Build configuration list for PBXNativeTarget "PreSales-Huddle-Mock" */ = {
+		A35BF78C1B5F943300D78515 /* Build configuration list for PBXNativeTarget "PreSales-Huddle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A35BF78D1B5F943300D78515 /* Debug */,
@@ -649,7 +649,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A35BF78F1B5F943300D78515 /* Build configuration list for PBXNativeTarget "PreSales-Huddle-MockTests" */ = {
+		A35BF78F1B5F943300D78515 /* Build configuration list for PBXNativeTarget "PreSales-HuddleTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A35BF7901B5F943300D78515 /* Debug */,
