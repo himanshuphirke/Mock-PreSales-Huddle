@@ -22,7 +22,18 @@ class Discussions: UITableViewController {
     let updateQA = "discussion/update/"
     let addQURL = "discussion/add/"
     var tableData = [String]();
-    var allQAs = [[String: AnyObject]]()
+    var allQAs = [[String: AnyObject]]() {
+        //for mock screens
+        didSet {
+            if var lastDiscussion = allQAs.last {
+                if lastDiscussion["DiscussionID"] == nil {
+                    lastDiscussion["DiscussionID"] = 60 + allQAs.count
+                    allQAs.removeLast()
+                    allQAs.append(lastDiscussion)
+                }
+            }
+        }
+    }
     var cachedAnswers = [Int: String]()
     var arrayForBool = [Bool]()
     
@@ -418,9 +429,9 @@ class Discussions: UITableViewController {
         get {
             if self.allQAs.isEmpty {
                 let discussion1 = ["DiscussionID":55,"ProspectID":53,"UserID":"Himanshu","Query":"What is the expected team size ?","Answer":["About 20 odd people", "Are any QAs required?"]]
-                let discussion2 = ["DiscussionID":55,"ProspectID":53,"UserID":"Vinaya","Query":"What is the expected start date ?","Answer":["End of this month"]]
-                let discussion3 = ["DiscussionID":55,"ProspectID":53,"UserID":"Uttam","Query":"What are the technologies involved ?","Answer":[String]()]
-                let discussion4 = ["DiscussionID":55,"ProspectID":53,"UserID":"Shaila","Query":"Is a webservice required ?","Answer":["Yes", "Using Go ?"]]
+                let discussion2 = ["DiscussionID":56,"ProspectID":53,"UserID":"Vinaya","Query":"What is the expected start date ?","Answer":["End of this month"]]
+                let discussion3 = ["DiscussionID":57,"ProspectID":53,"UserID":"Uttam","Query":"What are the technologies involved ?","Answer":[String]()]
+                let discussion4 = ["DiscussionID":58,"ProspectID":53,"UserID":"Shaila","Query":"Is a webservice required ?","Answer":["Yes", "Using Go ?"]]
                 
                 var fillData = [[String: AnyObject]]()
                 fillData.append(discussion1 as! [String : AnyObject])
