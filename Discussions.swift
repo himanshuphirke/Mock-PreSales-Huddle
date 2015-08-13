@@ -55,10 +55,12 @@ class Discussions: UITableViewController {
                 if let id = NSUserDefaults.standardUserDefaults().stringForKey("userID") {
                     userID = id
                 }
-                var dataStore : [String:AnyObject] = ["UserID": userID, "ProspectID": self.prospectID,"Query":"\(question)"]
-                var err: NSError?
-                let dataEncoded = NSJSONSerialization.dataWithJSONObject(dataStore, options: nil, error: &err)
-                self.postUpdate(dataEncoded!, url: self.addQURL)
+                var dataStore : [String:AnyObject] = ["UserID": userID, "ProspectID": self.prospectID,"Query":"\(question)", "Answer": [String]()]
+                //for mock-screens
+                self.allQAs.append(dataStore)
+                
+                //for mock screens reload tableview
+                self.fetchData()
             }
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
@@ -118,7 +120,7 @@ class Discussions: UITableViewController {
             
             //hard-coded for mock-screens
             return 90
-        
+            
         }
         
         return 1;
@@ -251,14 +253,14 @@ class Discussions: UITableViewController {
             
             let submitActionHandler = { (action:UIAlertAction!) -> Void in
                 //POST the discussion
-                let qa = self.allQAs[sectionID] as [String: AnyObject]
+                var qa = self.allQAs[sectionID] as [String: AnyObject]
+                var allAns = qa["Answer"] as! [String]
+                // for mock-screens add in qa
+                allAns.append(answer!)
+                qa["Answer"] = allAns
+                self.allQAs[sectionID] = qa
                 
-                if let discussionID = qa["DiscussionID"] as? Int {
-                    var dataStore : [String:AnyObject] = ["DiscussionID":discussionID,"Answer":"\(answer!)"]
-                    var err: NSError?
-                    let dataEncoded = NSJSONSerialization.dataWithJSONObject(dataStore, options: nil, error: &err)
-                    self.postUpdate(dataEncoded!, url: self.updateQA)
-                }
+                
                 var range = NSMakeRange(sectionID, 1)
                 var sectionToReload = NSIndexSet(indexesInRange: range)
                 dispatch_async(dispatch_get_main_queue()) {
@@ -293,8 +295,11 @@ class Discussions: UITableViewController {
     }
     func service_success() -> Void {
         commonHandler()
+        // for mock-screens
+        let dataToFill = fillData
+        allQAs.removeAll(keepCapacity: true)
         var error: NSError?
-        for item in fillData  {
+        for item in dataToFill  {
             let dict = item as [String: AnyObject]
             allQAs.append(dict)
         }
@@ -413,7 +418,7 @@ class Discussions: UITableViewController {
     
     var fillData : [[String: AnyObject]] {
         get {
-                
+            if self.allQAs.isEmpty {
                 let discussion1 = ["DiscussionID":55,"ProspectID":53,"UserID":"Himanshu","Query":"What is the expected team size ?","Answer":["About 20 odd people", "Are any QAs required?"]]
                 let discussion2 = ["DiscussionID":55,"ProspectID":53,"UserID":"Vinaya","Query":"What is the expected start date ?","Answer":["End of this month"]]
                 let discussion3 = ["DiscussionID":55,"ProspectID":53,"UserID":"Uttam","Query":"What are the technologies involved ?","Answer":[String]()]
@@ -425,7 +430,10 @@ class Discussions: UITableViewController {
                 fillData.append(discussion3 as! [String : AnyObject])
                 fillData.append(discussion4 as! [String : AnyObject])
                 return fillData
-                
+            } else {
+                return self.allQAs
+            }
+            
         }
     }
     
