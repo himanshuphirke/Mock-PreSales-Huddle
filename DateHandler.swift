@@ -10,13 +10,22 @@ import Foundation
 
 class DateHandler {
   
-  class func getPrintDate(date: NSDate) -> String {
+  class func getPrintDateTime(date: NSDate) -> String {
     let df = NSDateFormatter()
     df.dateFormat = "dd-MMMM-yy, hh:mm a" // e.g 27-July-15, 05:45 PM
     df.timeZone = NSTimeZone.localTimeZone()
     return df.stringFromDate(date)
   }
 
+  class func getPrintDate(date: NSDate) -> String {
+    let df = NSDateFormatter()
+    df.dateStyle = NSDateFormatterStyle.MediumStyle
+    df.timeZone = NSTimeZone.localTimeZone()
+    return df.stringFromDate(date)
+  }
+
+  
+  
   class func getDBDate(date: NSDate) -> String {
     return date.timeIntervalSince1970.description
   }

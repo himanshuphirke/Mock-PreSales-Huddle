@@ -15,6 +15,7 @@ class DateSelector: UIViewController {
 
   var delegate: DateSelectorDelegate?
   var type: String?
+  var pickerType: UIDatePickerMode?
   override func viewDidLoad() {
       super.viewDidLoad()
 
@@ -23,6 +24,9 @@ class DateSelector: UIViewController {
 
   override func viewWillAppear(animated: Bool) {
     self.view.frame = CGRect(x: 0, y: self.view.bounds.height - 260, width: self.view.bounds.width, height: 260)
+    if let pickerType = pickerType {
+      datePicker.datePickerMode = pickerType
+    }
   }
 
   override func didReceiveMemoryWarning() {

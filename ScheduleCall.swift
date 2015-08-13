@@ -361,10 +361,10 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
     if let type = type {
       if type == "From" {
         fromDate = controller.datePicker.date
-        from_date_label.text = DateHandler.getPrintDate(fromDate)
+        from_date_label.text = DateHandler.getPrintDateTime(fromDate)
       } else if type == "To" {
         toDate = controller.datePicker.date
-        to_date_label.text = DateHandler.getPrintDate(toDate)
+        to_date_label.text = DateHandler.getPrintDateTime(toDate)
         duration_label.text = Int(((toDate.timeIntervalSince1970 - fromDate.timeIntervalSince1970) / 60)).description + " minutes"
       }
     }

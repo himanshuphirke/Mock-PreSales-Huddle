@@ -13,7 +13,7 @@ protocol ProspectDelgate: class {
   func saveProspectFinish(name: String)
 }
 
-class Prospect: UIViewController, UITextFieldDelegate {
+class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
 
   var hud:MBProgressHUD?
   var delegate: ProspectDelgate?
@@ -34,7 +34,11 @@ class Prospect: UIViewController, UITextFieldDelegate {
   @IBOutlet weak var desiredTeamSize: UITextField!
   @IBOutlet weak var techStack: UITextField!
   @IBOutlet weak var participate_switch: UISwitch!
+  @IBOutlet weak var date: UITextField!
+  @IBOutlet weak var desiredtTeamDesc: UITextField!
 
+  @IBOutlet weak var status: UITextField!
+  @IBOutlet weak var listOfContacts: UITextField!
   @IBOutlet weak var discussions: UIBarButtonItem!
   @IBOutlet weak var conf_call_label: UILabel!
   @IBOutlet weak var save_button: UIButton!
@@ -45,8 +49,8 @@ class Prospect: UIViewController, UITextFieldDelegate {
   @IBOutlet weak var convertToClient_button: UIButton!
   // MARK: view Functions
 
-
   override func viewWillAppear(animated: Bool) {
+
     getUserRole()
     accessControl()
     participantEntryPresent = false
@@ -71,6 +75,7 @@ class Prospect: UIViewController, UITextFieldDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     stylizeControls()
+    initMockData()
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -141,10 +146,44 @@ class Prospect: UIViewController, UITextFieldDelegate {
     }
   }
   
+  private func initMockData() {
+    date.text = DateHandler.getPrintDate(NSDate())
+    let dateFieldLabel = UILabel(frame: CGRectZero)
+    dateFieldLabel.text = " Date "
+    dateFieldLabel.font = UIFont.systemFontOfSize(14)
+    dateFieldLabel.sizeToFit()
+    dateFieldLabel.textColor = UIColor.grayColor()
+    date.leftViewMode = UITextFieldViewMode.Always
+    date.leftView = dateFieldLabel
+
+    
+    let statusFieldLabel = UILabel(frame: CGRectZero)
+    statusFieldLabel.text = " Status "
+    statusFieldLabel.font = UIFont.systemFontOfSize(14)
+    statusFieldLabel.sizeToFit()
+    statusFieldLabel.textColor = UIColor.grayColor()
+    status.leftViewMode = UITextFieldViewMode.Always
+    status.leftView = statusFieldLabel
+  
+  }
+  
   private func getUserRole() {
     if let role = NSUserDefaults.standardUserDefaults().stringForKey("userRole") {
       userRole = role
     }
+  }
+  
+  @IBAction func date_click(sender: UITextField) {
+    loadDateSelectorNIB("ProspectDate")
+  }
+    
+  private func loadDateSelectorNIB(type: String) {
+    let dateVC = DateSelector(nibName: "DateSelector", bundle: nil)
+    dateVC.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+    dateVC.delegate = self
+    dateVC.type = type
+    dateVC.pickerType = UIDatePickerMode.Date
+    presentViewController(dateVC, animated: true, completion: nil)
   }
   
   private func stylizeControls() {
@@ -166,7 +205,11 @@ class Prospect: UIViewController, UITextFieldDelegate {
     domain.backgroundColor = Theme.Prospects.textFieldBG
     desiredTeamSize.backgroundColor = Theme.Prospects.textFieldBG
     techStack.backgroundColor = Theme.Prospects.textFieldBG
-    
+    date.backgroundColor = Theme.Prospects.textFieldBG
+    desiredtTeamDesc.backgroundColor = Theme.Prospects.textFieldBG
+    status.backgroundColor = Theme.Prospects.textFieldBG
+    listOfContacts.backgroundColor = Theme.Prospects.textFieldBG
+
     convertToClient_button.backgroundColor = Theme.Prospects.okButtonBG
     save_button.backgroundColor = Theme.Prospects.okButtonBG
     scheduleCall_button.backgroundColor = Theme.Prospects.okButtonBG
@@ -370,4 +413,14 @@ class Prospect: UIViewController, UITextFieldDelegate {
       targetView.prospectName = name.text
     }
   }
+  
+  // MARK: Delegate Functions
+  func dateSelectorDidFinish(controller: DateSelector, type: String?) {
+    if let type = type {
+      if type == "ProspectDate" {
+        date.text = DateHandler.getPrintDate(controller.datePicker.date)
+      }
+    }
+  }
+
 }

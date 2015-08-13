@@ -46,6 +46,7 @@ class ConvertClient: UIViewController, DateSelectorDelegate {
     dateVC.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
     dateVC.delegate = self
     dateVC.type = type
+    dateVC.pickerType = UIDatePickerMode.Date
     presentViewController(dateVC, animated: true, completion: nil)
   }
 
@@ -134,7 +135,7 @@ class ConvertClient: UIViewController, DateSelectorDelegate {
     if let type = type {
       if type == "StartDate" {
         startDate = controller.datePicker.date
-        start_date_label.text = DateHandler.getPrintDate(startDate)
+        start_date_label.text = DateHandler.getPrintDateTime(startDate)
         done.enabled = true
       }
     }
