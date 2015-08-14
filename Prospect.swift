@@ -143,6 +143,11 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
   
   @IBAction func tapOnPin(sender: UITapGestureRecognizer) {
     pinImage.image = toggleImage()
+    if pinFile == "unpin" {
+      pinImage.alpha = 0.25
+    } else {
+      pinImage.alpha = 1
+    }
   }
 // MARK: Internal functions
   
@@ -248,7 +253,10 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
     if let teamSize = prospect["DesiredTeamSize"] as? Int {
       desiredTeamSize.text = "\(teamSize)"
     }
+    desiredtTeamDesc.text = prospect["DesiredTeamDesc"] as! String
+    listOfContacts.text =  prospect["ListOfContacts"] as! String
     notes.text = prospect["Notes"] as! String
+
   }
   private func getFormData() -> [String: AnyObject] {
     var prospect = [String: AnyObject]()

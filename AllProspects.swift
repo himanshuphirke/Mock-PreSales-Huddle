@@ -133,24 +133,26 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     cell.detailTextLabel!.text = prospect["TechStack"] as? String
     cell.detailTextLabel!.textColor = Theme.Prospects.detailText
-    let unread = UILabel(frame: CGRectMake(frame.width - 170, 8,60,30))
+    let unread = UILabel(frame: CGRectMake(frame.width - 130, 8,60,30))
     unread.text = prospect["Unread"] as? String
     unread.font = UIFont(name: "Palatino-Italic", size: 10)
     unread.textColor = Theme.Prospects.detailText
     unread.sizeToFit()
     cell.contentView.addSubview(unread)
-    let participants = UILabel(frame: CGRectMake(frame.width - 170, 26,60,30))
+    
+    let participants = UILabel(frame: CGRectMake(frame.width - 130, 26,60,30))
     participants.text = prospect["Participants"] as? String
     participants.font = UIFont(name: "Palatino-Italic", size: 10)
     participants.sizeToFit()
     participants.textColor = Theme.Prospects.detailText
     cell.contentView.addSubview(participants)
+    
   }
   
   private func configureCellImage(cell: UITableViewCell, prospect: [String: AnyObject]) {
     if let name = prospect["PinStatus"] as? String {
       if name == "Pin" {
-        let iconImage = UIImageView(frame: CGRectMake(tableView.frame.width - 95,4,30,30))
+        let iconImage = UIImageView(frame: CGRectMake(tableView.frame.width - 170,4,30,30))
         iconImage.image = UIImage(named: "pin")
         cell.contentView.addSubview(iconImage)
       }
@@ -181,11 +183,12 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   }
 
   class func fillData() -> [[String: AnyObject]] {
-    let prospect1 = ["ProspectID": 1, "Name":"Emerson","Domain":"Office Documents","DesiredTeamSize":10, "CreateDate":"1439373335.63184","TechStack":"C++, Java","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "", "ConfDateEnd": "", "CallStatus": "call-green", "Unread": "8 unread replies","Participants" : "2 participants"]
-    let prospect2 = ["ProspectID": 2, "Name":"HP","Domain":"IT Services","DesiredTeamSize":14, "CreateDate":"1439373335.63184","TechStack":"C++","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "1442225434.0", "ConfDateEnd": "1442229047.0","PinStatus":"Pin", "CallStatus": "call-yellow", "Unread": "3 unread replies","Participants" : "5 participants"]
-    let prospect3 = ["ProspectID": 3, "Name":"Tesla","Domain":"Automotive","DesiredTeamSize":20, "CreateDate":"1439373335.63184","TechStack":"C++, JavaScript","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "1442229434.0", "ConfDateEnd": "1442232047.0", "CallStatus": "call-red", "Unread": "2 unread replies","Participants" : "3 participants"]
+    let prospect1 = ["ProspectID": 1, "Name":"Emerson","Domain":"Office Documents","DesiredTeamSize":10, "CreateDate":"1439373335.63184","TechStack":"C++, Java","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "", "ConfDateEnd": "", "CallStatus": "call-green", "Unread": "8 unread replies","Participants" : "2 participants",     "DesiredTeamDesc": "6 Dev & 4 QA", "ListOfContacts": "Dave - VP Engineering"]
+    let prospect2 = ["ProspectID": 2, "Name":"HP","Domain":"IT Services","DesiredTeamSize":14, "CreateDate":"1439373335.63184","TechStack":"C++","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "1442225434.0", "ConfDateEnd": "1442229047.0","PinStatus":"Pin", "CallStatus": "call-yellow", "Unread": "3 unread replies","Participants" : "5 participants", "DesiredTeamDesc": "6 Dev, 4 Dev Ops & 4 QA", "ListOfContacts": "Harry - VP Product Management"]
+    let prospect3 = ["ProspectID": 3, "Name":"Tesla","Domain":"Automotive","DesiredTeamSize":5, "CreateDate":"1439373335.63184","TechStack":"C++, JavaScript","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "1442229434.0", "ConfDateEnd": "1442232047.0", "CallStatus": "call-red", "Unread": "2 unread replies","Participants" : "3 participants",     "DesiredTeamDesc": "2 Dev, 1 Dev Ops & 1 QA", "ListOfContacts": "John - CTO"]
     
         let prospect4 = ["ProspectID": 4, "Name":"QuickOffice","Domain":"Office Documents","BUHead":"Salil", "CreateDate":"1439373335.63184","TechStack":"C++, Java, JavaScript","SalesID":"Hemant","Notes":"Acquired by Google", "ConfDateStart": "1442229434.0", "ConfDateEnd": "1442232047.0", "TeamSize": 25]
+
 
     var allPros = [[String: AnyObject]]()
     allPros.append(prospect1)
