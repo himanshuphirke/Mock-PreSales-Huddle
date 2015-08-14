@@ -19,6 +19,7 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
   var delegate: ProspectDelgate?
   var itemToEdit: [String: AnyObject]?
   var userRole = "Unknown"
+  var pinFile = "pin"
   var prospectID: Int?
   var participantEntryPresent = false
   let addProspectURL = "prospect/add/"
@@ -46,6 +47,9 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
   @IBOutlet weak var ignore_label: UILabel!
   @IBOutlet weak var scheduleCall_button: UIButton!
   
+  @IBOutlet weak var pinImage: UIImageView!
+  
+  @IBOutlet weak var participateButton: UIButton!
   @IBOutlet weak var convertToClient_button: UIButton!
   // MARK: view Functions
 
@@ -132,12 +136,30 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
     saveParticipantWebService(participant, method:operation)
     
   }
+  
+  @IBAction func date_click(sender: UITextField) {
+    loadDateSelectorNIB("ProspectDate")
+  }
+  
+  @IBAction func tapOnPin(sender: UITapGestureRecognizer) {
+    pinImage.image = toggleImage()
+  }
 // MARK: Internal functions
+  
+  private func toggleImage() -> UIImage? {
+    if pinFile == "pin" {
+      pinFile = "unpin"
+    } else {
+      pinFile = "pin"
+    }
+    return UIImage(named:pinFile)
+  }
   private func accessControl() {
     scheduleCall_button.hidden = true // Visible in Edit propect only
     convertToClient_button.hidden = true // Visible in Edit propect only
     if userRole == "Sales" {
       participate_switch.hidden = true
+      participateButton.hidden = true
       participate_label.hidden = true
       ignore_label.hidden = true
       conf_call_label.hidden = true
@@ -172,11 +194,8 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
       userRole = role
     }
   }
+
   
-  @IBAction func date_click(sender: UITextField) {
-    loadDateSelectorNIB("ProspectDate")
-  }
-    
   private func loadDateSelectorNIB(type: String) {
     let dateVC = DateSelector(nibName: "DateSelector", bundle: nil)
     dateVC.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
@@ -213,10 +232,12 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
     convertToClient_button.backgroundColor = Theme.Prospects.okButtonBG
     save_button.backgroundColor = Theme.Prospects.okButtonBG
     scheduleCall_button.backgroundColor = Theme.Prospects.okButtonBG
-    
+    participateButton.backgroundColor = Theme.Prospects.okButtonBG
+
     Theme.applyButtonBorder(convertToClient_button)
     Theme.applyButtonBorder(save_button)
     Theme.applyButtonBorder(scheduleCall_button)
+    Theme.applyButtonBorder(participateButton)
 
   }
   
@@ -422,5 +443,7 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
       }
     }
   }
+  
+
 
 }

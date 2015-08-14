@@ -7,12 +7,21 @@
 //
 
 import UIKit
-class AllProspects: UITableViewController, ProspectDelgate {
-  
+class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate, ProspectDelgate {
+  enum PinStatus {
+    case Pin
+    case UnPin
+    case All
+  }
   var hud:MBProgressHUD?
   var unScheduledProspect = 0
+  var currentTab = PinStatus.All
   // MARK: Outlets
+  
+  @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var AddButton: UIBarButtonItem!
+  @IBOutlet weak var segmentedControl: UISegmentedControl!
+  
   // MARK: Class variables
   let viewAllURL = "prospect/view/"
    var viewAllNotifications : String? {
@@ -40,10 +49,10 @@ class AllProspects: UITableViewController, ProspectDelgate {
   override func viewDidLoad() {
     super.viewDidLoad()
     stylizeControls()
-    self.refreshControl = UIRefreshControl()
-    self.refreshControl?.backgroundColor = Theme.Prospects.RefreshControlBackground
-    self.refreshControl?.tintColor = Theme.Prospects.RefreshControl
-    self.refreshControl?.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+//    self.refreshControl = UIRefreshControl()
+//    self.refreshControl?.backgroundColor = Theme.Prospects.RefreshControlBackground
+//    self.refreshControl?.tintColor = Theme.Prospects.RefreshControl
+//    self.refreshControl?.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
   }
   
   func refresh(sender:AnyObject) {
@@ -57,25 +66,32 @@ class AllProspects: UITableViewController, ProspectDelgate {
   }
 
   // MARK: tableView Functions
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return allProspects.count
   }
   
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
-    let cell = tableView.dequeueReusableCellWithIdentifier("prospect-id") as! UITableViewCell
+//     let cell = tableView.dequeueReusableCellWithIdentifier("prospect-id") as! UITableViewCell
+    let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "prospect-id")
+    cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
     let prospect = allProspects[indexPath.row] as [String: AnyObject]
     populateCellData(cell, withProspectDictionary: prospect)
+    configureCellDetailText(cell, prospect: prospect, index: indexPath)
     stylizeCell(cell, index: indexPath.row)
     return cell
   }
 
-  override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+  func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
     if indexPath.row ==  (tableView.indexPathsForVisibleRows() as! [NSIndexPath]).last?.row {
       setBadgeIcon()
     }
   }
   
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    performSegueWithIdentifier("EditProspect", sender: tableView.cellForRowAtIndexPath(indexPath))
+    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+  }
   
   // MARK: Internal Functions
   
@@ -87,8 +103,8 @@ class AllProspects: UITableViewController, ProspectDelgate {
     messageLabel.textAlignment = NSTextAlignment.Center
     messageLabel.font = UIFont(name: "Palatino-Italic", size: 16)
     messageLabel.sizeToFit()
-  
-    self.tableView.backgroundView = messageLabel;
+
+    tableView.backgroundView = messageLabel;
   
   }
   private func stylizeCell(cell: UITableViewCell, index: Int) {
@@ -111,33 +127,48 @@ class AllProspects: UITableViewController, ProspectDelgate {
     }
   }
   
-  private func configureCellDetailText(cell: UITableViewCell, prospect: [String: AnyObject]) {
-    if let userRole = NSUserDefaults.standardUserDefaults().stringForKey("userRole") {
-      if userRole == "Sales" {
-        let startDate = prospect["ConfDateStart"] as! String
-        let endDate = prospect["ConfDateEnd"] as! String
-        if startDate.isEmpty || endDate.isEmpty {
-          cell.detailTextLabel!.text = "Conference call NOT scheduled"
-          cell.detailTextLabel!.textColor = Theme.Prospects.detailTextSecond
-          unScheduledProspect = unScheduledProspect + 1
-        } else {
-          cell.detailTextLabel!.text = "Conference call scheduled"
-          cell.detailTextLabel!.textColor = Theme.Prospects.detailText
-        }
-      } else {
-        cell.detailTextLabel!.text = prospect["TechStack"] as? String
-        cell.detailTextLabel!.textColor = Theme.Prospects.detailText
+  private func configureCellDetailText(cell: UITableViewCell, prospect: [String: AnyObject], index: NSIndexPath) {
+    
+    let frame = tableView.rectForRowAtIndexPath(index)
+    
+    cell.detailTextLabel!.text = prospect["TechStack"] as? String
+    cell.detailTextLabel!.textColor = Theme.Prospects.detailText
+    let unread = UILabel(frame: CGRectMake(frame.width - 170, 8,60,30))
+    unread.text = prospect["Unread"] as? String
+    unread.font = UIFont(name: "Palatino-Italic", size: 10)
+    unread.textColor = Theme.Prospects.detailText
+    unread.sizeToFit()
+    cell.contentView.addSubview(unread)
+    let participants = UILabel(frame: CGRectMake(frame.width - 170, 26,60,30))
+    participants.text = prospect["Participants"] as? String
+    participants.font = UIFont(name: "Palatino-Italic", size: 10)
+    participants.sizeToFit()
+    participants.textColor = Theme.Prospects.detailText
+    cell.contentView.addSubview(participants)
+  }
+  
+  private func configureCellImage(cell: UITableViewCell, prospect: [String: AnyObject]) {
+    if let name = prospect["PinStatus"] as? String {
+      if name == "Pin" {
+        let iconImage = UIImageView(frame: CGRectMake(tableView.frame.width - 95,4,30,30))
+        iconImage.image = UIImage(named: "pin")
+        cell.contentView.addSubview(iconImage)
       }
-    } else {
-      cell.detailTextLabel!.text = ""
     }
+    
+    if let name = prospect["CallStatus"] as? String {
+        let iconImage = UIImageView(frame: CGRectMake(tableView.frame.width - 60,6,30,30))
+        iconImage.image = UIImage(named: name)
+        cell.contentView.addSubview(iconImage)
+    }
+
 
   }
   private func populateCellData(cell: UITableViewCell,
     withProspectDictionary prospect: [String: AnyObject]) {
       if let name = prospect[prospectName] as? String {
         cell.textLabel?.text = name
-        configureCellDetailText(cell, prospect: prospect)
+        configureCellImage(cell, prospect: prospect)
       }
   }
   
@@ -145,14 +176,14 @@ class AllProspects: UITableViewController, ProspectDelgate {
     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
     dispatch_async(dispatch_get_main_queue()) {
       self.hud?.hide(true, afterDelay: 0.5)
-      self.refreshControl?.endRefreshing()
+//      self.refreshControl?.endRefreshing()
     }
   }
 
   class func fillData() -> [[String: AnyObject]] {
-    let prospect1 = ["ProspectID": 1, "Name":"Emerson","Domain":"Office Documents","DesiredTeamSize":10, "CreateDate":"1439373335.63184","TechStack":"C++, Java","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "", "ConfDateEnd": ""]
-    let prospect2 = ["ProspectID": 2, "Name":"HP","Domain":"IT Services","DesiredTeamSize":14, "CreateDate":"1439373335.63184","TechStack":"C++","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "1442225434.0", "ConfDateEnd": "1442229047.0" ]
-    let prospect3 = ["ProspectID": 3, "Name":"Tesla","Domain":"Automotive","DesiredTeamSize":20, "CreateDate":"1439373335.63184","TechStack":"C++, JavaScript","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "1442229434.0", "ConfDateEnd": "1442232047.0"]
+    let prospect1 = ["ProspectID": 1, "Name":"Emerson","Domain":"Office Documents","DesiredTeamSize":10, "CreateDate":"1439373335.63184","TechStack":"C++, Java","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "", "ConfDateEnd": "", "CallStatus": "call-green", "Unread": "8 unread replies","Participants" : "2 participants"]
+    let prospect2 = ["ProspectID": 2, "Name":"HP","Domain":"IT Services","DesiredTeamSize":14, "CreateDate":"1439373335.63184","TechStack":"C++","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "1442225434.0", "ConfDateEnd": "1442229047.0","PinStatus":"Pin", "CallStatus": "call-yellow", "Unread": "3 unread replies","Participants" : "5 participants"]
+    let prospect3 = ["ProspectID": 3, "Name":"Tesla","Domain":"Automotive","DesiredTeamSize":20, "CreateDate":"1439373335.63184","TechStack":"C++, JavaScript","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "1442229434.0", "ConfDateEnd": "1442232047.0", "CallStatus": "call-red", "Unread": "2 unread replies","Participants" : "3 participants"]
     
         let prospect4 = ["ProspectID": 4, "Name":"QuickOffice","Domain":"Office Documents","BUHead":"Salil", "CreateDate":"1439373335.63184","TechStack":"C++, Java, JavaScript","SalesID":"Hemant","Notes":"Acquired by Google", "ConfDateStart": "1442229434.0", "ConfDateEnd": "1442232047.0", "TeamSize": 25]
 
@@ -171,7 +202,20 @@ class AllProspects: UITableViewController, ProspectDelgate {
       if let teamSize = dict["TeamSize"] as? Int {
 
       } else {
-        allProspects.append(dict)
+        if currentTab == PinStatus.All {
+          allProspects.append(dict)
+        } else {
+          if let name = dict["PinStatus"] as? String {
+            if name == "Pin" && currentTab == PinStatus.Pin{
+              allProspects.append(dict)
+            }
+          } else {
+            if (currentTab == PinStatus.UnPin ){
+              allProspects.append(dict)
+            }
+          }
+        }
+
       }
     }
     
@@ -249,7 +293,7 @@ class AllProspects: UITableViewController, ProspectDelgate {
           hudMessage.detailsLabelText = events
           hudMessage.detailsLabelFont = UIFont.systemFontOfSize(12)
           hudMessage.sizeToFit()
-          hudMessage.hide(true, afterDelay: 2)
+          hudMessage.hide(true, afterDelay: 0.5)
           hudMessage.opacity = 0.4
           hudMessage.yOffset = Float(self.view.frame.size.height/2 - 200)
           hudMessage.userInteractionEnabled = false
@@ -300,6 +344,8 @@ class AllProspects: UITableViewController, ProspectDelgate {
     navigationController?.navigationBar.backgroundColor = Theme.Prospects.navBarBG
     tableView.separatorColor = Theme.Prospects.tableViewSeparator
     tableView.backgroundColor = Theme.Prospects.cellBGOddCell
+    view.backgroundColor = Theme.Prospects.cellBGOddCell
+    segmentedControl.tintColor = Theme.Prospects.cellBGEvenCell
   }
   
   // MARK: Segue Functions
@@ -327,4 +373,20 @@ class AllProspects: UITableViewController, ProspectDelgate {
     }
     dismissViewControllerAnimated(true, completion: nil)
   }
+  
+  @IBAction func segmentClicked(sender: UISegmentedControl) {
+    switch(sender.selectedSegmentIndex) {
+    case 0:
+      currentTab = PinStatus.All
+    case 1:
+      currentTab = PinStatus.Pin
+    case 2:
+      currentTab = PinStatus.UnPin
+    default:
+      println("unsupported tab clicked")
+    }
+    fetchData()
+    tableView.reloadData()
+  }
+// Mark: Segment
 }
