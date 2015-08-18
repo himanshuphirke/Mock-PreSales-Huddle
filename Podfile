@@ -2,6 +2,7 @@
 # platform :ios, '6.0'
 
 target 'PreSales-Huddle' do
+pod 'Google/SignIn'
 pod 'CorePlot'
 pod 'MBProgressHUD', '~> 0.9.1'
 end

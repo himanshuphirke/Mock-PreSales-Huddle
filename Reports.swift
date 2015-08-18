@@ -39,6 +39,7 @@ class Reports: UITableViewController {
   // MARK: action functions
   @IBAction func logout(sender: UIBarButtonItem) {
     dismissViewControllerAnimated(true, completion: nil)
+    GIDSignIn.sharedInstance().signOut()
   }
 
   // MARK: - UITableViewDataSource

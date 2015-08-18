@@ -9,13 +9,20 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
   var window: UIWindow?
 
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
+    // Initialize sign-in
+    var configureError: NSError?
+    GGLContext.sharedInstance().configureWithError(&configureError)
+    assert(configureError == nil, "Error configuring Google services: \(configureError)")
+    
+    GIDSignIn.sharedInstance().delegate = self
+    
     return true
   }
 
@@ -39,8 +46,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func applicationWillTerminate(application: UIApplication) {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+  func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError!) {
+    let rootController = self.window!.rootViewController
+    if let loginController = rootController?.childViewControllers[0] as? Login {
+      if (error == nil) {
+        loginController.hud?.hide(true, afterDelay: 0.5)
+        loginController.performSegueWithIdentifier("enter-segue", sender: loginController)
+      } else {
+        loginController.hud?.hide(true, afterDelay: 0.5)
+        println("\(error.localizedDescription)")
+      }
+    }
   }
-
-
 }
 

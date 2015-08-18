@@ -50,6 +50,7 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   
   @IBAction func logout(sender: UIBarButtonItem) {
     dismissViewControllerAnimated(true, completion: nil)
+    GIDSignIn.sharedInstance().signOut()
   }
 
   @IBAction func longTapped(sender: UILongPressGestureRecognizer) {

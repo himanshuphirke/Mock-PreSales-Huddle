@@ -11,5 +11,6 @@
 
 #import "CorePlot-CocoaTouch.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import <Google/SignIn.h>
 
 #endif

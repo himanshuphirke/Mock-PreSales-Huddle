@@ -7,10 +7,13 @@
 //
 
 import UIKit
-class Login : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
+class Login : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, GIDSignInUIDelegate {
   
   let userRoles = ["Sales", "User"]
+    let salesRepresenatives:[String] = ["salil.khedkar@synerzip.com","himanshu.phirke@synerzip.com"]
   var roleRow = 0
+  var gPlusSignInEnabled = false
+  var hud:MBProgressHUD?
   @IBOutlet weak var userName: UITextField!
   @IBOutlet weak var picker: UIPickerView!
   
@@ -28,6 +31,11 @@ class Login : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UI
       enter.enabled = true
     }
     stylizeControls()
+    
+    // Enabling Google SignIn
+    enableGoogleSignIn()
+    GIDSignIn.sharedInstance().uiDelegate = self
+    GIDSignIn.sharedInstance().signInSilently()
   }
   
   private func stylizeControls() {
@@ -63,10 +71,41 @@ class Login : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UI
       enter.enabled = newString.length > 0
       return true
   }
+    
+  func enableGoogleSignIn() {
+    let frame = CGRect(x: userName.frame.origin.x, y: userName.frame.origin.y, width: 100, height: userName.frame.height)
+    var signInButtonView = GIDSignInButton(frame: frame)
+    view.addSubview(signInButtonView)
+    
+    // some constraints
+    signInButtonView.center = view.center
+    signInButtonView.addTarget(self, action: "signUsingGoogleInitiated:", forControlEvents: UIControlEvents.TouchUpInside)
+    
+    userName.hidden = true
+    picker.hidden = true
+    enter.hidden = true
+    gPlusSignInEnabled = true
+  }
   
+  func signUsingGoogleInitiated(sender: UIView) {
+    dispatch_async(dispatch_get_main_queue()) {
+      self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+      self.hud?.labelText = "Loading.."
+      self.hud?.detailsLabelText = "Waiting for Google SignIn"
+    }
+  }
+
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    NSUserDefaults.standardUserDefaults().setObject(userName.text, forKey: "userID")
-    NSUserDefaults.standardUserDefaults().setObject(userRoles[roleRow], forKey: "userRole")
+    var uName = userName.text;
+    var uRole = userRoles[roleRow]
+    if (gPlusSignInEnabled) {
+      var user = GIDSignIn.sharedInstance().currentUser
+      uName = user.profile.name
+      uRole = contains(salesRepresenatives, user.profile.email) ? "Sales" : "User"
+    }
+    
+    NSUserDefaults.standardUserDefaults().setObject(uName, forKey: "userID")
+    NSUserDefaults.standardUserDefaults().setObject(uRole, forKey: "userRole")
     NSUserDefaults.standardUserDefaults().synchronize()
   }
 }
