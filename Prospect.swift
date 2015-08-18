@@ -204,6 +204,7 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
   private func loadDateSelectorNIB(type: String) {
     let dateVC = DateSelector(nibName: "DateSelector", bundle: nil)
     dateVC.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
+    dateVC.modalPresentationStyle = UIModalPresentationStyle.OverFullScreen
     dateVC.delegate = self
     dateVC.type = type
     dateVC.pickerType = UIDatePickerMode.Date

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate, ProspectDelgate {
+class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate ,ProspectDelgate {
   enum PinStatus {
     case Pin
     case UnPin
@@ -22,6 +22,7 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   @IBOutlet weak var AddButton: UIBarButtonItem!
   @IBOutlet weak var segmentedControl: UISegmentedControl!
   
+  @IBOutlet weak var searchBar: UISearchBar!
   // MARK: Class variables
   let viewAllURL = "prospect/view/"
    var viewAllNotifications : String? {
@@ -35,6 +36,8 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   let prospectName = "Name"
   let calNotifier = CalendarNotification()
   var allProspects = [[String: AnyObject]]()
+  var filteredProspects = [[String: AnyObject]]()
+  var isFiltered = false
   var allProspectsCopy = [[String: AnyObject]]()
   private let concurrentUpdateAllPropspects = dispatch_queue_create(
         "com.synerzip.PreSalesHuddle.updateAllProspects", DISPATCH_QUEUE_SERIAL)
@@ -67,7 +70,11 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
 
   // MARK: tableView Functions
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return allProspects.count
+    var rows = allProspects.count
+    if isFiltered == true {
+      rows = filteredProspects.count
+    }
+    return rows
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -75,7 +82,10 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
 //     let cell = tableView.dequeueReusableCellWithIdentifier("prospect-id") as! UITableViewCell
     let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "prospect-id")
     cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-    let prospect = allProspects[indexPath.row] as [String: AnyObject]
+    var prospect = allProspects[indexPath.row] as [String: AnyObject]
+    if isFiltered == true {
+      prospect = filteredProspects[indexPath.row] as [String: AnyObject]
+    }
     populateCellData(cell, withProspectDictionary: prospect)
     configureCellDetailText(cell, prospect: prospect, index: indexPath)
     stylizeCell(cell, index: indexPath.row)
@@ -184,7 +194,9 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
 
   class func fillData() -> [[String: AnyObject]] {
     let prospect1 = ["ProspectID": 1, "Name":"Emerson","Domain":"Office Documents","DesiredTeamSize":10, "CreateDate":"1439373335.63184","TechStack":"C++, Java","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "", "ConfDateEnd": "", "CallStatus": "call-green", "Unread": "8 unread replies","Participants" : "2 participants",     "DesiredTeamDesc": "6 Dev & 4 QA", "ListOfContacts": "Dave - VP Engineering"]
-    let prospect2 = ["ProspectID": 2, "Name":"HP","Domain":"IT Services","DesiredTeamSize":14, "CreateDate":"1439373335.63184","TechStack":"C++","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "1442225434.0", "ConfDateEnd": "1442229047.0","PinStatus":"Pin", "CallStatus": "call-yellow", "Unread": "3 unread replies","Participants" : "5 participants", "DesiredTeamDesc": "6 Dev, 4 Dev Ops & 4 QA", "ListOfContacts": "Harry - VP Product Management"]
+    
+    let prospect2 = ["ProspectID": 2, "Name":"HP","Domain":"IT Services","DesiredTeamSize":14, "CreateDate":"1439373335.63184","TechStack":"Linux, Python","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "1442225434.0", "ConfDateEnd": "1442229047.0","PinStatus":"Pin", "CallStatus": "call-yellow", "Unread": "3 unread replies","Participants" : "5 participants", "DesiredTeamDesc": "6 Dev, 4 Dev Ops & 4 QA", "ListOfContacts": "Harry - VP Product Management"]
+    
     let prospect3 = ["ProspectID": 3, "Name":"Tesla","Domain":"Automotive","DesiredTeamSize":5, "CreateDate":"1439373335.63184","TechStack":"C++, JavaScript","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "1442229434.0", "ConfDateEnd": "1442232047.0", "CallStatus": "call-red", "Unread": "2 unread replies","Participants" : "3 participants",     "DesiredTeamDesc": "2 Dev, 1 Dev Ops & 1 QA", "ListOfContacts": "John - CTO"]
     
         let prospect4 = ["ProspectID": 4, "Name":"QuickOffice","Domain":"Office Documents","BUHead":"Salil", "CreateDate":"1439373335.63184","TechStack":"C++, Java, JavaScript","SalesID":"Hemant","Notes":"Acquired by Google", "ConfDateStart": "1442229434.0", "ConfDateEnd": "1442232047.0", "TeamSize": 25]
@@ -391,5 +403,29 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
     fetchData()
     tableView.reloadData()
   }
+  
+  func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    if count(searchText) == 0 {
+      isFiltered = false
+    } else {
+      isFiltered = true
+      filteredProspects = [[String: AnyObject]]()
+      for prospect in allProspects {
+        let techStack = prospect["TechStack"] as! NSString
+        let domain = prospect["Domain"] as! NSString
+        let name = prospect["Name"] as! NSString
+        
+        let t = techStack.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+        let d = domain.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+        let n = name.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
+        
+        if t.location != NSNotFound || d.location != NSNotFound || n.location != NSNotFound {
+          filteredProspects.append(prospect)
+        }
+      }
+    }
+    tableView.reloadData()
+  }
+
 // Mark: Segment
 }
