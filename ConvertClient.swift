@@ -15,7 +15,7 @@ class ConvertClient: UIViewController, DateSelectorDelegate {
   private var startDate = NSDate()
   let updateProspectURL = "prospect/update/"
 // MARK: Outlets
-  @IBOutlet weak var start_date_label: UILabel!
+  @IBOutlet weak var start_date: UITextField!
   @IBOutlet weak var done: UIBarButtonItem!
   @IBOutlet weak var bu_head: UITextField!
   @IBOutlet weak var team_size: UITextField!
@@ -35,7 +35,7 @@ class ConvertClient: UIViewController, DateSelectorDelegate {
   @IBAction func done(sender: UIBarButtonItem) {
     updateProspectToWebService(updateProspectURL)
   }
-  @IBAction func start_date(sender: UITapGestureRecognizer) {
+  @IBAction func date_click(sender: UITextField) {
     loadDateSelectorNIB("StartDate")
   }
   
@@ -126,7 +126,7 @@ class ConvertClient: UIViewController, DateSelectorDelegate {
     team_size.backgroundColor = Theme.Prospects.textFieldBG
     prospect_name.backgroundColor = Theme.Prospects.textFieldBG
     
-    start_date_label.backgroundColor = Theme.Prospects.textFieldBG
+    start_date.backgroundColor = Theme.Prospects.textFieldBG
     // Theme.applyLabelBorder(start_date_label)
   }
 
@@ -135,7 +135,7 @@ class ConvertClient: UIViewController, DateSelectorDelegate {
     if let type = type {
       if type == "StartDate" {
         startDate = controller.datePicker.date
-        start_date_label.text = DateHandler.getPrintDateTime(startDate)
+        start_date.text = DateHandler.getPrintDate(startDate)
         done.enabled = true
       }
     }

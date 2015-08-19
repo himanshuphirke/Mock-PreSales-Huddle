@@ -683,59 +683,63 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ryf-KG-2Ja">
-                                <rect key="frame" x="134" y="199" width="450" height="30.5"/>
-                                <gestureRecognizers/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="L8H-j8-Hbf" appends="YES" id="fhj-cZ-dW9"/>
-                                </connections>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Date:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AOA-c0-Crt">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Start Date:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AOA-c0-Crt">
                                 <rect key="frame" x="16" y="209" width="88" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gLE-SL-sae">
+                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="date_click:" destination="o5C-KG-ha7" eventType="editingDidBegin" id="am3-CP-fqJ"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="3cI-Px-zYV" firstAttribute="height" secondItem="qel-3z-wnL" secondAttribute="height" id="0fc-xe-Ezz"/>
-                            <constraint firstItem="ryf-KG-2Ja" firstAttribute="top" secondItem="2NU-F2-Zax" secondAttribute="bottom" constant="10" id="0m9-Rc-gIL"/>
                             <constraint firstItem="iEs-VR-5i7" firstAttribute="top" secondItem="H9G-3C-B6g" secondAttribute="bottom" constant="15" id="205-Ht-8ZD"/>
                             <constraint firstItem="AOA-c0-Crt" firstAttribute="leading" secondItem="B8g-Hn-4Zy" secondAttribute="leading" constant="-5" id="6Cc-c8-RHr"/>
                             <constraint firstItem="3cI-Px-zYV" firstAttribute="leading" secondItem="56X-Rd-G5L" secondAttribute="leadingMargin" id="6Po-zD-Gnp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2NU-F2-Zax" secondAttribute="trailing" id="6cq-3t-KQi"/>
+                            <constraint firstItem="2NU-F2-Zax" firstAttribute="width" secondItem="gLE-SL-sae" secondAttribute="width" id="6sT-79-mg0"/>
                             <constraint firstItem="3cI-Px-zYV" firstAttribute="height" secondItem="qel-3z-wnL" secondAttribute="height" id="7I3-xP-8e3"/>
-                            <constraint firstItem="ryf-KG-2Ja" firstAttribute="width" secondItem="2NU-F2-Zax" secondAttribute="width" id="7yj-qC-phQ"/>
                             <constraint firstItem="H9G-3C-B6g" firstAttribute="top" secondItem="Wgn-dA-5Oy" secondAttribute="bottom" constant="10" id="88L-PQ-9tv"/>
                             <constraint firstItem="qel-3z-wnL" firstAttribute="leading" secondItem="56X-Rd-G5L" secondAttribute="leadingMargin" id="8UZ-rp-fHC"/>
                             <constraint firstItem="H9G-3C-B6g" firstAttribute="leading" secondItem="iEs-VR-5i7" secondAttribute="leading" id="Anu-g8-Dad"/>
                             <constraint firstItem="3cI-Px-zYV" firstAttribute="leading" secondItem="qel-3z-wnL" secondAttribute="leading" id="BnW-Tu-GB9"/>
                             <constraint firstItem="3cI-Px-zYV" firstAttribute="width" secondItem="qel-3z-wnL" secondAttribute="width" id="CdV-ew-ty2"/>
+                            <constraint firstItem="gLE-SL-sae" firstAttribute="leading" secondItem="AOA-c0-Crt" secondAttribute="trailing" constant="30" id="D6d-Qv-eFZ"/>
                             <constraint firstItem="2NU-F2-Zax" firstAttribute="width" secondItem="iEs-VR-5i7" secondAttribute="width" id="FEd-rQ-7DJ"/>
+                            <constraint firstItem="2NU-F2-Zax" firstAttribute="height" secondItem="gLE-SL-sae" secondAttribute="height" id="GFv-8V-Sv8"/>
                             <constraint firstItem="3cI-Px-zYV" firstAttribute="leading" secondItem="B8g-Hn-4Zy" secondAttribute="leading" id="HAf-ee-Txi"/>
                             <constraint firstItem="AOA-c0-Crt" firstAttribute="leading" secondItem="56X-Rd-G5L" secondAttribute="leadingMargin" id="Kkh-rB-1N6"/>
                             <constraint firstItem="H9G-3C-B6g" firstAttribute="width" secondItem="iEs-VR-5i7" secondAttribute="width" id="Lq4-5x-oKH"/>
                             <constraint firstItem="2NU-F2-Zax" firstAttribute="leading" secondItem="B8g-Hn-4Zy" secondAttribute="trailing" constant="30" id="MXe-JM-Bm8"/>
                             <constraint firstItem="3cI-Px-zYV" firstAttribute="width" secondItem="B8g-Hn-4Zy" secondAttribute="width" id="Mpd-S6-2nY"/>
                             <constraint firstItem="3cI-Px-zYV" firstAttribute="baseline" secondItem="iEs-VR-5i7" secondAttribute="baseline" id="NIS-L3-ANO"/>
-                            <constraint firstItem="ryf-KG-2Ja" firstAttribute="leading" secondItem="AOA-c0-Crt" secondAttribute="trailing" constant="30" id="PPW-O9-bBj"/>
+                            <constraint firstItem="gLE-SL-sae" firstAttribute="top" secondItem="2NU-F2-Zax" secondAttribute="bottom" constant="15.5" id="R0k-sL-vJF">
+                                <variation key="heightClass=regular" constant="10"/>
+                            </constraint>
                             <constraint firstItem="3cI-Px-zYV" firstAttribute="width" secondItem="qel-3z-wnL" secondAttribute="width" id="R2s-Zi-Bpr"/>
                             <constraint firstItem="3cI-Px-zYV" firstAttribute="top" secondItem="qel-3z-wnL" secondAttribute="bottom" constant="24" id="RBM-y4-cEi"/>
-                            <constraint firstItem="ryf-KG-2Ja" firstAttribute="baseline" secondItem="AOA-c0-Crt" secondAttribute="baseline" id="RJa-W0-aEq"/>
                             <constraint firstItem="AOA-c0-Crt" firstAttribute="width" secondItem="B8g-Hn-4Zy" secondAttribute="width" id="Tod-bT-AfC"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ryf-KG-2Ja" secondAttribute="trailing" id="Un4-6l-uYe"/>
+                            <constraint firstItem="AOA-c0-Crt" firstAttribute="baseline" secondItem="gLE-SL-sae" secondAttribute="baseline" constant="6" id="Tuk-m9-ugM">
+                                <variation key="heightClass=regular" constant="0.0"/>
+                            </constraint>
                             <constraint firstItem="iEs-VR-5i7" firstAttribute="leading" secondItem="3cI-Px-zYV" secondAttribute="trailing" constant="30" id="UtH-tq-O4S"/>
-                            <constraint firstItem="ryf-KG-2Ja" firstAttribute="height" secondItem="2NU-F2-Zax" secondAttribute="height" id="YRv-n1-SX1"/>
                             <constraint firstItem="H9G-3C-B6g" firstAttribute="baseline" secondItem="qel-3z-wnL" secondAttribute="baseline" id="cSv-Sm-dfK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="H9G-3C-B6g" secondAttribute="trailing" id="cu2-5x-NTn"/>
                             <constraint firstItem="H9G-3C-B6g" firstAttribute="leading" secondItem="qel-3z-wnL" secondAttribute="trailing" constant="30" id="d5D-Ge-0di"/>
                             <constraint firstItem="AOA-c0-Crt" firstAttribute="top" secondItem="B8g-Hn-4Zy" secondAttribute="bottom" constant="8" symbolic="YES" id="ejU-yL-29n"/>
                             <constraint firstItem="3cI-Px-zYV" firstAttribute="leading" secondItem="qel-3z-wnL" secondAttribute="leading" constant="-12" id="hE1-h2-ahk"/>
                             <constraint firstItem="AOA-c0-Crt" firstAttribute="height" secondItem="B8g-Hn-4Zy" secondAttribute="height" id="iA3-b1-waR"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gLE-SL-sae" secondAttribute="trailing" constant="353" id="jTi-mT-RIo">
+                                <variation key="heightClass=regular" constant="0.0"/>
+                            </constraint>
                             <constraint firstItem="B8g-Hn-4Zy" firstAttribute="leading" secondItem="56X-Rd-G5L" secondAttribute="leadingMargin" id="kYI-6a-s4S"/>
                             <constraint firstItem="3cI-Px-zYV" firstAttribute="height" secondItem="B8g-Hn-4Zy" secondAttribute="height" id="kva-WY-kgM"/>
                             <constraint firstItem="2NU-F2-Zax" firstAttribute="top" secondItem="iEs-VR-5i7" secondAttribute="bottom" constant="10" id="mLQ-v7-7Ug"/>
@@ -746,7 +750,13 @@
                             <constraint firstItem="B8g-Hn-4Zy" firstAttribute="top" secondItem="3cI-Px-zYV" secondAttribute="bottom" constant="24" id="waK-76-aph"/>
                         </constraints>
                         <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="gLE-SL-sae"/>
+                            </mask>
                             <mask key="constraints">
+                                <exclude reference="D6d-Qv-eFZ"/>
+                                <exclude reference="R0k-sL-vJF"/>
+                                <exclude reference="jTi-mT-RIo"/>
                                 <exclude reference="0fc-xe-Ezz"/>
                                 <exclude reference="BnW-Tu-GB9"/>
                                 <exclude reference="HAf-ee-Txi"/>
@@ -754,8 +764,24 @@
                                 <exclude reference="RBM-y4-cEi"/>
                                 <exclude reference="hE1-h2-ahk"/>
                                 <exclude reference="waK-76-aph"/>
+                                <exclude reference="6sT-79-mg0"/>
+                                <exclude reference="GFv-8V-Sv8"/>
                                 <exclude reference="6Cc-c8-RHr"/>
+                                <exclude reference="Tuk-m9-ugM"/>
                                 <exclude reference="ejU-yL-29n"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular">
+                            <mask key="subviews">
+                                <include reference="gLE-SL-sae"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="D6d-Qv-eFZ"/>
+                                <include reference="R0k-sL-vJF"/>
+                                <include reference="jTi-mT-RIo"/>
+                                <include reference="6sT-79-mg0"/>
+                                <include reference="GFv-8V-Sv8"/>
+                                <include reference="Tuk-m9-ugM"/>
                             </mask>
                         </variation>
                     </view>
@@ -770,16 +796,11 @@
                         <outlet property="bu_head" destination="2NU-F2-Zax" id="gm7-RM-vSB"/>
                         <outlet property="done" destination="Jvu-gw-DGA" id="afN-Xe-zEm"/>
                         <outlet property="prospect_name" destination="H9G-3C-B6g" id="4ja-3m-a7h"/>
-                        <outlet property="start_date_label" destination="ryf-KG-2Ja" id="NmV-iB-Y3k"/>
+                        <outlet property="start_date" destination="gLE-SL-sae" id="YdT-EA-cnq"/>
                         <outlet property="team_size" destination="iEs-VR-5i7" id="9Z8-pN-NV2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hZS-Xa-1LI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="L8H-j8-Hbf">
-                    <connections>
-                        <action selector="start_date:" destination="o5C-KG-ha7" id="5ZN-hy-RZZ"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="5624" y="684"/>
         </scene>
@@ -1155,7 +1176,7 @@
                                     <action selector="segmentClicked:" destination="dK5-Nd-y1I" eventType="valueChanged" id="SLy-dN-0cF"/>
                                 </connections>
                             </segmentedControl>
-                            <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="N8J-kq-OlB">
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search Prospect Name or Technologies" translatesAutoresizingMaskIntoConstraints="NO" id="N8J-kq-OlB">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -1199,10 +1220,12 @@
                                 <connections>
                                     <outlet property="dataSource" destination="dK5-Nd-y1I" id="8WT-Ku-LPa"/>
                                     <outlet property="delegate" destination="dK5-Nd-y1I" id="TEz-rR-2ES"/>
+                                    <outletCollection property="gestureRecognizers" destination="d9y-i8-bk3" appends="YES" id="laa-gG-NDT"/>
                                 </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="npD-2A-Xhw" firstAttribute="top" secondItem="72H-H9-69k" secondAttribute="bottom" constant="91" id="1cU-3j-2JF">
                                 <variation key="heightClass=regular" constant="11"/>
@@ -1297,8 +1320,13 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="El3-wp-0sM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="1" id="d9y-i8-bk3">
+                    <connections>
+                        <action selector="longTapped:" destination="dK5-Nd-y1I" id="v2V-EO-E2J"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2086" y="27"/>
+            <point key="canvasLocation" x="2142" y="16.5"/>
         </scene>
         <!--Charts-->
         <scene sceneID="o4G-oL-6Zc">

@@ -47,6 +47,27 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
     dismissViewControllerAnimated(true, completion: nil)
   }
 
+  @IBAction func longTapped(sender: UILongPressGestureRecognizer) {
+    if sender.state != UIGestureRecognizerState.Ended {
+      return
+    }
+
+    let pt = sender.locationInView(self.tableView)
+    let index = self.tableView.indexPathForRowAtPoint(pt)
+
+    let trans = UIView()
+    trans.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
+    trans.frame = self.view.frame
+    trans.tag = 25
+    let tap = UITapGestureRecognizer(target: self, action: "dismissTransView:")
+    trans.addGestureRecognizer(tap)
+    self.view.addSubview(trans)
+    
+  }
+  
+  func searchBarResultsListButtonClicked(searchBar: UISearchBar) {
+    
+  }
   // MARK: View Functions
   
   override func viewDidLoad() {
@@ -60,6 +81,11 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   
   func refresh(sender:AnyObject) {
     fetchData()
+  }
+  
+  func dismissTransView(sender: AnyObject) {
+    let trans = self.view.viewWithTag(25)
+    trans?.removeFromSuperview()
   }
   
   override func viewDidAppear(animated: Bool) {
