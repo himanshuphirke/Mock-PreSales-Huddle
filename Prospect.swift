@@ -21,6 +21,7 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
   var userRole = "Unknown"
   var pinFile = "pin"
   var prospectID: Int?
+  var isDead: Bool?
   var participantEntryPresent = false
   let addProspectURL = "prospect/add/"
   let updateProspectURL = "prospect/update/"
@@ -45,12 +46,10 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
   @IBOutlet weak var save_button: UIButton!
   @IBOutlet weak var participate_label: UILabel!
   @IBOutlet weak var ignore_label: UILabel!
-  @IBOutlet weak var scheduleCall_button: UIButton!
-  
   @IBOutlet weak var pinImage: UIImageView!
-  
   @IBOutlet weak var participateButton: UIButton!
-  @IBOutlet weak var convertToClient_button: UIButton!
+
+  var blinkState = true;
   // MARK: view Functions
 
   override func viewWillAppear(animated: Bool) {
@@ -63,11 +62,14 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
       prospectID = prospect["ProspectID"] as? Int
       if userRole == "Sales" {
         self.title = "Edit Prospect"
-        scheduleCall_button.hidden = false
-        convertToClient_button.hidden = false
       } else {
         self.title = "View Prospect"
         fetchParticipantDetails()
+      }
+      
+      if let isDead = isDead {
+        status.text = "Dead Prospect"
+        status.textColor = UIColor.redColor()
       }
       displayFormData(prospect)
     } else {
@@ -80,12 +82,19 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
     super.viewDidLoad()
     stylizeControls()
     initMockData()
+    if let isDead = isDead {
+      
+    }
   }
+  
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
   }
 
+  
+  func blinkAnimation() {
+  }
   // MARK: Action functions
   
   @IBAction func cancel(sender: AnyObject) {
@@ -160,8 +169,6 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
     return UIImage(named:pinFile)
   }
   private func accessControl() {
-    scheduleCall_button.hidden = true // Visible in Edit propect only
-    convertToClient_button.hidden = true // Visible in Edit propect only
     if userRole == "Sales" {
       participate_switch.hidden = true
       participateButton.hidden = true
@@ -235,14 +242,12 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
     status.backgroundColor = Theme.Prospects.textFieldBG
     listOfContacts.backgroundColor = Theme.Prospects.textFieldBG
 
-    convertToClient_button.backgroundColor = Theme.Prospects.okButtonBG
+
     save_button.backgroundColor = Theme.Prospects.okButtonBG
-    scheduleCall_button.backgroundColor = Theme.Prospects.okButtonBG
     participateButton.backgroundColor = Theme.Prospects.okButtonBG
 
-    Theme.applyButtonBorder(convertToClient_button)
+
     Theme.applyButtonBorder(save_button)
-    Theme.applyButtonBorder(scheduleCall_button)
     Theme.applyButtonBorder(participateButton)
 
   }

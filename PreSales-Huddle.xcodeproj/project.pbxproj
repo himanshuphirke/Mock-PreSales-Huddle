@@ -23,6 +23,7 @@
 		A35BF7981B5FB81800D78515 /* CalendarNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35BF7971B5FB81800D78515 /* CalendarNotification.swift */; };
 		A3657AC11B68A9CD0045E181 /* PieChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3657AC01B68A9CD0045E181 /* PieChartData.swift */; };
 		A36BEF241B669DC400C97F46 /* ConvertClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36BEF231B669DC400C97F46 /* ConvertClient.swift */; };
+		A387A3211B85DA2400E0ECF0 /* CommonClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = A387A3201B85DA2400E0ECF0 /* CommonClasses.swift */; };
 		A387E4881B68CCDD00B02570 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A387E4871B68CCDD00B02570 /* Images.xcassets */; };
 		A387E48A1B68D63C00B02570 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A387E4891B68D63C00B02570 /* Images.xcassets */; };
 		A387E48D1B68EB5000B02570 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A387E48C1B68EB5000B02570 /* Theme.swift */; };
@@ -68,6 +69,7 @@
 		A35BF7971B5FB81800D78515 /* CalendarNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarNotification.swift; sourceTree = "<group>"; };
 		A3657AC01B68A9CD0045E181 /* PieChartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartData.swift; sourceTree = "<group>"; };
 		A36BEF231B669DC400C97F46 /* ConvertClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvertClient.swift; sourceTree = "<group>"; };
+		A387A3201B85DA2400E0ECF0 /* CommonClasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonClasses.swift; sourceTree = "<group>"; };
 		A387E4871B68CCDD00B02570 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A387E4891B68D63C00B02570 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A387E48C1B68EB5000B02570 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				A35BF7931B5FB7EF00D78515 /* NetworkCommunication.swift */,
 				A35BF7971B5FB81800D78515 /* CalendarNotification.swift */,
 				A3456AF01B664E1600D22C21 /* DateHandler.swift */,
+				A387A3201B85DA2400E0ECF0 /* CommonClasses.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				A38CFB6F1B67724000B4A5CB /* AllClients.swift in Sources */,
 				A3E9A97E1B678279002AD280 /* PieChart.swift in Sources */,
 				A35BF7981B5FB81800D78515 /* CalendarNotification.swift in Sources */,
+				A387A3211B85DA2400E0ECF0 /* CommonClasses.swift in Sources */,
 				A34509B11B5FBF6A00B7E017 /* AllProspects.swift in Sources */,
 				A33CD2341B6502830007450F /* Participant.swift in Sources */,
 				A3456AEE1B66169000D22C21 /* DateSelector.swift in Sources */,

@@ -69,30 +69,6 @@
                                     <rect key="frame" x="23" y="632.5" width="118" height="19.5"/>
                                 </variation>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="md2-bM-CRY">
-                                <rect key="frame" x="404" y="561" width="116" height="30"/>
-                                <state key="normal" title="Convert to Client">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="heightClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="242" y="673" width="116" height="30"/>
-                                </variation>
-                                <connections>
-                                    <segue destination="Acl-Ym-eEQ" kind="show" identifier="ConvertToClient" id="kgR-Uj-aBO"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L2N-zd-Pkf">
-                                <rect key="frame" x="277" y="561" width="107" height="30"/>
-                                <state key="normal" title="Schedule a Call">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="heightClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="101" y="673" width="107" height="30"/>
-                                </variation>
-                                <connections>
-                                    <segue destination="2q6-Yq-JOq" kind="show" identifier="ScheduleCall" id="aWS-eJ-iUo"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kd5-Vp-LDP">
                                 <rect key="frame" x="16" y="112" width="383" height="30"/>
                                 <gestureRecognizers/>
@@ -213,7 +189,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="conf_call_label" destination="Fxl-xK-4YI" id="iRU-fd-eI4"/>
-                        <outlet property="convertToClient_button" destination="md2-bM-CRY" id="DUc-jS-5hf"/>
                         <outlet property="date" destination="Kd5-Vp-LDP" id="U0d-B2-iIk"/>
                         <outlet property="desiredTeamSize" destination="cuY-cM-Buy" id="9B5-2f-wOD"/>
                         <outlet property="desiredtTeamDesc" destination="M9J-jl-9W8" id="wi1-kQ-oO4"/>
@@ -228,7 +203,6 @@
                         <outlet property="participate_switch" destination="PvC-bx-np4" id="SbZ-hQ-EEq"/>
                         <outlet property="pinImage" destination="UaO-qa-5hj" id="eiV-on-2S1"/>
                         <outlet property="save_button" destination="ql1-PS-04x" id="OlK-Py-9lq"/>
-                        <outlet property="scheduleCall_button" destination="L2N-zd-Pkf" id="oXT-Yb-yra"/>
                         <outlet property="status" destination="b46-Gh-HTI" id="Wbf-fH-rVC"/>
                         <outlet property="techStack" destination="F19-ny-f3I" id="rJj-Rs-2M8"/>
                     </connections>
@@ -240,7 +214,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3712" y="3"/>
+            <point key="canvasLocation" x="3780" y="-1032"/>
         </scene>
         <!--View Client-->
         <scene sceneID="HDd-J4-Ojt">
@@ -636,7 +610,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="5350" y="-110"/>
+            <point key="canvasLocation" x="3792" y="-239.25"/>
         </scene>
         <!--Convert to Client-->
         <scene sceneID="tOR-aX-I50">
@@ -802,7 +776,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hZS-Xa-1LI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5624" y="684"/>
+            <point key="canvasLocation" x="3792" y="507"/>
         </scene>
         <!--Discussions-->
         <scene sceneID="cQV-4N-1br">
@@ -1317,6 +1291,9 @@
                         <outlet property="searchBar" destination="N8J-kq-OlB" id="Xyv-Oe-T1t"/>
                         <outlet property="segmentedControl" destination="72H-H9-69k" id="utB-V5-5YC"/>
                         <outlet property="tableView" destination="npD-2A-Xhw" id="TcV-yq-shp"/>
+                        <segue destination="2q6-Yq-JOq" kind="show" identifier="ContextMenuScheduleCall" id="FnW-F9-0yb"/>
+                        <segue destination="Acl-Ym-eEQ" kind="show" identifier="ContextConvertToClient" id="YrS-UX-J4b"/>
+                        <segue destination="sVA-AT-y06" kind="presentation" identifier="ContextDeadProspect" id="lxW-m5-eG3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="El3-wp-0sM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1326,7 +1303,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2142" y="16.5"/>
+            <point key="canvasLocation" x="2038" y="-244.5"/>
         </scene>
         <!--Charts-->
         <scene sceneID="o4G-oL-6Zc">
@@ -1410,7 +1387,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gXc-1a-5Nt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2881" y="3"/>
+            <point key="canvasLocation" x="3065" y="-1032"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Hcs-r6-fxF">
@@ -1446,7 +1423,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V9o-cB-xTn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4544" y="-110"/>
+            <point key="canvasLocation" x="3065" y="-239.25"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5GR-3s-vYb">
@@ -1464,7 +1441,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w7F-br-8ZK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4880" y="684"/>
+            <point key="canvasLocation" x="3056" y="507"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lpv-a6-QUv">
@@ -1586,6 +1563,6 @@
         <image name="pin" width="175" height="250"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Msb-h5-Irl"/>
+        <segue reference="lxW-m5-eG3"/>
     </inferredMetricsTieBreakers>
 </document>

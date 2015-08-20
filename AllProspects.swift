@@ -7,6 +7,8 @@
 //
 
 import UIKit
+
+
 class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate ,ProspectDelgate {
   enum PinStatus {
     case Pin
@@ -16,7 +18,10 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   var hud:MBProgressHUD?
   var unScheduledProspect = 0
   var currentTab = PinStatus.All
+  var rowTapped = -1
   // MARK: Outlets
+  
+  let contextMenu = ["Update prospect", "Schedule prep call", "Schedule client call ", "Setup follow-up reminders", "Dead prospect", "Contract signed"]
   
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var AddButton: UIBarButtonItem!
@@ -54,16 +59,38 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
 
     let pt = sender.locationInView(self.tableView)
     let index = self.tableView.indexPathForRowAtPoint(pt)
-
-    let trans = UIView()
+    
+    if index == nil {
+      // Tapped outside table rows
+      return
+    }
+    
+    rowTapped = index!.row
+    let trans = UIView(frame: self.view.frame)
     trans.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
-    trans.frame = self.view.frame
     trans.tag = 25
     let tap = UITapGestureRecognizer(target: self, action: "dismissTransView:")
     trans.addGestureRecognizer(tap)
     self.view.addSubview(trans)
     
+    let tableWidth = self.view.frame.size.width/2
+    let tableHeight = self.view.frame.size.height/4
+
+    let tableY = (self.view.frame.size.height/2) - (tableHeight/2)
+    let tableX = (self.view.frame.size.width/2) - (tableWidth/2)
+
+    
+    let frm = CGRectMake(tableX, tableY, tableWidth, tableHeight)
+    let contextTableView = UITableView(frame: frm , style: UITableViewStyle.Plain)
+    contextTableView.scrollEnabled = false
+    contextTableView.delegate = self
+    contextTableView.dataSource = self
+    contextTableView.tag = 20
+    self.view.addSubview(contextTableView)
+    
   }
+  
+  
   
   func searchBarResultsListButtonClicked(searchBar: UISearchBar) {
     
@@ -77,6 +104,9 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
 //    self.refreshControl?.backgroundColor = Theme.Prospects.RefreshControlBackground
 //    self.refreshControl?.tintColor = Theme.Prospects.RefreshControl
 //    self.refreshControl?.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+    
+    
+
   }
   
   func refresh(sender:AnyObject) {
@@ -84,6 +114,13 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   }
   
   func dismissTransView(sender: AnyObject) {
+    dismissContextMenu()
+  }
+  
+  func dismissContextMenu() {
+    let tabView = self.view.viewWithTag(20)
+    tabView?.removeFromSuperview()
+
     let trans = self.view.viewWithTag(25)
     trans?.removeFromSuperview()
   }
@@ -96,26 +133,45 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
 
   // MARK: tableView Functions
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    var rows = allProspects.count
-    if isFiltered == true {
-      rows = filteredProspects.count
+    if tableView == self.tableView {
+      var rows = allProspects.count
+      if isFiltered == true {
+        rows = filteredProspects.count
+      }
+      return rows
+    } else {
+      return contextMenu.count
     }
-    return rows
+  }
+  
+  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    if tableView != self.tableView {
+      return 30
+    }
+    return 44
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
 //     let cell = tableView.dequeueReusableCellWithIdentifier("prospect-id") as! UITableViewCell
-    let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "prospect-id")
-    cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-    var prospect = allProspects[indexPath.row] as [String: AnyObject]
-    if isFiltered == true {
-      prospect = filteredProspects[indexPath.row] as [String: AnyObject]
+    if tableView == self.tableView {
+      let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "prospect-id")
+      cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+      var prospect = allProspects[indexPath.row] as [String: AnyObject]
+      if isFiltered == true {
+        prospect = filteredProspects[indexPath.row] as [String: AnyObject]
+      }
+      populateCellData(cell, withProspectDictionary: prospect)
+      configureCellDetailText(cell, prospect: prospect, index: indexPath)
+      stylizeCell(cell, index: indexPath.row)
+      return cell
+    } else {
+      let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "context-id")
+      cell.textLabel?.text = contextMenu[indexPath.row]
+      cell.textLabel?.font = UIFont.systemFontOfSize(14)
+
+      return cell
     }
-    populateCellData(cell, withProspectDictionary: prospect)
-    configureCellDetailText(cell, prospect: prospect, index: indexPath)
-    stylizeCell(cell, index: indexPath.row)
-    return cell
   }
 
   func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -125,8 +181,39 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   }
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    performSegueWithIdentifier("EditProspect", sender: tableView.cellForRowAtIndexPath(indexPath))
-    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    if tableView == self.tableView {
+      performSegueWithIdentifier("EditProspect", sender: tableView.cellForRowAtIndexPath(indexPath))
+      tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    } else {
+      // Steps to perform when menu is clicked
+      switch indexPath.row {
+        case 0:
+          performSegueWithIdentifier("EditProspect", sender: self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowTapped, inSection: 0)))
+        case 1:
+          let prospectID = allProspects[rowTapped]["ProspectID"] as! Int
+          let idAndType = TupleWrapper(tuple: (prospectID, "Prep"))
+          performSegueWithIdentifier("ContextMenuScheduleCall", sender: idAndType)
+
+        case 2:
+          let prospectID = allProspects[rowTapped]["ProspectID"] as! Int
+          let idAndType = TupleWrapper(tuple: (prospectID, "Client"))
+          performSegueWithIdentifier("ContextMenuScheduleCall", sender: idAndType)
+
+        case 4:
+          performSegueWithIdentifier("ContextDeadProspect", sender: self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowTapped, inSection: 0)))
+
+        case 5:
+          let prospectID = allProspects[rowTapped]["ProspectID"] as! Int
+          let name = allProspects[rowTapped]["Name"] as! String
+          let idAndName = TupleWrapper(tuple: (prospectID, name))
+          performSegueWithIdentifier("ContextConvertToClient", sender: idAndName)
+
+        default:
+        println("Unsupported menu clicked")
+      }
+      tableView.deselectRowAtIndexPath(indexPath, animated: true)
+      dismissContextMenu()
+    }
   }
   
   // MARK: Internal Functions
@@ -391,15 +478,41 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   
   // MARK: Segue Functions
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    let targetController = segue.destinationViewController as! UINavigationController
-    let targetView = targetController.topViewController as! Prospect
-    targetView.delegate = self
     if segue.identifier == "EditProspect" {
+      let targetController = segue.destinationViewController as! UINavigationController
+      let targetView = targetController.topViewController as! Prospect
+      targetView.delegate = self
       if let indexPath = tableView.indexPathForCell(sender as! UITableViewCell) {
         targetView.itemToEdit = allProspects[indexPath.row]
       }
-    } else if segue.identifier == "AddProspect" {
-      // Add Prospect operation required
+    } else if segue.identifier == "ContextMenuScheduleCall" {
+      let s = sender as! TupleWrapper
+      let targetController = segue.destinationViewController as! UINavigationController
+      let targetView = targetController.topViewController as! ScheduleCall
+      targetView.title = "Schedule a \(s.tuple.data) Call"
+      targetView.prospectID = s.tuple.id
+    } else if segue.identifier == "ContextMenuScheduleCall" {
+      let s = sender as! TupleWrapper
+      let targetController = segue.destinationViewController as! UINavigationController
+      let targetView = targetController.topViewController as! ScheduleCall
+      targetView.title = "Schedule a \(s.tuple.data) Call"
+      targetView.prospectID = s.tuple.id
+    } else if segue.identifier == "ContextSetupReminders" {
+
+    } else if segue.identifier == "ContextDeadProspect" {
+      let targetController = segue.destinationViewController as! UINavigationController
+      let targetView = targetController.topViewController as! Prospect
+      targetView.delegate = self
+      if let indexPath = tableView.indexPathForCell(sender as! UITableViewCell) {
+        targetView.itemToEdit = allProspects[indexPath.row]
+      }
+      targetView.isDead = true
+    } else if segue.identifier == "ContextConvertToClient" {
+      let s = sender as! TupleWrapper
+      let targetController = segue.destinationViewController as! UINavigationController
+      let targetView = targetController.topViewController as! ConvertClient
+      targetView.prospectID = s.tuple.id
+      targetView.prospectName = s.tuple.data
     }
   }
 // MARK: Delegate Methods
