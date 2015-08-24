@@ -48,12 +48,10 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
   @IBOutlet weak var ignore_label: UILabel!
   @IBOutlet weak var pinImage: UIImageView!
   @IBOutlet weak var participateButton: UIButton!
-
   var blinkState = true;
   // MARK: view Functions
 
   override func viewWillAppear(animated: Bool) {
-
     getUserRole()
     accessControl()
     participantEntryPresent = false
@@ -93,14 +91,8 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
   }
 
   
-  func blinkAnimation() {
-  }
   // MARK: Action functions
-  
-  @IBAction func cancel(sender: AnyObject) {
-    dismissViewControllerAnimated(true, completion: nil)
-  }
-  
+    
   @IBAction func save(sender: AnyObject) {
     dispatch_async(dispatch_get_main_queue()) {
       self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
@@ -361,6 +353,7 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
   }
   func saveProspectSuccessMock() -> Void {
     commonHandler()
+    self.navigationController?.popViewControllerAnimated(true)
     delegate?.saveProspectFinish(name.text)
   }
   

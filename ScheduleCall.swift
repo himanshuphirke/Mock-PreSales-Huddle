@@ -243,8 +243,7 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
       preferredStyle: .Alert)
     let action = UIAlertAction(title: "Ok", style: .Default, handler: {
       action in
-//     self.navigationController?.popViewControllerAnimated(true)
-      self.dismissViewControllerAnimated(false,completion: nil)
+      self.navigationController?.popViewControllerAnimated(true)
     })
     alert.addAction(action)
     presentViewController(alert, animated: true, completion: nil)

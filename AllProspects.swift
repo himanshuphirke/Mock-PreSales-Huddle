@@ -21,7 +21,9 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   var rowTapped = -1
   // MARK: Outlets
   
-  let contextMenu = ["Update prospect", "Schedule prep call", "Schedule client call ", "Setup follow-up reminders", "Dead prospect", "Contract signed"]
+  var contextMenu = ["Update prospect", "Schedule prep call", "Schedule client call ", "Setup follow-up reminders", "Dead prospect", "Contract signed"]
+  
+  let contextMenuRowHeight:CGFloat = 30
   
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var AddButton: UIBarButtonItem!
@@ -52,6 +54,8 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
     dismissViewControllerAnimated(true, completion: nil)
     GIDSignIn.sharedInstance().signOut()
   }
+  
+
 
   @IBAction func longTapped(sender: UILongPressGestureRecognizer) {
     if sender.state != UIGestureRecognizerState.Ended {
@@ -74,21 +78,18 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
     trans.addGestureRecognizer(tap)
     self.view.addSubview(trans)
     
-    let tableWidth = self.view.frame.size.width/2
-    let tableHeight = self.view.frame.size.height/4
-
-    let tableY = (self.view.frame.size.height/2) - (tableHeight/2)
-    let tableX = (self.view.frame.size.width/2) - (tableWidth/2)
-
+    let frm = CGRectMake(0, 0, 200, 0)
     
-    let frm = CGRectMake(tableX, tableY, tableWidth, tableHeight)
     let contextTableView = UITableView(frame: frm , style: UITableViewStyle.Plain)
     contextTableView.scrollEnabled = false
     contextTableView.delegate = self
     contextTableView.dataSource = self
     contextTableView.tag = 20
     self.view.addSubview(contextTableView)
-    
+    UIView.animateWithDuration(0.3, animations: {
+      contextTableView.frame = CGRectMake(0, 0, 200, CGFloat(self.contextMenu.count) * self.contextMenuRowHeight)
+      })
+    contextTableView.center = self.view.center
   }
   
   
@@ -128,8 +129,16 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
+    UIView.animateWithDuration(0.3, animations: {
+      self.tabBarController?.tabBar.hidden = false
+    })
+
     accessControl()
     fetchData()
+  }
+  
+  override func viewWillDisappear(animated: Bool) {
+    super.viewWillDisappear(animated)
   }
 
   // MARK: tableView Functions
@@ -147,7 +156,7 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   
   func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
     if tableView != self.tableView {
-      return 30
+      return contextMenuRowHeight
     }
     return 44
   }
@@ -479,30 +488,30 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   
   // MARK: Segue Functions
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    self.tabBarController?.tabBar.hidden = true
     if segue.identifier == "EditProspect" {
-      let targetController = segue.destinationViewController as! UINavigationController
-      let targetView = targetController.topViewController as! Prospect
+      let targetView = segue.destinationViewController as! Prospect
       targetView.delegate = self
       if let indexPath = tableView.indexPathForCell(sender as! UITableViewCell) {
         targetView.itemToEdit = allProspects[indexPath.row]
       }
+    } else if segue.identifier == "AddProspect"{
+      let targetView = segue.destinationViewController as! Prospect
+      targetView.delegate = self      
     } else if segue.identifier == "ContextMenuScheduleCall" {
       let s = sender as! TupleWrapper
-      let targetController = segue.destinationViewController as! UINavigationController
-      let targetView = targetController.topViewController as! ScheduleCall
+      let targetView = segue.destinationViewController as! ScheduleCall
       targetView.title = "Schedule a \(s.tuple.data) Call"
       targetView.prospectID = s.tuple.id
     } else if segue.identifier == "ContextMenuScheduleCall" {
       let s = sender as! TupleWrapper
-      let targetController = segue.destinationViewController as! UINavigationController
-      let targetView = targetController.topViewController as! ScheduleCall
+      let targetView = segue.destinationViewController as! ScheduleCall
       targetView.title = "Schedule a \(s.tuple.data) Call"
       targetView.prospectID = s.tuple.id
     } else if segue.identifier == "ContextSetupReminders" {
 
     } else if segue.identifier == "ContextDeadProspect" {
-      let targetController = segue.destinationViewController as! UINavigationController
-      let targetView = targetController.topViewController as! Prospect
+      let targetView = segue.destinationViewController as! Prospect
       targetView.delegate = self
       if let indexPath = tableView.indexPathForCell(sender as! UITableViewCell) {
         targetView.itemToEdit = allProspects[indexPath.row]
@@ -510,8 +519,7 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
       targetView.isDead = true
     } else if segue.identifier == "ContextConvertToClient" {
       let s = sender as! TupleWrapper
-      let targetController = segue.destinationViewController as! UINavigationController
-      let targetView = targetController.topViewController as! ConvertClient
+      let targetView = segue.destinationViewController as! ConvertClient
       targetView.prospectID = s.tuple.id
       targetView.prospectName = s.tuple.data
     }
@@ -526,7 +534,6 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
       hudMessage.opacity = 0.4
       hudMessage.yOffset = Float(self.view.frame.size.height/2 - 150)
     }
-    dismissViewControllerAnimated(true, completion: nil)
   }
   
   @IBAction func segmentClicked(sender: UISegmentedControl) {
