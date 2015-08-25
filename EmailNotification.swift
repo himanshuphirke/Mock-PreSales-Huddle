@@ -21,7 +21,7 @@ class EmailNotification {
     // taken from console.developers.google.com
     var API_KEY:String {
         get {
-            return "AIzaSyCvEaz9wuJAROA3IVBSzNbYA4xcM7dKkN0"
+            return "API_KEY_FROM_DEV_CONSOLE"
         }
     }
     
