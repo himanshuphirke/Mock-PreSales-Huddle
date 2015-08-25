@@ -363,7 +363,6 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate, Par
         let newData = self.getFormData()
         var emailBody = "I have added a new Prospect. Please check it out.\n\n\(newData)\n\nRegards,\n\(user.profile.name)"
         var draft = EmailNotification(accessToken: tokenstr, msgText: emailBody)
-        draft.setTo("vinaya.mandke@synerzip.com")
         draft.addReceivers([user.profile.email])
         draft.subject = "[New Prospect]  \(self.name.text)"
         draft.sendEmail(self.emailSuccessHandler, handleServiceError: self.emailServiceErrorHandler)
