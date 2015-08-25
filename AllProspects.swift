@@ -18,6 +18,7 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   var hud:MBProgressHUD?
   var unScheduledProspect = 0
   var currentTab = PinStatus.All
+
   var rowTapped = -1
   // MARK: Outlets
   
@@ -213,6 +214,9 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
           let idAndType = TupleWrapper(tuple: (prospectID, "Client"))
           performSegueWithIdentifier("ContextMenuScheduleCall", sender: idAndType)
 
+        case 3:
+          remindNDay()
+        
         case 4:
           performSegueWithIdentifier("ContextDeadProspect", sender: self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowTapped, inSection: 0)))
 
@@ -328,18 +332,18 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
     
         let prospect4 = ["ProspectID": 4, "Name":"QuickOffice","Domain":"Office Documents","BUHead":"Salil", "CreateDate":"1439373335.63184","TechStack":"C++, Java, JavaScript","SalesID":"Hemant","Notes":"Acquired by Google", "ConfDateStart": "1442229434.0", "ConfDateEnd": "1442232047.0", "TeamSize": 25]
 
-
     var allPros = [[String: AnyObject]]()
     allPros.append(prospect1)
     allPros.append(prospect2)
     allPros.append(prospect3)
-        allPros.append(prospect4)
+    allPros.append(prospect4)
     return allPros
   }
   func fetch_success() {
     commonHandler()
     allProspects = [[String: AnyObject]]()
     
+    unScheduledProspect = 1
     for dict in AllProspects.fillData()  {
       if let teamSize = dict["TeamSize"] as? Int {
 
@@ -462,6 +466,31 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
       self.showMessage("Webservice Error",
         message: "Error received from webservice: \(response.statusCode)")
     }
+  }
+  
+  private func remindNDay() {
+    let alert = UIAlertController(title: "Remind every N Days", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+    alert.addTextFieldWithConfigurationHandler { (textField: UITextField!) -> Void in
+      textField.placeholder = "Frequency in days"
+    }
+    let defaultAction = UIAlertAction(title: "Submit", style: .Default, handler: {
+      (action:UIAlertAction!) -> Void in
+      if let frequency = alert.textFields?.first as? UITextField {
+        let hudMessage = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hudMessage.mode = MBProgressHUDMode.Text
+        hudMessage.labelText = "Alert will be sent every \(frequency.text) days."
+        hudMessage.hide(true, afterDelay: 1.5)
+        hudMessage.opacity = 0.25
+        hudMessage.yOffset = Float(self.view.frame.size.height/2 - 100)
+      }
+    })
+    let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+    
+    alert.addAction(cancelAction)
+    alert.addAction(defaultAction)
+    presentViewController(alert, animated: true, completion: {
+
+    })
   }
   
   private func showMessage(title:String, message: String) {

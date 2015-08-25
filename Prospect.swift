@@ -13,7 +13,7 @@ protocol ProspectDelgate: class {
   func saveProspectFinish(name: String)
 }
 
-class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
+class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate, ParticipateInCallDelgate {
 
   var hud:MBProgressHUD?
   var delegate: ProspectDelgate?
@@ -456,13 +456,9 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
       if let id = prospectID {
         targetView.prospectID = id
       }
-    } else if segue.identifier == "ConvertToClient" {
-      let targetController = segue.destinationViewController as! UINavigationController
-      let targetView = targetController.topViewController as! ConvertClient
-      if let id = prospectID {
-        targetView.prospectID = id
-      }
-      targetView.prospectName = name.text
+    } else if segue.identifier == "ParticipateInCall" {
+      let targetView = segue.destinationViewController as! ParticipateInCall
+      targetView.delegate = self
     }
   }
   
@@ -475,6 +471,14 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
     }
   }
   
-
-
+  func saveFinish() {
+    dispatch_async(dispatch_get_main_queue()) {
+      let hudMessage = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+      hudMessage.mode = MBProgressHUDMode.Text
+      hudMessage.labelText = "Saved..."
+      hudMessage.hide(true, afterDelay: 0.7)
+      hudMessage.opacity = 0.25
+      hudMessage.yOffset = Float(self.view.frame.size.height/2 - 100)
+    }
+  }
 }
