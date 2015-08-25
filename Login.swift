@@ -10,7 +10,7 @@ import UIKit
 class Login : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, GIDSignInUIDelegate {
   
   let userRoles = ["Sales", "User"]
-    let salesRepresenatives:[String] = ["salil.khedkar@synerzip.com","himanshu.phirke@synerzip.com"]
+    let salesRepresenatives:[String] = ["vinaya.mandke@synerzip.com","salil.khedkar@synerzip.com","himanshu.phirke@synerzip.com"]
   var roleRow = 0
   var gPlusSignInEnabled = false
   var hud:MBProgressHUD?

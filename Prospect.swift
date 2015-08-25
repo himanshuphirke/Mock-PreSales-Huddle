@@ -355,6 +355,30 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate {
     commonHandler()
     self.navigationController?.popViewControllerAnimated(true)
     delegate?.saveProspectFinish(name.text)
+    // send an email
+    let user = GIDSignIn.sharedInstance().currentUser
+    let auth = user.authentication
+    auth.getAccessTokenWithHandler({ (tokenstr, err) -> Void in
+      if err == nil {
+        let newData = self.getFormData()
+        var emailBody = "I have added a new Prospect. Please check it out.\n\n\(newData)\n\nRegards,\n\(user.profile.name)"
+        var draft = EmailNotification(accessToken: tokenstr, msgText: emailBody)
+        draft.setTo("vinaya.mandke@synerzip.com")
+        draft.addReceivers([user.profile.email])
+        draft.subject = "[New Prospect]  \(self.name.text)"
+        draft.sendEmail(self.emailSuccessHandler, handleServiceError: self.emailServiceErrorHandler)
+      }
+    })
+  }
+
+  func emailSuccessHandler(data: NSData) -> Void {
+    commonHandler()
+    //handle success
+  }
+
+  func emailServiceErrorHandler(reponse: NSHTTPURLResponse) -> Void {
+    commonHandler()
+    // handle service error
   }
   
   func saveProspectSuccess(data: NSData) -> Void {

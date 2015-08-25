@@ -18,6 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     // Override point for customization after application launch.
     // Initialize sign-in
     var configureError: NSError?
+    //add gmail api scope
+    let gmailScope = "https://www.googleapis.com/auth/gmail.send"
+    var currentScopes = GIDSignIn.sharedInstance().scopes as NSArray
+    GIDSignIn.sharedInstance().scopes = currentScopes.arrayByAddingObject(gmailScope)
     GGLContext.sharedInstance().configureWithError(&configureError)
     assert(configureError == nil, "Error configuring Google services: \(configureError)")
     
