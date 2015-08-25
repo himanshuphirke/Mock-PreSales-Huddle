@@ -51,8 +51,12 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   
   
   @IBAction func logout(sender: UIBarButtonItem) {
-    dismissViewControllerAnimated(true, completion: nil)
     GIDSignIn.sharedInstance().signOut()
+    dismissViewControllerAnimated(true, completion: {
+      if let loginController = self.parentViewController as? Login {
+            loginController.enableGoogleSignIn()
+      }
+    })
   }
   
 

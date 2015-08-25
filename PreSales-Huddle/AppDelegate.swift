@@ -56,6 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         loginController.performSegueWithIdentifier("enter-segue", sender: loginController)
       } else {
         loginController.hud?.hide(true, afterDelay: 0.5)
+        loginController.enableGoogleSignIn()
         println("\(error.localizedDescription)")
       }
     }

@@ -30,7 +30,12 @@ class AllClients: UITableViewController {
   }
   // MARK: action functions
   @IBAction func logout(sender: UIBarButtonItem) {
-    dismissViewControllerAnimated(true, completion: nil)
+    GIDSignIn.sharedInstance().signOut()
+    dismissViewControllerAnimated(true, completion: {
+        if let loginController = self.parentViewController as? Login {
+            loginController.enableGoogleSignIn()
+        }
+    })
   }
   
   // MARK: tableView Functions

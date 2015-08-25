@@ -33,7 +33,7 @@ class Login : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UI
     stylizeControls()
     
     // Enabling Google SignIn
-    enableGoogleSignIn()
+    prepareForGoogleSignIn()
     GIDSignIn.sharedInstance().uiDelegate = self
     GIDSignIn.sharedInstance().signInSilently()
   }
@@ -72,7 +72,16 @@ class Login : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UI
       return true
   }
     
+  func prepareForGoogleSignIn() {
+    gPlusSignInEnabled = true
+    userName.hidden = true
+    picker.hidden = true
+    enter.hidden = true
+  }
+    
   func enableGoogleSignIn() {
+    prepareForGoogleSignIn()
+    
     let frame = CGRect(x: userName.frame.origin.x, y: userName.frame.origin.y, width: 100, height: userName.frame.height)
     var signInButtonView = GIDSignInButton(frame: frame)
     view.addSubview(signInButtonView)
@@ -80,11 +89,6 @@ class Login : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UI
     // some constraints
     signInButtonView.center = view.center
     signInButtonView.addTarget(self, action: "signUsingGoogleInitiated:", forControlEvents: UIControlEvents.TouchUpInside)
-    
-    userName.hidden = true
-    picker.hidden = true
-    enter.hidden = true
-    gPlusSignInEnabled = true
   }
   
   func signUsingGoogleInitiated(sender: UIView) {
