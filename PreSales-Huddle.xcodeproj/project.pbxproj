@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		506FB5E200AD342367FF40FD /* libPods-PreSales-Huddle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A99D39A0FEF8B240511DF67A /* libPods-PreSales-Huddle.a */; };
 		7E22A3021B82D25C00D71AC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7E22A3011B82D25C00D71AC5 /* GoogleService-Info.plist */; };
+		7EF594421B8CA92F0079ABDF /* EmailNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF594411B8CA92F0079ABDF /* EmailNotification.swift */; };
 		A33A86D01B87389800745E5A /* ParticipateInCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A86CF1B87389800745E5A /* ParticipateInCall.swift */; };
 		A33CD2341B6502830007450F /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33CD2331B6502830007450F /* Participant.swift */; };
 		A3426A641B6257ED00AD2D21 /* Discussions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3426A631B6257ED00AD2D21 /* Discussions.swift */; };
@@ -53,6 +54,7 @@
 		0880E5044E4D9D48C550ADBE /* Pods-PreSales-Huddle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PreSales-Huddle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PreSales-Huddle/Pods-PreSales-Huddle.debug.xcconfig"; sourceTree = "<group>"; };
 		1F48A872828FB688629F81B9 /* Pods-PreSales-Huddle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PreSales-Huddle.release.xcconfig"; path = "Pods/Target Support Files/Pods-PreSales-Huddle/Pods-PreSales-Huddle.release.xcconfig"; sourceTree = "<group>"; };
 		7E22A3011B82D25C00D71AC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7EF594411B8CA92F0079ABDF /* EmailNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailNotification.swift; sourceTree = "<group>"; };
 		A33A86CF1B87389800745E5A /* ParticipateInCall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipateInCall.swift; sourceTree = "<group>"; };
 		A33CD2331B6502830007450F /* Participant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
 		A3426A631B6257ED00AD2D21 /* Discussions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Discussions.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 		A35BF7921B5FB7D400D78515 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				7EF594411B8CA92F0079ABDF /* EmailNotification.swift */,
 				A35BF7931B5FB7EF00D78515 /* NetworkCommunication.swift */,
 				A35BF7971B5FB81800D78515 /* CalendarNotification.swift */,
 				A3456AF01B664E1600D22C21 /* DateHandler.swift */,
@@ -451,6 +454,7 @@
 				A35BF7981B5FB81800D78515 /* CalendarNotification.swift in Sources */,
 				A387A3211B85DA2400E0ECF0 /* CommonClasses.swift in Sources */,
 				A34509B11B5FBF6A00B7E017 /* AllProspects.swift in Sources */,
+				7EF594421B8CA92F0079ABDF /* EmailNotification.swift in Sources */,
 				A33CD2341B6502830007450F /* Participant.swift in Sources */,
 				A3456AEE1B66169000D22C21 /* DateSelector.swift in Sources */,
 				A387E48D1B68EB5000B02570 /* Theme.swift in Sources */,

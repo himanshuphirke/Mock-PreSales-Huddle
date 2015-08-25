@@ -18,13 +18,6 @@ class EmailNotification {
     
     var mailer:NSURLSessionDataTask?
    
-    // taken from console.developers.google.com
-    var API_KEY:String {
-        get {
-            return "API_KEY_FROM_DEV_CONSOLE"
-        }
-    }
-    
     init(accessToken: String, msgText: String) {
         access_token = accessToken
         emailBody = msgText
@@ -79,7 +72,7 @@ class EmailNotification {
     }
     
     private func getMailerRequest() -> NSMutableURLRequest {
-        let url = "https://www.googleapis.com/gmail/v1/users/me/messages/send?&debug=true&key=\(API_KEY)"
+        let url = "https://www.googleapis.com/gmail/v1/users/me/messages/send"
         let apiUrl = NSURL(string: url)
         let request = NSMutableURLRequest(URL: apiUrl!)
         request.HTTPMethod = "POST"
