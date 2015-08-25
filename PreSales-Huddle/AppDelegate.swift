@@ -9,24 +9,13 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    // Override point for customization after application launch.
-    // Initialize sign-in
-    var configureError: NSError?
-    //add gmail api scope
-    let gmailScope = "https://www.googleapis.com/auth/gmail.send"
-    var currentScopes = GIDSignIn.sharedInstance().scopes as NSArray
-    GIDSignIn.sharedInstance().scopes = currentScopes.arrayByAddingObject(gmailScope)
-    GGLContext.sharedInstance().configureWithError(&configureError)
-    assert(configureError == nil, "Error configuring Google services: \(configureError)")
-    
-    GIDSignIn.sharedInstance().delegate = self
-    
+    // Override point for customization after application launch.    
     return true
   }
 
@@ -50,20 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
   func applicationWillTerminate(application: UIApplication) {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-    
-  func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError!) {
-    let rootController = self.window!.rootViewController
-    if let loginController = rootController?.childViewControllers[0] as? Login {
-      if (error == nil) {
-        loginController.hud?.hide(true, afterDelay: 0.5)
-        loginController.performSegueWithIdentifier("enter-segue", sender: loginController)
-      } else {
-        loginController.hud?.hide(true, afterDelay: 0.5)
-        loginController.enableGoogleSignIn()
-        println("\(error.localizedDescription)")
-      }
-    }
   }
 }
 

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="CWh-ey-Dek">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -1524,12 +1525,12 @@
                                 <exclude reference="W3u-vK-Vcm"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="NVY-jh-bCG"/>
-                                <exclude reference="Ong-UN-qHN"/>
-                                <exclude reference="Y3x-Yh-BTV"/>
                                 <exclude reference="1MX-JY-eiW"/>
                                 <exclude reference="f60-rd-IRW"/>
                                 <exclude reference="x6s-ew-lKZ"/>
+                                <exclude reference="NVY-jh-bCG"/>
+                                <exclude reference="Ong-UN-qHN"/>
+                                <exclude reference="Y3x-Yh-BTV"/>
                                 <exclude reference="1B3-2Z-Hfb"/>
                                 <exclude reference="eyh-cf-4Ox"/>
                                 <exclude reference="FEM-Bu-Evy"/>
@@ -1546,12 +1547,12 @@
                                 <include reference="W3u-vK-Vcm"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="NVY-jh-bCG"/>
-                                <include reference="Ong-UN-qHN"/>
-                                <include reference="Y3x-Yh-BTV"/>
                                 <include reference="1MX-JY-eiW"/>
                                 <include reference="f60-rd-IRW"/>
                                 <exclude reference="x6s-ew-lKZ"/>
+                                <include reference="NVY-jh-bCG"/>
+                                <include reference="Ong-UN-qHN"/>
+                                <include reference="Y3x-Yh-BTV"/>
                                 <include reference="1B3-2Z-Hfb"/>
                                 <include reference="eyh-cf-4Ox"/>
                                 <include reference="FEM-Bu-Evy"/>

@@ -39,11 +39,7 @@ class Reports: UITableViewController {
   // MARK: action functions
   @IBAction func logout(sender: UIBarButtonItem) {
     GIDSignIn.sharedInstance().signOut()
-    dismissViewControllerAnimated(true, completion: {
-        if let loginController = self.parentViewController as? Login {
-            loginController.enableGoogleSignIn()
-        }
-    })
+    dismissViewControllerAnimated(true, completion: nil)
   }
 
   // MARK: - UITableViewDataSource

@@ -53,11 +53,7 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   
   @IBAction func logout(sender: UIBarButtonItem) {
     GIDSignIn.sharedInstance().signOut()
-    dismissViewControllerAnimated(true, completion: {
-      if let loginController = self.parentViewController as? Login {
-            loginController.enableGoogleSignIn()
-      }
-    })
+    dismissViewControllerAnimated(true, completion: nil)
   }
   
 
@@ -505,8 +501,8 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
     unScheduledProspect = 0
     dispatch_async(dispatch_get_main_queue()) {
       self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-      self.hud?.labelText = "Loading.."
-      self.hud?.detailsLabelText = "Delay added for display"
+      self.hud?.labelText = "Loading"
+      self.hud?.detailsLabelText = "Please wait.."
     }
     fetch_success()
   }
