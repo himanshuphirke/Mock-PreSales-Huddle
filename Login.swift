@@ -160,7 +160,7 @@ class Login : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UI
         GIDSignIn.sharedInstance().signOut()
         println("Sign-In Validation: Login from non-synerzip id")
         let name = user.profile.name as String
-        let msg = "Dear, \(name) \nPlease login using synerzip email"
+        let msg = "Dear \(name) \nPlease login using synerzip email"
         let alert = UIAlertController(title: "Invalid Login", message: msg, preferredStyle: .Alert)
         let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
         alert.addAction(action)
@@ -175,5 +175,5 @@ class Login : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UI
       enableGoogleSignIn()
       println("Sign-In Error: \(error.localizedDescription)")
     }
-  }
+  }  
 }

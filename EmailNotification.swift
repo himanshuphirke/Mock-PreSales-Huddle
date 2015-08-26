@@ -21,7 +21,7 @@ class EmailNotification {
     init(accessToken: String, msgText: String) {
         access_token = accessToken
         emailBody = msgText
-        sender = "\(signedInUser.profile.name) (via iOS App) <\(signedInUser.profile.email)>"
+        sender = "\(signedInUser.profile.name) via PreSales-Huddle <\(signedInUser.profile.email)>"
         receivers = "vinaya.mandke@synerzip.com"
         receivers += ";himanshu.phirke@synerzip.com"
     }
