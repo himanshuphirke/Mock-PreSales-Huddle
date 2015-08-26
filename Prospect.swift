@@ -35,17 +35,14 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate, Par
   @IBOutlet weak var domain: UITextField!
   @IBOutlet weak var desiredTeamSize: UITextField!
   @IBOutlet weak var techStack: UITextField!
-  @IBOutlet weak var participate_switch: UISwitch!
   @IBOutlet weak var date: UITextField!
   @IBOutlet weak var desiredtTeamDesc: UITextField!
 
   @IBOutlet weak var status: UITextField!
   @IBOutlet weak var listOfContacts: UITextField!
   @IBOutlet weak var discussions: UIBarButtonItem!
-  @IBOutlet weak var conf_call_label: UILabel!
   @IBOutlet weak var save_button: UIButton!
-  @IBOutlet weak var participate_label: UILabel!
-  @IBOutlet weak var ignore_label: UILabel!
+
   @IBOutlet weak var pinImage: UIImageView!
   @IBOutlet weak var participateButton: UIButton!
   var blinkState = true;
@@ -162,11 +159,7 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate, Par
   }
   private func accessControl() {
     if userRole == "Sales" {
-      participate_switch.hidden = true
       participateButton.hidden = true
-      participate_label.hidden = true
-      ignore_label.hidden = true
-      conf_call_label.hidden = true
     } else {
       save_button.hidden = true
     }
@@ -217,8 +210,6 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate, Par
     notes.layer.cornerRadius = 5.0
     
     // Setting tint color
-    participate_switch.tintColor = UIColor(red: 204.0/255.0, green: 51/255.0,
-      blue: 51/255.0, alpha: 1.0)
     navigationController?.navigationBar.backgroundColor = Theme.Prospects.navBarBG
     view.backgroundColor = Theme.Prospects.formBG
     
@@ -328,9 +319,6 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate, Par
     if let participate = dict["Participation"] as? String {
       participantEntryPresent = true
       if participate == "Yes" {
-        dispatch_async(dispatch_get_main_queue()) {
-          self.participate_switch.on = true
-        }
       return true
       }
     }
@@ -339,17 +327,6 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate, Par
   
   func fetchParticipantSuccess() -> Void {
     commonHandler()
-    if let id = prospectID {
-      if id == 3 {
-        dispatch_async(dispatch_get_main_queue()) {
-          self.participate_switch.on = false
-        }
-      } else {
-        dispatch_async(dispatch_get_main_queue()) {
-          self.participate_switch.on = true
-        }
-      }
-    }
   }
   func saveProspectSuccessMock() -> Void {
     commonHandler()
@@ -421,7 +398,7 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate, Par
     dispatch_async(dispatch_get_main_queue()) {
       self.showMessage("Network error",
         message: "Code: \(error.code)\n\(error.localizedDescription)")
-      self.participate_switch.on = !self.participate_switch.on
+
     }
   }
   
@@ -430,7 +407,7 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate, Par
     dispatch_async(dispatch_get_main_queue()) {
       self.showMessage("Webservice Error",
         message: "Error received from webservice: \(response.statusCode)")
-      self.participate_switch.on = !self.participate_switch.on
+
     }
   }
   

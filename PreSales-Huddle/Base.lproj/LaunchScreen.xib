@@ -24,13 +24,21 @@
                         <constraint firstAttribute="width" constant="100" id="iKq-OY-xza"/>
                     </constraints>
                 </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mock Screens Demo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QiS-pX-iJr">
+                    <rect key="frame" x="160" y="97" width="161" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="kId-c2-rCX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="bottom" multiplier="1/3" constant="1" id="5cJ-9S-tgC"/>
+                <constraint firstAttribute="centerX" secondItem="QiS-pX-iJr" secondAttribute="centerX" constant="-0.5" id="8wQ-S8-3EU"/>
                 <constraint firstItem="uFJ-pb-hr7" firstAttribute="top" secondItem="kId-c2-rCX" secondAttribute="bottom" constant="16" id="DqU-sZ-0hL"/>
                 <constraint firstAttribute="centerX" secondItem="uFJ-pb-hr7" secondAttribute="centerX" id="HXO-vy-TO0"/>
                 <constraint firstAttribute="centerX" secondItem="kId-c2-rCX" secondAttribute="centerX" id="Koa-jz-hwk"/>
+                <constraint firstItem="kId-c2-rCX" firstAttribute="top" secondItem="QiS-pX-iJr" secondAttribute="bottom" constant="22" id="QRe-ij-RXW"/>
                 <constraint firstItem="kId-c2-rCX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="fvb-Df-36g"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
