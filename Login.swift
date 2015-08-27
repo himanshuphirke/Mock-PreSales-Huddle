@@ -35,7 +35,6 @@ class Login : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UI
     }
   }
   override func viewDidLoad() {
-    userName.becomeFirstResponder()
     if let id = NSUserDefaults.standardUserDefaults().stringForKey("userID") {
       userName.text = id
       enter.enabled = true
@@ -124,7 +123,7 @@ class Login : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UI
   private func progressDisplayLogin() {
     dispatch_async(dispatch_get_main_queue()) {
     self.hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-    self.hud?.labelText = "Loging.."
+    self.hud?.labelText = "Logging.."
     self.hud?.detailsLabelText = "Waiting for Google Sign-In"
     self.hud?.yOffset = 100
     }

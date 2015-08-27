@@ -20,22 +20,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Prospect Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5m0-VS-NLN">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Prospect Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5m0-VS-NLN">
                                 <rect key="frame" x="16" y="74" width="383" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Domain e.g: Education, Finance" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nZx-Aa-ABN">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Domain e.g: Education, Finance" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nZx-Aa-ABN">
                                 <rect key="frame" x="16" y="244" width="383" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Technology Stack. e.g C++, JavaScript, iOS" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F19-ny-f3I">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Technology Stack. e.g C++, JavaScript, iOS" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F19-ny-f3I">
                                 <rect key="frame" x="16" y="154" width="383" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kd5-Vp-LDP">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kd5-Vp-LDP">
                                 <rect key="frame" x="16" y="112" width="383" height="30"/>
                                 <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -44,27 +44,27 @@
                                     <action selector="date_click:" destination="oEm-za-de6" eventType="editingDidBegin" id="oRO-LN-QRv"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="List of Contacts" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UqX-oY-dGC">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="List of Contacts" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UqX-oY-dGC">
                                 <rect key="frame" x="16" y="199" width="383" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Desired team size" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cuY-cM-Buy">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Desired team size" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cuY-cM-Buy">
                                 <rect key="frame" x="16" y="285" width="383" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Desired team description. eg. 1 Dev + 1 QA" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M9J-jl-9W8">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Desired team description. eg. 1 Dev + 1 QA" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M9J-jl-9W8">
                                 <rect key="frame" x="16" y="330" width="383" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="New Prospect" borderStyle="roundedRect" placeholder="Status. eg. New prospect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b46-Gh-HTI">
+                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="New Prospect" borderStyle="roundedRect" placeholder="Status. eg. New prospect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b46-Gh-HTI">
                                 <rect key="frame" x="16" y="374" width="383" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ql1-PS-04x">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ql1-PS-04x">
                                 <rect key="frame" x="16" y="562" width="34" height="30"/>
                                 <state key="normal" title="Save">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -79,11 +79,14 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qjg-cA-XqN">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qjg-cA-XqN">
                                 <rect key="frame" x="16" y="453" width="383" height="46"/>
                                 <color key="tintColor" red="0.23086451480263162" green="0.20000000000000001" blue="1" alpha="0.62" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="oEm-za-de6" id="bIT-Z5-kzf"/>
+                                </connections>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pin Prospect:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HOu-oW-JKG">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -215,6 +218,12 @@
                                 <exclude reference="UaO-qa-5hj"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="5AO-aF-5HI"/>
+                                <exclude reference="Sda-Gd-tcc"/>
+                                <exclude reference="nPE-GH-VmC"/>
+                                <exclude reference="dAg-5R-h5D"/>
+                                <exclude reference="HeA-Tx-Nbm"/>
+                                <exclude reference="MUV-JI-YPs"/>
                                 <exclude reference="NdY-X6-zKp"/>
                                 <exclude reference="aMQ-zI-ZM7"/>
                                 <exclude reference="hoe-8C-5qc"/>
@@ -250,13 +259,7 @@
                                 <exclude reference="I7F-F8-zKz"/>
                                 <exclude reference="ki0-Jg-cS0"/>
                                 <exclude reference="puM-zr-abQ"/>
-                                <exclude reference="nPE-GH-VmC"/>
                                 <exclude reference="PYs-4m-U8p"/>
-                                <exclude reference="HeA-Tx-Nbm"/>
-                                <exclude reference="MUV-JI-YPs"/>
-                                <exclude reference="5AO-aF-5HI"/>
-                                <exclude reference="Sda-Gd-tcc"/>
-                                <exclude reference="dAg-5R-h5D"/>
                                 <exclude reference="8pg-8p-Hpd"/>
                                 <exclude reference="PLr-hh-q9g"/>
                                 <exclude reference="LVb-se-S7e"/>
@@ -271,6 +274,12 @@
                                 <include reference="UaO-qa-5hj"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="5AO-aF-5HI"/>
+                                <include reference="Sda-Gd-tcc"/>
+                                <include reference="nPE-GH-VmC"/>
+                                <include reference="dAg-5R-h5D"/>
+                                <include reference="HeA-Tx-Nbm"/>
+                                <include reference="MUV-JI-YPs"/>
                                 <include reference="NdY-X6-zKp"/>
                                 <include reference="aMQ-zI-ZM7"/>
                                 <include reference="hoe-8C-5qc"/>
@@ -306,13 +315,7 @@
                                 <include reference="I7F-F8-zKz"/>
                                 <include reference="ki0-Jg-cS0"/>
                                 <include reference="puM-zr-abQ"/>
-                                <include reference="nPE-GH-VmC"/>
                                 <include reference="PYs-4m-U8p"/>
-                                <include reference="HeA-Tx-Nbm"/>
-                                <include reference="MUV-JI-YPs"/>
-                                <include reference="5AO-aF-5HI"/>
-                                <include reference="Sda-Gd-tcc"/>
-                                <include reference="dAg-5R-h5D"/>
                                 <include reference="8pg-8p-Hpd"/>
                                 <exclude reference="PLr-hh-q9g"/>
                                 <include reference="LVb-se-S7e"/>

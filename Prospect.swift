@@ -13,7 +13,7 @@ protocol ProspectDelgate: class {
   func saveProspectFinish(name: String)
 }
 
-class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate, ParticipateInCallDelgate {
+class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, DateSelectorDelegate, ParticipateInCallDelgate  {
 
   var hud:MBProgressHUD?
   var delegate: ProspectDelgate?
@@ -28,6 +28,7 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate, Par
   let viewParticipantsByUserIDURL = "participant/view/userid/"
   let addParticipant = "participant/add/"
   let updateParticipant = "participant/update/"
+  var keyBoardHeight:CGFloat = 400
   
   // MARK: Outlets
   @IBOutlet weak var name: UITextField!
@@ -77,16 +78,13 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate, Par
     super.viewDidLoad()
     stylizeControls()
     initMockData()
-    if let isDead = isDead {
-      
-    }
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyBoardShow:", name: UIKeyboardWillShowNotification, object: nil)
+  
   }
   
-  
-  override func viewDidAppear(animated: Bool) {
-    super.viewDidAppear(animated)
+  func keyBoardShow(notification: NSNotification) {
+    keyBoardHeight = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue().height
   }
-
   
   // MARK: Action functions
     
@@ -342,6 +340,9 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate, Par
         var draft = EmailNotification(accessToken: tokenstr, msgText: emailBody)
         draft.addReceivers([user.profile.email])
         draft.subject = "[New Prospect]  \(self.name.text)"
+        if let prospect = self.itemToEdit {
+          draft.subject = "[Prospect Update]  \(self.name.text)"
+        }
         draft.sendEmail(self.emailSuccessHandler, handleServiceError: self.emailServiceErrorHandler)
       }
     })
@@ -457,4 +458,18 @@ class Prospect: UIViewController, UITextFieldDelegate, DateSelectorDelegate, Par
       hudMessage.yOffset = Float(self.view.frame.size.height/2 - 100)
     }
   }
+  
+  func textViewDidBeginEditing(textView: UITextView) {
+    UIView.animateWithDuration(0.5, animations: {
+      self.view.bounds.origin.y += self.keyBoardHeight - 50
+    })
+    
+  }
+  
+  func textViewDidEndEditing(textView: UITextView) {
+    UIView.animateWithDuration(0.5, animations: {
+      self.view.bounds.origin.y = 0
+    })
+  }
+
 }

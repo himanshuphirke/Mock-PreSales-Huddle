@@ -79,7 +79,7 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
     trans.addGestureRecognizer(tap)
     self.view.addSubview(trans)
     
-    let frm = CGRectMake(0, 0, 200, 0)
+    let frm = CGRectMake(0, 0, 0, 0)
     
     let contextTableView = UITableView(frame: frm , style: UITableViewStyle.Plain)
     contextTableView.scrollEnabled = false
@@ -88,7 +88,7 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
     contextTableView.tag = 20
     self.view.addSubview(contextTableView)
     UIView.animateWithDuration(0.3, animations: {
-      contextTableView.frame = CGRectMake(0, 0, 200, CGFloat(self.contextMenu.count) * self.contextMenuRowHeight)
+      contextTableView.frame = CGRectMake(0, 0, 210, CGFloat(self.contextMenu.count) * self.contextMenuRowHeight)
       })
     contextTableView.center = self.view.center
   }
