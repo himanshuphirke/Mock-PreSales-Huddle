@@ -25,16 +25,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Domain e.g: Education, Finance" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nZx-Aa-ABN">
-                                <rect key="frame" x="16" y="244" width="383" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Technology Stack. e.g C++, JavaScript, iOS" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F19-ny-f3I">
-                                <rect key="frame" x="16" y="154" width="383" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kd5-Vp-LDP">
                                 <rect key="frame" x="16" y="112" width="383" height="30"/>
                                 <gestureRecognizers/>
@@ -44,8 +34,18 @@
                                     <action selector="date_click:" destination="oEm-za-de6" eventType="editingDidBegin" id="oRO-LN-QRv"/>
                                 </connections>
                             </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Technology Stack. e.g C++, JavaScript, iOS" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F19-ny-f3I">
+                                <rect key="frame" x="16" y="154" width="383" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="List of Contacts" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UqX-oY-dGC">
                                 <rect key="frame" x="16" y="199" width="383" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Domain e.g: Education, Finance" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nZx-Aa-ABN">
+                                <rect key="frame" x="16" y="244" width="383" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -64,11 +64,33 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ql1-PS-04x">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qjg-cA-XqN">
+                                <rect key="frame" x="16" y="453" width="383" height="46"/>
+                                <color key="tintColor" red="0.23086451480263162" green="0.20000000000000001" blue="1" alpha="0.62" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="oEm-za-de6" id="bIT-Z5-kzf"/>
+                                </connections>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ql1-PS-04x">
                                 <rect key="frame" x="16" y="562" width="34" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="140" id="0JU-gm-uz1"/>
+                                </constraints>
                                 <state key="normal" title="Save">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="0JU-gm-uz1"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="0JU-gm-uz1"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <action selector="save:" destination="oEm-za-de6" eventType="touchUpInside" id="FAM-O3-a2q"/>
                                 </connections>
@@ -79,26 +101,30 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qjg-cA-XqN">
-                                <rect key="frame" x="16" y="453" width="383" height="46"/>
-                                <color key="tintColor" red="0.23086451480263162" green="0.20000000000000001" blue="1" alpha="0.62" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <connections>
-                                    <outlet property="delegate" destination="oEm-za-de6" id="bIT-Z5-kzf"/>
-                                </connections>
-                            </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pin Prospect:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HOu-oW-JKG">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Gi-kx-jMj">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Gi-kx-jMj">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="Kpv-XM-bKr"/>
+                                </constraints>
                                 <state key="normal" title="Participate in Call">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Kpv-XM-bKr"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="Kpv-XM-bKr"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <segue destination="EVz-wr-h9j" kind="show" identifier="ParticipateInCall" id="IHj-Mx-CDE"/>
                                 </connections>
@@ -133,7 +159,9 @@
                             <constraint firstItem="HOu-oW-JKG" firstAttribute="centerY" secondItem="UaO-qa-5hj" secondAttribute="centerY" constant="3.5" id="5AO-aF-5HI">
                                 <variation key="heightClass=regular" constant="0.0"/>
                             </constraint>
-                            <constraint firstItem="b46-Gh-HTI" firstAttribute="leading" secondItem="1Gi-kx-jMj" secondAttribute="leading" constant="-7" id="6Rc-RV-S0c"/>
+                            <constraint firstItem="b46-Gh-HTI" firstAttribute="leading" secondItem="1Gi-kx-jMj" secondAttribute="leading" constant="-7" id="6Rc-RV-S0c">
+                                <variation key="heightClass=regular" constant="0.0"/>
+                            </constraint>
                             <constraint firstItem="M9J-jl-9W8" firstAttribute="top" secondItem="cuY-cM-Buy" secondAttribute="bottom" constant="15" id="7gt-Dt-Qxg">
                                 <variation key="heightClass=regular" constant="12"/>
                             </constraint>
@@ -547,7 +575,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3qw-ZH-G8z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4235" y="2034"/>
+            <point key="canvasLocation" x="5047" y="2034"/>
         </scene>
         <!--Schedule Call-->
         <scene sceneID="gfo-vW-oYy">
@@ -998,7 +1026,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ASX-0q-awe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2522" y="2034"/>
+            <point key="canvasLocation" x="3334" y="2034"/>
         </scene>
         <!--Login-->
         <scene sceneID="xXO-R7-jI7">
@@ -1205,11 +1233,31 @@
                         <segue destination="gL4-pT-xmu" kind="relationship" relationship="viewControllers" id="q5Y-Wl-cec"/>
                         <segue destination="Nnw-eF-35V" kind="relationship" relationship="viewControllers" id="4YG-Su-gsC"/>
                         <segue destination="6Up-aq-OnF" kind="relationship" relationship="viewControllers" id="VcC-pg-9f5"/>
+                        <segue destination="xEB-6v-Li5" kind="relationship" relationship="viewControllers" id="0bV-Df-hcD"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e4I-4H-Tfn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="615" y="726"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="chO-6a-B4d">
+            <objects>
+                <viewController id="KLN-Gq-aq4" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Zdp-4Q-VVw"/>
+                        <viewControllerLayoutGuide type="bottom" id="euQ-7S-vs2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Cbx-1k-mBc">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="OdR-eB-K0F"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PyH-Cn-1sc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1180" y="1936.5"/>
         </scene>
         <!--Clients-->
         <scene sceneID="aSp-4r-bNd">
@@ -1228,7 +1276,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AOv-Ju-gI7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1783" y="2034"/>
+            <point key="canvasLocation" x="2595" y="2034"/>
         </scene>
         <!--Reports-->
         <scene sceneID="TjI-U2-aI3">
@@ -1814,7 +1862,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vzk-l1-C4d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3416" y="2034"/>
+            <point key="canvasLocation" x="4228" y="2034"/>
         </scene>
         <!--Reports-->
         <scene sceneID="rLq-cJ-Vu8">
@@ -1908,9 +1956,29 @@
             </objects>
             <point key="canvasLocation" x="1263" y="21.75"/>
         </scene>
+        <!--Dead Prospects-->
+        <scene sceneID="frZ-5v-q9g">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xEB-6v-Li5" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Dead Prospects" image="Dead" id="Jxv-aT-5k1"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fRg-to-SI8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="KLN-Gq-aq4" kind="relationship" relationship="rootViewController" id="1bI-1T-fot"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1jy-1h-gyr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="368" y="1936.5"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Client" width="26" height="26"/>
+        <image name="Dead" width="25" height="25"/>
         <image name="PreSales-Huddle" width="176" height="176"/>
         <image name="Prospects" width="26" height="26"/>
         <image name="Reports" width="26" height="26"/>

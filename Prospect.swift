@@ -13,7 +13,7 @@ protocol ProspectDelgate: class {
   func saveProspectFinish(name: String)
 }
 
-class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, DateSelectorDelegate, ParticipateInCallDelgate  {
+class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, ParticipateInCallDelgate  {
 
   var hud:MBProgressHUD?
   var delegate: ProspectDelgate?
@@ -29,6 +29,7 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, DateS
   let addParticipant = "participant/add/"
   let updateParticipant = "participant/update/"
   var keyBoardHeight:CGFloat = 400
+  var dateSelected = NSDate()
   
   // MARK: Outlets
   @IBOutlet weak var name: UITextField!
@@ -76,7 +77,11 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, DateS
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    stylizeControls()
+    // stylizeControls()
+    notes.layer.borderWidth = 1.0
+    notes.layer.cornerRadius = 5.0
+    notes.layer.borderColor = UIColor(red: 0.835, green: 0.835, blue: 0.835, alpha: 1.00).CGColor
+    
     initMockData()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyBoardShow:", name: UIKeyboardWillShowNotification, object: nil)
   
@@ -134,8 +139,82 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, DateS
   }
   
   @IBAction func date_click(sender: UITextField) {
-    loadDateSelectorNIB("ProspectDate")
+    sender.resignFirstResponder()
+    callDatePicker(sender)
   }
+  
+  // MARK: Date Popup - Start
+  
+  func changeDate(sender: UIDatePicker) {
+    dateSelected = sender.date
+  }
+  
+  func removeViews() {
+    UIView.animateWithDuration(0.5, animations: {
+      self.view.viewWithTag(31)?.alpha = 0
+      self.view.viewWithTag(32)?.alpha = 0
+      self.view.viewWithTag(33)?.alpha = 0
+      }, completion: {
+        val in
+        self.view.viewWithTag(31)?.removeFromSuperview()
+        self.view.viewWithTag(32)?.removeFromSuperview()
+        self.view.viewWithTag(33)?.removeFromSuperview()
+    })
+  }
+  
+  func dismissDatePicker(sender: AnyObject) {
+    removeViews()
+  }
+  
+  func dateDone(sender: AnyObject) {
+    date.text = DateHandler.getPrintDate(dateSelected)
+    removeViews()
+  }
+  
+  func callDatePicker(sender: UITextField) {
+
+    let trans = UIView(frame: self.view.frame)
+    trans.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
+    trans.tag = 31
+    let tap = UITapGestureRecognizer(target: self, action: "dismissDatePicker:")
+    trans.addGestureRecognizer(tap)
+    self.view.addSubview(trans)
+    
+    let datePickerFrame = CGRectMake(0, 0, 0, 0);
+    let datePicker = UIDatePicker(frame: datePickerFrame)
+    datePicker.tag = 32;
+    datePicker.backgroundColor = UIColor.whiteColor()
+    datePicker.datePickerMode = UIDatePickerMode.Date
+    datePicker.addTarget(self, action: "changeDate:", forControlEvents: UIControlEvents.ValueChanged)
+    datePicker.layer.borderWidth = 1.0
+    datePicker.layer.cornerRadius = 20.0
+    datePicker.layer.borderColor = UIColor.grayColor().CGColor
+    datePicker.layer.masksToBounds = true
+    self.view.addSubview(datePicker)
+  
+    
+    let dateDoneButtonFrame = CGRectMake(0, datePicker.frame.origin.y + datePicker.frame.height + self.view.frame.height, datePicker.frame.width, 50);
+    let dateDoneButton = UIButton(frame: dateDoneButtonFrame)
+    dateDoneButton.addTarget(self, action: "dateDone:", forControlEvents: UIControlEvents.TouchUpInside)
+    dateDoneButton.setTitle("Done", forState: UIControlState.Normal)
+    dateDoneButton.setTitleColor(UIColor(red: 0.039, green: 0.494, blue: 0.992, alpha: 1.00), forState: UIControlState.Normal)
+    dateDoneButton.setTitleColor(UIColor(red: 0.039, green: 0.494, blue: 0.992, alpha: 0.20), forState: UIControlState.Highlighted)
+    dateDoneButton.backgroundColor = UIColor.whiteColor()
+    dateDoneButton.layer.borderWidth = 1.0
+    dateDoneButton.layer.cornerRadius = 10.0
+    dateDoneButton.layer.borderColor = UIColor.grayColor().CGColor
+    dateDoneButton.tag = 33;
+    self.view.addSubview(dateDoneButton)
+    
+    
+    UIView.animateWithDuration(0.4, animations: {
+      datePicker.frame = CGRectMake(0, sender.frame.origin.y + sender.frame.height + 10, 0, 0)
+      dateDoneButton.frame = CGRectMake(0, datePicker.frame.origin.y + datePicker.frame.height, datePicker.frame.width, 50)
+    })
+
+  }
+  
+  // MARK: Date Popup - Start
   
   @IBAction func tapOnPin(sender: UITapGestureRecognizer) {
     pinImage.image = toggleImage()
@@ -188,17 +267,6 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, DateS
     if let role = NSUserDefaults.standardUserDefaults().stringForKey("userRole") {
       userRole = role
     }
-  }
-
-  
-  private func loadDateSelectorNIB(type: String) {
-    let dateVC = DateSelector(nibName: "DateSelector", bundle: nil)
-    dateVC.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-    dateVC.modalPresentationStyle = UIModalPresentationStyle.OverFullScreen
-    dateVC.delegate = self
-    dateVC.type = type
-    dateVC.pickerType = UIDatePickerMode.Date
-    presentViewController(dateVC, animated: true, completion: nil)
   }
   
   private func stylizeControls() {
@@ -350,12 +418,12 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, DateS
 
   func emailSuccessHandler(data: NSData) -> Void {
     commonHandler()
-    //handle success
+    println("Email sent successfully")
   }
 
-  func emailServiceErrorHandler(reponse: NSHTTPURLResponse) -> Void {
+  func emailServiceErrorHandler(response: NSHTTPURLResponse) -> Void {
     commonHandler()
-    // handle service error
+    println("Email Failed to send. Statuc code: \(response.statusCode)")
   }
   
   func saveProspectSuccess(data: NSData) -> Void {
@@ -440,13 +508,6 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, DateS
   }
   
   // MARK: Delegate Functions
-  func dateSelectorDidFinish(controller: DateSelector, type: String?) {
-    if let type = type {
-      if type == "ProspectDate" {
-        date.text = DateHandler.getPrintDate(controller.datePicker.date)
-      }
-    }
-  }
   
   func saveFinish() {
     dispatch_async(dispatch_get_main_queue()) {
@@ -459,17 +520,17 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, DateS
     }
   }
   
-  func textViewDidBeginEditing(textView: UITextView) {
-    UIView.animateWithDuration(0.5, animations: {
-      self.view.bounds.origin.y += self.keyBoardHeight - 50
-    })
-    
-  }
-  
-  func textViewDidEndEditing(textView: UITextView) {
-    UIView.animateWithDuration(0.5, animations: {
-      self.view.bounds.origin.y = 0
-    })
-  }
+//  func textViewDidBeginEditing(textView: UITextView) {
+//    UIView.animateWithDuration(0.5, animations: {
+//      self.view.bounds.origin.y += self.keyBoardHeight - 50
+//    })
+//    
+//  }
+//  
+//  func textViewDidEndEditing(textView: UITextView) {
+//    UIView.animateWithDuration(0.5, animations: {
+//      self.view.bounds.origin.y = 0
+//    })
+//  }
 
 }

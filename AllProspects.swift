@@ -102,7 +102,7 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    stylizeControls()
+    // stylizeControls()
 //    self.refreshControl = UIRefreshControl()
 //    self.refreshControl?.backgroundColor = Theme.Prospects.RefreshControlBackground
 //    self.refreshControl?.tintColor = Theme.Prospects.RefreshControl
@@ -174,7 +174,7 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
       }
       populateCellData(cell, withProspectDictionary: prospect)
       configureCellDetailText(cell, prospect: prospect, index: indexPath)
-      stylizeCell(cell, index: indexPath.row)
+      // stylizeCell(cell, index: indexPath.row)
       return cell
     } else {
       let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "context-id")

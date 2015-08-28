@@ -130,6 +130,7 @@
 		A34509AF1B5FBE8600B7E017 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				A3D197261B8F1F8C00509E7D /* Dead Prospects */,
 				A387E48B1B68EB3F00B02570 /* Theme */,
 				A3E79DA61B67F5A60044B85C /* TabBar */,
 				A3B0036D1B67906100766E19 /* Login */,
@@ -241,6 +242,13 @@
 			name = Login;
 			sourceTree = "<group>";
 		};
+		A3D197261B8F1F8C00509E7D /* Dead Prospects */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Dead Prospects";
+			sourceTree = "<group>";
+		};
 		A3E79DA61B67F5A60044B85C /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -350,6 +358,7 @@
 				TargetAttributes = {
 					A35BF76A1B5F943300D78515 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 67822934AQ;
 					};
 					A35BF7811B5F943300D78515 = {
 						CreatedOnToolsVersion = 6.4;
@@ -589,8 +598,9 @@
 			baseConfigurationReference = 0880E5044E4D9D48C550ADBE /* Pods-PreSales-Huddle.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "PreSales-Huddle/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "PreSales-Huddle";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
@@ -602,8 +612,9 @@
 			baseConfigurationReference = 1F48A872828FB688629F81B9 /* Pods-PreSales-Huddle.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "PreSales-Huddle/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "PreSales-Huddle";
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";

@@ -9,7 +9,7 @@
 #ifndef BRIDGING_HEADER_H
 #define BRIDGING_HEADER_H
 
-#import "CorePlot-CocoaTouch.h"
+#import <CorePlot-CocoaTouch.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <Google/SignIn.h>
 
