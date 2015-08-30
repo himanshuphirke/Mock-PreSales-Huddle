@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate, DateSelectorDelegate {
+class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, DateSelectorDelegate {
 
   var hud:MBProgressHUD?
   var allParticipants = [Participant]()
@@ -25,16 +25,18 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
   @IBOutlet weak var participants_selected_count: UILabel!
   @IBOutlet weak var selection_note: UILabel!
   @IBOutlet weak var done: UIBarButtonItem!
-  @IBOutlet weak var from_date_label: UILabel!
-  @IBOutlet weak var to_date_label: UILabel!
-  @IBOutlet weak var duration_label: UILabel!
+  
+  @IBOutlet weak var from_date_label: UITextField!
+  @IBOutlet weak var to_date_label: UITextField!
+  @IBOutlet weak var duration_label: UITextField!
+  
   @IBOutlet weak var currentTableView: UITableView!
   @IBOutlet weak var noParticipantsLabel: UILabel!
   
 // MARK: view functions
   override func viewDidLoad() {
     super.viewDidLoad()
-    stylizeControls()
+    // stylizeControls()
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -57,13 +59,28 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
     }
   }
 
-  @IBAction func from_date(sender: UITapGestureRecognizer) {
-    loadDateSelectorNIB("From")
+  
+  func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    if textField.tag == 333 {
+      let dateVC = DateSelector(nibName: "DateSelector", bundle: nil)
+      dateVC.modalPresentationStyle = UIModalPresentationStyle.OverFullScreen
+      dateVC.delegate = self
+      dateVC.type = "From"
+      dateVC.senderFrame = textField.frame
+      presentViewController(dateVC, animated: false, completion: nil)
+      return false
+    } else if textField.tag == 444 {
+      let dateVC = DateSelector(nibName: "DateSelector", bundle: nil)
+      dateVC.modalPresentationStyle = UIModalPresentationStyle.OverFullScreen
+      dateVC.delegate = self
+      dateVC.type = "To"
+      dateVC.senderFrame = textField.frame
+      presentViewController(dateVC, animated: false, completion: nil)
+      return false
+    }
+    return true
   }
   
-  @IBAction func to_date(sender: UITapGestureRecognizer) {
-    loadDateSelectorNIB("To")
-  }
 // MARK: tableView functions
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return allParticipants.count
@@ -74,7 +91,7 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
     let participant = allParticipants[indexPath.row]
     populateCellData(cell, withParticipant: participant)
     configureSelectionLabel()
-    stylizeCell(cell,index: indexPath.row)
+    // stylizeCell(cell,index: indexPath.row)
     return cell
   }
   
@@ -356,13 +373,13 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
 
 
   // MARK: Delegate Functions
-  func dateSelectorDidFinish(controller: DateSelector, type: String?) {
+  func dateSelectorDidFinish(dateFromVC: NSDate, type: String?) {
     if let type = type {
       if type == "From" {
-        fromDate = controller.datePicker.date
+        fromDate = dateFromVC
         from_date_label.text = DateHandler.getPrintDateTime(fromDate)
       } else if type == "To" {
-        toDate = controller.datePicker.date
+        toDate = dateFromVC
         to_date_label.text = DateHandler.getPrintDateTime(toDate)
         duration_label.text = Int(((toDate.timeIntervalSince1970 - fromDate.timeIntervalSince1970) / 60)).description + " minutes"
       }

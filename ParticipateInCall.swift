@@ -23,22 +23,11 @@ class ParticipateInCall:UIViewController, UIPickerViewDataSource, UIPickerViewDe
   @IBOutlet weak var save: UIButton!
   override func viewDidLoad() {
     super.viewDidLoad()
-    stylizeControls()
+    date.hidden = true
+    date_label.hidden = true
+    // stylizeControls()
   }
   
-  @IBAction func date_click(sender: UITextField) {
-    loadDateSelectorNIB("AvailabilityDate")
-  }
-  private func loadDateSelectorNIB(type: String) {
-    let dateVC = DateSelector(nibName: "DateSelector", bundle: nil)
-    dateVC.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-    dateVC.modalPresentationStyle = UIModalPresentationStyle.OverFullScreen
-    dateVC.delegate = self
-    dateVC.type = type
-    dateVC.pickerType = UIDatePickerMode.Date
-    presentViewController(dateVC, animated: true, completion: nil)
-  }
-
   @IBAction func save_click(sender: UIButton) {
     self.navigationController?.popViewControllerAnimated(true)
     delegate?.saveFinish()
@@ -75,7 +64,6 @@ class ParticipateInCall:UIViewController, UIPickerViewDataSource, UIPickerViewDe
     if row == 2 {
       date.hidden = false
       date_label.hidden = false
-      date.becomeFirstResponder()
       save.enabled = false
     } else {
       date.hidden = true
@@ -86,14 +74,26 @@ class ParticipateInCall:UIViewController, UIPickerViewDataSource, UIPickerViewDe
   
   // MARK: Delegate Functions
   
-  func textFieldDidEndEditing(textField: UITextField) {
-    save.enabled = true
+  func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    if textField.tag == 333 {
+      let dateVC = DateSelector(nibName: "DateSelector", bundle: nil)
+      dateVC.modalPresentationStyle = UIModalPresentationStyle.OverFullScreen
+      dateVC.delegate = self
+      dateVC.type = "AvailabilityDate"
+      dateVC.pickerType = UIDatePickerMode.Date
+      dateVC.senderFrame = textField.frame
+      presentViewController(dateVC, animated: false, completion: nil)
+      return false
+    } else {
+      return true
+    }
+    
   }
-  func dateSelectorDidFinish(controller: DateSelector, type: String?) {
+  func dateSelectorDidFinish(dateFromVC: NSDate, type: String?) {
     if let type = type {
       if type == "AvailabilityDate" {
-        date.text = DateHandler.getPrintDate(controller.datePicker.date)
-        date.resignFirstResponder()
+        date.text = DateHandler.getPrintDate(dateFromVC)
+        save.enabled = true
       }
     }
   }

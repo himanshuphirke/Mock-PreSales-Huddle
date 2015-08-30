@@ -17,7 +17,7 @@ class AllClients: UITableViewController {
   // MARK: View Functions
   
   override func viewDidLoad() {
-    stylizeControls()
+    // stylizeControls()
     self.refreshControl = UIRefreshControl()
     self.refreshControl?.backgroundColor = Theme.Clients.RefreshControlBackground
     self.refreshControl?.tintColor = Theme.Clients.RefreshControl
@@ -44,7 +44,7 @@ class AllClients: UITableViewController {
     let cell = tableView.dequeueReusableCellWithIdentifier("client-id") as! UITableViewCell
     let client = allClients[indexPath.row] as [String: AnyObject]
     populateCellData(cell, withProspectDictionary: client)
-    stylizeCell(cell, index: indexPath.row)
+    // stylizeCell(cell, index: indexPath.row)
     return cell
   }
   
@@ -79,7 +79,7 @@ class AllClients: UITableViewController {
         if let buHead = client["BUHead"] as? String {
           if let size = client["TeamSize"] as? Int {
             cell.detailTextLabel!.text = "Team Size: \(size) BU Head: \(buHead)"
-            cell.detailTextLabel!.textColor = Theme.Clients.detailText
+            cell.detailTextLabel!.textColor = Theme.Prospects.detailText
           } else {
             cell.detailTextLabel!.text = ""
           }

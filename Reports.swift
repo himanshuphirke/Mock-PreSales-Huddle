@@ -16,7 +16,7 @@ class Reports: UITableViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    stylizeControls()
+    // stylizeControls()
     self.refreshControl = UIRefreshControl()
     self.refreshControl?.backgroundColor = Theme.Reports.RefreshControlBackground
     self.refreshControl?.tintColor = Theme.Reports.RefreshControl
@@ -51,7 +51,7 @@ class Reports: UITableViewController {
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("ReportCell", forIndexPath: indexPath) as! UITableViewCell
     cell.textLabel?.text = data[indexPath.row]
-    stylizeCell(cell, index: indexPath.row)
+    // stylizeCell(cell, index: indexPath.row)
     return cell
   }
   

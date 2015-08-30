@@ -13,7 +13,7 @@ protocol ProspectDelgate: class {
   func saveProspectFinish(name: String)
 }
 
-class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, ParticipateInCallDelgate  {
+class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, ParticipateInCallDelgate, DateSelectorDelegate  {
 
   var hud:MBProgressHUD?
   var delegate: ProspectDelgate?
@@ -137,12 +137,20 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, Parti
     saveParticipantWebService(participant, method:operation)
     
   }
-  
-  @IBAction func date_click(sender: UITextField) {
-    sender.resignFirstResponder()
-    callDatePicker(sender)
+  func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    if textField.tag == 333 {
+      let dateVC = DateSelector(nibName: "DateSelector", bundle: nil)
+      dateVC.modalPresentationStyle = UIModalPresentationStyle.OverFullScreen
+      dateVC.delegate = self
+      dateVC.type = "StartDate"
+      dateVC.pickerType = UIDatePickerMode.Date
+      dateVC.senderFrame = textField.frame
+      presentViewController(dateVC, animated: false, completion: nil)
+      return false
+    } else {
+      return true
+    }
   }
-  
   // MARK: Date Popup - Start
   
   func changeDate(sender: UIDatePicker) {
@@ -150,7 +158,7 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, Parti
   }
   
   func removeViews() {
-    UIView.animateWithDuration(0.5, animations: {
+    UIView.animateWithDuration(0.7, animations: {
       self.view.viewWithTag(31)?.alpha = 0
       self.view.viewWithTag(32)?.alpha = 0
       self.view.viewWithTag(33)?.alpha = 0
@@ -214,7 +222,7 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, Parti
 
   }
   
-  // MARK: Date Popup - Start
+  // MARK: Date Popup - End
   
   @IBAction func tapOnPin(sender: UITapGestureRecognizer) {
     pinImage.image = toggleImage()
@@ -519,6 +527,16 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, Parti
       hudMessage.yOffset = Float(self.view.frame.size.height/2 - 100)
     }
   }
+  
+  func dateSelectorDidFinish(dateFromVC: NSDate, type: String?) {
+    if let type = type {
+      if type == "StartDate" {
+        date.text = DateHandler.getPrintDate(dateFromVC)
+        date.resignFirstResponder()
+      }
+    }
+  }
+
   
 //  func textViewDidBeginEditing(textView: UITextView) {
 //    UIView.animateWithDuration(0.5, animations: {

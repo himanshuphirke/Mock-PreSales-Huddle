@@ -21,7 +21,7 @@ class Charts: UITableViewController, CPTPlotDataSource, CPTPieChartDataSource, C
   }
   
   override func viewDidLoad() {
-    stylizeControls()
+    // stylizeControls()
   }
   // MARK: Internal Functions
   private func stylizeCell(cell: UITableViewCell, index: Int) {
@@ -75,7 +75,7 @@ class Charts: UITableViewController, CPTPlotDataSource, CPTPieChartDataSource, C
     if (indexPath.row < keys.count) {
       cell.textLabel?.text = self.keys[indexPath.row]
     }
-    stylizeCell(cell, index: indexPath.row)
+    // stylizeCell(cell, index: indexPath.row)
     cell.accessoryType = UITableViewCellAccessoryType.Checkmark
     let key = keys[indexPath.row]
     pieChartData[key]?.selected_ = true

@@ -24,7 +24,7 @@ class ConvertClient: UIViewController, DateSelectorDelegate {
 // MARK: view functions
   override func viewDidLoad() {
     super.viewDidLoad()
-    stylizeControls()
+    // stylizeControls()
     if let name = prospectName {
       prospect_name.text = name
     }
@@ -36,18 +36,18 @@ class ConvertClient: UIViewController, DateSelectorDelegate {
     updateProspectToWebService(updateProspectURL)
   }
   @IBAction func date_click(sender: UITextField) {
-    loadDateSelectorNIB("StartDate")
+    let dateVC = DateSelector(nibName: "DateSelector", bundle: nil)
+    dateVC.modalPresentationStyle = UIModalPresentationStyle.OverFullScreen
+    dateVC.delegate = self
+    dateVC.type = "StartDate"
+    dateVC.pickerType = UIDatePickerMode.Date
+    dateVC.senderFrame = sender.frame
+    presentViewController(dateVC, animated: false, completion: nil)
   }
   
 // MARK : private functions
   
   private func loadDateSelectorNIB(type: String) {
-    let dateVC = DateSelector(nibName: "DateSelector", bundle: nil)
-    dateVC.modalTransitionStyle = UIModalTransitionStyle.CoverVertical
-    dateVC.delegate = self
-    dateVC.type = type
-    dateVC.pickerType = UIDatePickerMode.Date
-    presentViewController(dateVC, animated: true, completion: nil)
   }
 
   private func commonHandler() {
@@ -131,12 +131,13 @@ class ConvertClient: UIViewController, DateSelectorDelegate {
   }
 
   // MARK: Delegate Functions
-  func dateSelectorDidFinish(controller: DateSelector, type: String?) {
+  func dateSelectorDidFinish(dateFromVC: NSDate, type: String?) {
     if let type = type {
       if type == "StartDate" {
-        startDate = controller.datePicker.date
+        startDate = dateFromVC
         start_date.text = DateHandler.getPrintDate(startDate)
         done.enabled = true
+        start_date.resignFirstResponder()
       }
     }
   }
