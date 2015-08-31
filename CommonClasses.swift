@@ -14,3 +14,10 @@ class TupleWrapper {
     self.tuple = tuple
   }
 }
+
+class TupleWrapperSceduleCall {
+    let tuple : (id:Int, data:String, prospectName: String, prospect:[String: AnyObject])
+    init(tuple : (Int, String, String, [String: AnyObject])) {
+        self.tuple = tuple
+    }
+}

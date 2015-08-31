@@ -83,7 +83,7 @@ class EmailNotification {
         return request
     }
     
-    private func createMailer(successHandler:(NSData) -> Void, handleServiceError: (NSHTTPURLResponse) -> Void) -> NSURLSessionUploadTask {
+    func sendEmail(successHandler:(NSData) -> Void, handleServiceError: (NSHTTPURLResponse) -> Void) {
         let mimeTextArr = getMimetextArray(receivers, sender: self.sender, sub: subject, emailText: emailBody)
         let messageText = makeAString(mimeTextArr)
         
@@ -95,33 +95,17 @@ class EmailNotification {
         let session = NSURLSession(configuration: config_)
         
         let requestBody = encodeJSON(["raw":encodedMsg])
-        return session.uploadTaskWithRequest(request, fromData: requestBody,
-            completionHandler: {
-                data, response, error in
-                if let error = error {
-                    //error
-                    self.handleError(error)
-                } else if let http_response = response as? NSHTTPURLResponse {
-                    if http_response.statusCode == 200 {
-                        if let data = data {
-                            //success
-                            successHandler(data)
-                        } else {
-                            // This case could be seen only when Webservice fails to return data
-                            // and only sends 200 status code
-                        }
-                    } else {
-                        // service error
-                        handleServiceError(http_response)
-                    }
-                }
-        })
+        let nc = NetworkCommunication()
+        var successful = false
+        if let data = requestBody {
+          nc.postData(data, successHandler: successHandler,
+            serviceErrorHandler: handleServiceError,
+            errorHandler: errorHandler,
+            request: request)
+        }
     }
     
-    func sendEmail(successHandler:(NSData) -> Void, handleServiceError: (NSHTTPURLResponse) -> Void) {
-        mailer?.cancel()
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-        mailer = createMailer(successHandler, handleServiceError: handleServiceError)
-        mailer?.resume()
+    func errorHandler(err: NSError) {
+        println("\(err)")
     }
 }

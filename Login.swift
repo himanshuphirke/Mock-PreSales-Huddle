@@ -57,9 +57,9 @@ class Login : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UI
   }
   
   private func initGoogleSignIn() {
-    let gmailScope = "https://www.googleapis.com/auth/gmail.send"
+    let apiScopes = ["https://www.googleapis.com/auth/gmail.send", "https://www.googleapis.com/auth/calendar"]
     var currentScopes = GIDSignIn.sharedInstance().scopes as NSArray
-    GIDSignIn.sharedInstance().scopes = currentScopes.arrayByAddingObject(gmailScope)
+    GIDSignIn.sharedInstance().scopes = currentScopes.arrayByAddingObjectsFromArray(apiScopes)
     // Initialize sign-in
     var configureError: NSError?
     GGLContext.sharedInstance().configureWithError(&configureError)

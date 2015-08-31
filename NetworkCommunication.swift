@@ -74,44 +74,52 @@ class NetworkCommunication {
   // serviceErrorHandler: Handler called to handle webservice valid errors
   // error: Handler for error in network communication
   
-  func postData(relativeURL:String,
-    data:NSData,
+  func postData(data:NSData,
     successHandler:(NSData) -> Void,
     serviceErrorHandler: (NSHTTPURLResponse) -> Void,
-    errorHandler:(NSError) -> Void) -> Bool {
-      var retValue:Bool = false
-      let url = urlwithText(relativeURL)
-      if (url == nil) {
-        println("Error: Unable to form a valid URL")
-        return retValue
-      }
-      config_.timeoutIntervalForRequest = requestTimeOut
+    errorHandler:(NSError) -> Void,
+    request: NSMutableURLRequest?,
+    relativeURL:String = "") -> Bool {
+      UIApplication.sharedApplication().networkActivityIndicatorVisible = true
       let session = NSURLSession(configuration: config_)
       postTask?.cancel()
-      let request = NSMutableURLRequest(URL: url!)
-      request.HTTPMethod = "POST"
-      UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-      postTask = session.uploadTaskWithRequest(request, fromData: data,
-        completionHandler: {
-          data, response, error in
-          if let error = error {
-            errorHandler(error)
-          } else if let http_response = response as? NSHTTPURLResponse {
-            if http_response.statusCode == 200 {
-              if let data = data {
-                successHandler(data)
+      let postRequest = (request != nil) ? request : getRequest(relativeURL)
+      if let urlRequest = postRequest {
+        postTask = session.uploadTaskWithRequest(urlRequest, fromData: data,
+          completionHandler: {
+            data, response, error in
+            if let error = error {
+              errorHandler(error)
+            } else if let http_response = response as? NSHTTPURLResponse {
+              if http_response.statusCode == 200 {
+                if let data = data {
+                  successHandler(data)
+                } else {
+                  // This case coule be seen only when Webservice fails to return data
+                  // and only sends 200 status code
+                }
               } else {
-                // This case coule be seen only when Webservice fails to return data
-                // and only sends 200 status code
-                retValue = false
+                serviceErrorHandler(http_response)
               }
-            } else {
-              serviceErrorHandler(http_response)
             }
-          }
-      })
+        })
+      } else {
+        println("PostTask Error: Unable to unwrap request from optional")
+        return false
+      }
       postTask?.resume()
-      retValue = true
-      return retValue
+      return true
+  }
+    
+  private func getRequest(relativeURL:String) -> NSMutableURLRequest? {
+    let url = urlwithText(relativeURL)
+    if (url == nil) {
+      println("Error: Unable to form a valid URL")
+      return nil
+    }
+    config_.timeoutIntervalForRequest = requestTimeOut
+    let request = NSMutableURLRequest(URL: url!)
+    request.HTTPMethod = "POST"
+    return request
   }
 }

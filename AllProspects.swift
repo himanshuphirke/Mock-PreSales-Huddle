@@ -202,12 +202,14 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
           performSegueWithIdentifier("EditProspect", sender: self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowTapped, inSection: 0)))
         case 1:
           let prospectID = allProspects[rowTapped]["ProspectID"] as! Int
-          let idAndType = TupleWrapper(tuple: (prospectID, "Prep"))
+          let name = allProspects[rowTapped]["Name"] as! String
+          let idAndType = TupleWrapperSceduleCall(tuple: (prospectID, "Prep", name, allProspects[rowTapped]))
           performSegueWithIdentifier("ContextMenuScheduleCall", sender: idAndType)
 
         case 2:
           let prospectID = allProspects[rowTapped]["ProspectID"] as! Int
-          let idAndType = TupleWrapper(tuple: (prospectID, "Client"))
+          let name = allProspects[rowTapped]["Name"] as! String
+          let idAndType = TupleWrapperSceduleCall(tuple: (prospectID, "Prep", name, allProspects[rowTapped]))
           performSegueWithIdentifier("ContextMenuScheduleCall", sender: idAndType)
 
         case 3:
@@ -528,15 +530,12 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
       let targetView = segue.destinationViewController as! Prospect
       targetView.delegate = self      
     } else if segue.identifier == "ContextMenuScheduleCall" {
-      let s = sender as! TupleWrapper
+      let s = sender as! TupleWrapperSceduleCall
       let targetView = segue.destinationViewController as! ScheduleCall
       targetView.title = "Schedule a \(s.tuple.data) Call"
       targetView.prospectID = s.tuple.id
-    } else if segue.identifier == "ContextMenuScheduleCall" {
-      let s = sender as! TupleWrapper
-      let targetView = segue.destinationViewController as! ScheduleCall
-      targetView.title = "Schedule a \(s.tuple.data) Call"
-      targetView.prospectID = s.tuple.id
+      targetView.mockProspectData = ["Type": s.tuple.data,
+        "ProspectName":s.tuple.prospectName, "Prospect":s.tuple.prospect]
     } else if segue.identifier == "ContextSetupReminders" {
 
     } else if segue.identifier == "ContextDeadProspect" {

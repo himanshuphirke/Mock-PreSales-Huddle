@@ -358,10 +358,12 @@ class Discussions: UITableViewController {
     func postUpdate(dataEncoded: NSData, url: String) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         let nc = NetworkCommunication()
-        let retValue = nc.postData(url,
-            data: dataEncoded,
-            successHandler: service_success_post, serviceErrorHandler: service_error,
-            errorHandler: network_error)
+        let retValue = nc.postData(dataEncoded,
+            successHandler: service_success_post,
+            serviceErrorHandler: service_error,
+            errorHandler: network_error,
+            request: nil,
+            relativeURL: url)
     }
     
     func cacheAnswers() {

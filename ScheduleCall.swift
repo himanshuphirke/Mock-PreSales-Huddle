@@ -19,6 +19,9 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
   var toDate: NSDate = NSDate()
   var fromDate: NSDate = NSDate()
 
+  // used for mock screens only
+    var mockProspectData = [String:AnyObject]()
+
   // MARK: Outlets
   
   @IBOutlet weak var tableView: UITableView!
@@ -315,7 +318,38 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
       self.showMessage("Data saved",
         message: "Data saved succesfully.")
     }
-  }
+
+    //add an event
+    let user = GIDSignIn.sharedInstance().currentUser
+    let auth = user.authentication
+    auth.getAccessTokenWithHandler({ (tokenstr, err) -> Void in
+        if err == nil {
+            var prospectName = self.mockProspectData["ProspectName"] as! String
+            var callType = self.mockProspectData["Type"] as! String
+            var prospect = self.mockProspectData["Prospect"] as! [String:AnyObject]
+            
+            var gCal = GoogleCalendarNotification(token: tokenstr)
+            gCal.startDate = self.fromDate
+            gCal.endDate = self.toDate
+            gCal.summary = "[\(prospectName)] \(callType) Call"
+            gCal.attendees = ["vinaya.mandke@synerzip.com","himanshu.phirke@synerzip.com"]
+            gCal.createEventAndSendNotifications(self.eventSuccessHandler,
+                handleServiceError: self.eventServiceErrorHandler)
+        }
+    })
+
+    }
+
+    func eventSuccessHandler(data: NSData) -> Void {
+        commonHandler()
+        //handle success
+    }
+
+    func eventServiceErrorHandler(response: NSHTTPURLResponse) -> Void {
+        commonHandler()
+        // handle service error
+        println(response.description)
+    }
   
   func saveProspectSuccess(data: NSData) -> Void {
     commonHandler()
@@ -345,10 +379,12 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
     println("Prospect save:  \(dict)")
     if let data = getNSData(dict) {
       let nc = NetworkCommunication()
-      nc.postData(method, data: data,
+      nc.postData(data,
         successHandler: saveProspectSuccess,
         serviceErrorHandler: serviceError,
-        errorHandler: networkError)
+        errorHandler: networkError,
+        request: nil,
+        relativeURL: method)
     } else {
       showMessage("Failure", message: "Failed to convert data")
     }

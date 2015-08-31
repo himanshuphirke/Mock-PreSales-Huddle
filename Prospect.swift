@@ -356,10 +356,12 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, Parti
     println("Prospect save:  \(dict)")
     if let data = getNSData(dict) {
       let nc = NetworkCommunication()
-      nc.postData(method, data: data,
+      nc.postData(data,
           successHandler: saveProspectSuccess,
           serviceErrorHandler: serviceError,
-          errorHandler: networkError)
+          errorHandler: networkError,
+          request: nil,
+          relativeURL: method)
     } else {
       showMessage("Failure", message: "Failed to convert data")
     }
