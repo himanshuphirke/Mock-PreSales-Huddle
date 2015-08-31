@@ -257,8 +257,8 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, Parti
     dateFieldLabel.font = UIFont.systemFontOfSize(14)
     dateFieldLabel.sizeToFit()
     dateFieldLabel.textColor = UIColor.grayColor()
-    date.leftViewMode = UITextFieldViewMode.Always
-    date.leftView = dateFieldLabel
+    date.rightViewMode = UITextFieldViewMode.Always
+    date.rightView = dateFieldLabel
 
     
     let statusFieldLabel = UILabel(frame: CGRectZero)
@@ -266,9 +266,58 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, Parti
     statusFieldLabel.font = UIFont.systemFontOfSize(14)
     statusFieldLabel.sizeToFit()
     statusFieldLabel.textColor = UIColor.grayColor()
-    status.leftViewMode = UITextFieldViewMode.Always
-    status.leftView = statusFieldLabel
+    status.rightViewMode = UITextFieldViewMode.Always
+    status.rightView = statusFieldLabel
+    
+    let nameFieldLabel = UILabel(frame: CGRectZero)
+    nameFieldLabel.text = " Name "
+    nameFieldLabel.font = UIFont.systemFontOfSize(14)
+    nameFieldLabel.sizeToFit()
+    nameFieldLabel.textColor = UIColor.grayColor()
+    name.rightViewMode = UITextFieldViewMode.Always
+    name.rightView = nameFieldLabel
+    
+    
+    let techStackFieldLabel = UILabel(frame: CGRectZero)
+    techStackFieldLabel.text = " TechStack "
+    techStackFieldLabel.font = UIFont.systemFontOfSize(14)
+    techStackFieldLabel.sizeToFit()
+    techStackFieldLabel.textColor = UIColor.grayColor()
+    techStack.rightViewMode = UITextFieldViewMode.Always
+    techStack.rightView = techStackFieldLabel
+    
+    let desiredTeamSizeFieldLabel = UILabel(frame: CGRectZero)
+    desiredTeamSizeFieldLabel.text = " Desired Team Size "
+    desiredTeamSizeFieldLabel.font = UIFont.systemFontOfSize(14)
+    desiredTeamSizeFieldLabel.sizeToFit()
+    desiredTeamSizeFieldLabel.textColor = UIColor.grayColor()
+    desiredTeamSize.rightViewMode = UITextFieldViewMode.Always
+    desiredTeamSize.rightView = desiredTeamSizeFieldLabel
+    
+    
+    let listOfContactsFieldLabel = UILabel(frame: CGRectZero)
+    listOfContactsFieldLabel.text = " List of Contacts "
+    listOfContactsFieldLabel.font = UIFont.systemFontOfSize(14)
+    listOfContactsFieldLabel.sizeToFit()
+    listOfContactsFieldLabel.textColor = UIColor.grayColor()
+    listOfContacts.rightViewMode = UITextFieldViewMode.Always
+    listOfContacts.rightView = listOfContactsFieldLabel
+    
+    let domainFieldLabel = UILabel(frame: CGRectZero)
+    domainFieldLabel.text = " Domain "
+    domainFieldLabel.font = UIFont.systemFontOfSize(14)
+    domainFieldLabel.sizeToFit()
+    domainFieldLabel.textColor = UIColor.grayColor()
+    domain.rightViewMode = UITextFieldViewMode.Always
+    domain.rightView = domainFieldLabel
   
+    let desiredtTeamDescFieldLabel = UILabel(frame: CGRectZero)
+    desiredtTeamDescFieldLabel.text = " Team Composition "
+    desiredtTeamDescFieldLabel.font = UIFont.systemFontOfSize(14)
+    desiredtTeamDescFieldLabel.sizeToFit()
+    desiredtTeamDescFieldLabel.textColor = UIColor.grayColor()
+    desiredtTeamDesc.rightViewMode = UITextFieldViewMode.Always
+    desiredtTeamDesc.rightView = desiredtTeamDescFieldLabel
   }
   
   private func getUserRole() {

@@ -30,6 +30,8 @@ class AllDead: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//    let item =  self.tabBarController?.tabBar.items as! [UITabBarItem]
+//    item[3].badgeValue = "\(deadClients.count)"
     return deadClients.count
   }
   

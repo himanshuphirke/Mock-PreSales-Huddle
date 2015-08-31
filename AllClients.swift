@@ -36,6 +36,8 @@ class AllClients: UITableViewController {
   
   // MARK: tableView Functions
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//    let item =  self.tabBarController?.tabBar.items as! [UITabBarItem]
+//    item[1].badgeValue = "\(allClients.count)"
     return allClients.count
   }
   

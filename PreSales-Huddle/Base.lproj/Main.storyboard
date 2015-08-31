@@ -67,7 +67,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qjg-cA-XqN">
                                 <rect key="frame" x="16" y="453" width="383" height="46"/>
                                 <color key="tintColor" red="0.23086451480263162" green="0.20000000000000001" blue="1" alpha="0.62" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <connections>
                                     <outlet property="delegate" destination="oEm-za-de6" id="bIT-Z5-kzf"/>
@@ -131,8 +131,12 @@
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="VZW-DK-cRj"/>
-                                    <constraint firstAttribute="width" constant="40" id="gkm-JU-5Ny"/>
+                                    <constraint firstAttribute="height" constant="40" id="VZW-DK-cRj">
+                                        <variation key="heightClass=regular" constant="30"/>
+                                    </constraint>
+                                    <constraint firstAttribute="width" constant="40" id="gkm-JU-5Ny">
+                                        <variation key="heightClass=regular" constant="30"/>
+                                    </constraint>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -2199,6 +2203,13 @@
                                 <exclude reference="SuW-BM-yAy"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="8u2-d6-fay"/>
+                                <exclude reference="WNI-dz-3nY"/>
+                                <exclude reference="avy-BU-A8t"/>
+                                <exclude reference="eqE-3a-99K"/>
+                                <exclude reference="hA6-Lv-xIe"/>
+                                <exclude reference="jj4-AZ-ixX"/>
+                                <exclude reference="zl6-YY-qRF"/>
                                 <exclude reference="88e-hq-VuI"/>
                                 <exclude reference="FGb-bU-2L8"/>
                                 <exclude reference="byn-BT-KyY"/>
@@ -2207,20 +2218,13 @@
                                 <exclude reference="Vqc-xS-NUM"/>
                                 <exclude reference="oL2-ZC-Uin"/>
                                 <exclude reference="xt0-6d-P7T"/>
-                                <exclude reference="8u2-d6-fay"/>
-                                <exclude reference="WNI-dz-3nY"/>
-                                <exclude reference="avy-BU-A8t"/>
-                                <exclude reference="eqE-3a-99K"/>
-                                <exclude reference="hA6-Lv-xIe"/>
-                                <exclude reference="jj4-AZ-ixX"/>
-                                <exclude reference="zl6-YY-qRF"/>
+                                <exclude reference="OJ1-oi-gwR"/>
                                 <exclude reference="8Um-sK-uD6"/>
                                 <exclude reference="FRS-u5-IVH"/>
                                 <exclude reference="qLL-Mr-R05"/>
                                 <exclude reference="3Jo-86-OCB"/>
                                 <exclude reference="fuh-uJ-3O6"/>
                                 <exclude reference="jnm-ac-Laa"/>
-                                <exclude reference="OJ1-oi-gwR"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular">
@@ -2233,6 +2237,13 @@
                                 <include reference="SuW-BM-yAy"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="8u2-d6-fay"/>
+                                <include reference="WNI-dz-3nY"/>
+                                <include reference="avy-BU-A8t"/>
+                                <include reference="eqE-3a-99K"/>
+                                <include reference="hA6-Lv-xIe"/>
+                                <include reference="jj4-AZ-ixX"/>
+                                <include reference="zl6-YY-qRF"/>
                                 <include reference="88e-hq-VuI"/>
                                 <include reference="FGb-bU-2L8"/>
                                 <include reference="byn-BT-KyY"/>
@@ -2241,20 +2252,13 @@
                                 <include reference="Vqc-xS-NUM"/>
                                 <exclude reference="oL2-ZC-Uin"/>
                                 <include reference="xt0-6d-P7T"/>
-                                <include reference="8u2-d6-fay"/>
-                                <include reference="WNI-dz-3nY"/>
-                                <include reference="avy-BU-A8t"/>
-                                <include reference="eqE-3a-99K"/>
-                                <include reference="hA6-Lv-xIe"/>
-                                <include reference="jj4-AZ-ixX"/>
-                                <include reference="zl6-YY-qRF"/>
+                                <include reference="OJ1-oi-gwR"/>
                                 <include reference="8Um-sK-uD6"/>
                                 <include reference="FRS-u5-IVH"/>
                                 <include reference="qLL-Mr-R05"/>
                                 <include reference="3Jo-86-OCB"/>
                                 <include reference="fuh-uJ-3O6"/>
                                 <include reference="jnm-ac-Laa"/>
-                                <include reference="OJ1-oi-gwR"/>
                             </mask>
                         </variation>
                     </view>

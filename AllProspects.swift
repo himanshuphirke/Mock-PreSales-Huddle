@@ -128,9 +128,9 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
-    UIView.animateWithDuration(0.3, animations: {
-      self.tabBarController?.tabBar.hidden = false
-    })
+//    UIView.animateWithDuration(0.3, animations: {
+//      self.tabBarController?.tabBar.hidden = false
+//    })
 
     accessControl()
     fetchData()
@@ -143,6 +143,9 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
       if isFiltered == true {
         rows = filteredProspects.count
       }
+
+      let item =  self.tabBarController?.tabBar.items as! [UITabBarItem]
+      item[0].badgeValue = "1"
       return rows
     } else {
       return contextMenu.count
@@ -162,9 +165,11 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
     if tableView == self.tableView {
       let cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "prospect-id")
       cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-      var prospect = allProspects[indexPath.row] as [String: AnyObject]
+      var prospect = [String: AnyObject]()
       if isFiltered == true {
         prospect = filteredProspects[indexPath.row] as [String: AnyObject]
+      } else {
+        prospect = allProspects[indexPath.row] as [String: AnyObject]
       }
       populateCellData(cell, withProspectDictionary: prospect)
       configureCellDetailText(cell, prospect: prospect, index: indexPath)
@@ -266,18 +271,19 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     cell.detailTextLabel!.text = prospect["TechStack"] as? String
     cell.detailTextLabel!.textColor = Theme.Prospects.detailText
-    let unread = UILabel(frame: CGRectMake(frame.width - 130, 8,60,30))
+    
+    let unread = UILabel(frame: CGRectMake(frame.width - 145, 8,60,30))
     unread.text = prospect["Unread"] as? String
-    unread.font = UIFont(name: "Palatino-Italic", size: 10)
-    unread.textColor = Theme.Prospects.detailText
+    unread.font = UIFont(name: "Palatino", size: 11)
+    unread.textColor = UIColor.brownColor()
     unread.sizeToFit()
     cell.contentView.addSubview(unread)
     
-    let participants = UILabel(frame: CGRectMake(frame.width - 130, 26,60,30))
+    let participants = UILabel(frame: CGRectMake(frame.width - 145, 26,60,30))
     participants.text = prospect["Participants"] as? String
-    participants.font = UIFont(name: "Palatino-Italic", size: 10)
+    participants.font = UIFont(name: "Palatino", size: 11)
     participants.sizeToFit()
-    participants.textColor = Theme.Prospects.detailText
+    participants.textColor = UIColor.blackColor()
     cell.contentView.addSubview(participants)
     
   }
@@ -285,14 +291,14 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   private func configureCellImage(cell: UITableViewCell, prospect: [String: AnyObject]) {
     if let name = prospect["PinStatus"] as? String {
       if name == "Pin" {
-        let iconImage = UIImageView(frame: CGRectMake(tableView.frame.width - 170,4,30,30))
+        let iconImage = UIImageView(frame: CGRectMake(tableView.frame.width - 170,cell.frame.height / 2 - 10,20,20))
         iconImage.image = UIImage(named: "pin")
         cell.contentView.addSubview(iconImage)
       }
     }
     
     if let name = prospect["CallStatus"] as? String {
-        let iconImage = UIImageView(frame: CGRectMake(tableView.frame.width - 60,6,30,30))
+        let iconImage = UIImageView(frame: CGRectMake(tableView.frame.width - 60, cell.frame.height / 2 - 10,20,20))
         iconImage.image = UIImage(named: name)
         cell.contentView.addSubview(iconImage)
     }
@@ -316,11 +322,11 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   }
 
   class func fillData() -> [[String: AnyObject]] {
-    let prospect1 = ["ProspectID": 1, "Name":"Emerson","Domain":"Office Documents","DesiredTeamSize":10, "CreateDate":"1439373335.63184","TechStack":"C++, Java","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "", "ConfDateEnd": "", "CallStatus": "call-green", "Unread": "8 unread replies","Participants" : "2 participants",     "DesiredTeamDesc": "6 Dev & 4 QA", "ListOfContacts": "Dave - VP Engineering"]
+    let prospect1 = ["ProspectID": 1, "Name":"Emerson","Domain":"Office Documents","DesiredTeamSize":10, "CreateDate":"1439373335.63184","TechStack":"C++, Java","SalesID":"Himanshu","Notes":"Looking to replace Microsoft office with LibreOffice", "ConfDateStart": "", "ConfDateEnd": "", "CallStatus": "call-green", "Unread": "8 unread replies","Participants" : "2 participants",     "DesiredTeamDesc": "6 Dev & 4 QA", "ListOfContacts": "Dave - VP Engineering"]
     
-    let prospect2 = ["ProspectID": 2, "Name":"HP","Domain":"IT Services","DesiredTeamSize":14, "CreateDate":"1439373335.63184","TechStack":"Linux, Python","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "1442225434.0", "ConfDateEnd": "1442229047.0","PinStatus":"Pin", "CallStatus": "call-yellow", "Unread": "3 unread replies","Participants" : "5 participants", "DesiredTeamDesc": "6 Dev, 4 Dev Ops & 4 QA", "ListOfContacts": "Harry - VP Product Management"]
+    let prospect2 = ["ProspectID": 2, "Name":"HP","Domain":"IT Services","DesiredTeamSize":14, "CreateDate":"1439373335.63184","TechStack":"Linux, Python","SalesID":"Himanshu","Notes":"IT MNC Giant", "ConfDateStart": "1442225434.0", "ConfDateEnd": "1442229047.0","PinStatus":"Pin", "CallStatus": "call-yellow", "Unread": "3 unread replies","Participants" : "5 participants", "DesiredTeamDesc": "6 Dev, 4 Dev Ops & 4 QA", "ListOfContacts": "Harry - VP Product Management"]
     
-    let prospect3 = ["ProspectID": 3, "Name":"Tesla","Domain":"Automotive","DesiredTeamSize":5, "CreateDate":"1439373335.63184","TechStack":"C++, JavaScript","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "1442229434.0", "ConfDateEnd": "1442232047.0", "CallStatus": "call-red", "Unread": "2 unread replies","Participants" : "3 participants",     "DesiredTeamDesc": "2 Dev, 1 Dev Ops & 1 QA", "ListOfContacts": "John - CTO"]
+    let prospect3 = ["ProspectID": 3, "Name":"Tesla","Domain":"Automotive","DesiredTeamSize":5, "CreateDate":"1439373335.63184","TechStack":"C++, JavaScript","SalesID":"Himanshu","Notes":"Innovative Company", "ConfDateStart": "1442229434.0", "ConfDateEnd": "1442232047.0", "CallStatus": "call-red", "Unread": "2 unread replies","Participants" : "3 participants", "DesiredTeamDesc": "2 Dev, 1 Dev Ops & 1 QA", "ListOfContacts": "Mike - CTO"]
     
     let prospect4 = ["ProspectID": 4, "Name":"QuickOffice","Domain":"Office Documents","BUHead":"Salil", "CreateDate":"1439373335.63184","TechStack":"C++, Java, JavaScript","SalesID":"Hemant","Notes":"Acquired by Google", "ConfDateStart": "1442229434.0", "ConfDateEnd": "1442232047.0", "TeamSize": 25]
     
@@ -428,17 +434,17 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
         }
       if !events.isEmpty {
         dispatch_async(dispatch_get_main_queue()) {
-          let hudMessage = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-          hudMessage.mode = MBProgressHUDMode.Text
-          hudMessage.labelText = "Updated Calendar entries"
-          hudMessage.labelFont = UIFont.systemFontOfSize(14)
-          hudMessage.detailsLabelText = events
-          hudMessage.detailsLabelFont = UIFont.systemFontOfSize(12)
-          hudMessage.sizeToFit()
-          hudMessage.hide(true, afterDelay: 0.5)
-          hudMessage.opacity = 0.4
-          hudMessage.yOffset = Float(self.view.frame.size.height/2 - 200)
-          hudMessage.userInteractionEnabled = false
+//          let hudMessage = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+//          hudMessage.mode = MBProgressHUDMode.Text
+//          hudMessage.labelText = "Updated Calendar entries"
+//          hudMessage.labelFont = UIFont.systemFontOfSize(14)
+//          hudMessage.detailsLabelText = events
+//          hudMessage.detailsLabelFont = UIFont.systemFontOfSize(12)
+//          hudMessage.sizeToFit()
+//          hudMessage.hide(true, afterDelay: 0.5)
+//          hudMessage.opacity = 0.4
+//          hudMessage.yOffset = Float(self.view.frame.size.height/2 - 200)
+//          hudMessage.userInteractionEnabled = false
         }
       }
     }
@@ -517,7 +523,7 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   
   // MARK: Segue Functions
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    self.tabBarController?.tabBar.hidden = true
+    // self.tabBarController?.tabBar.hidden = true
     if segue.identifier == "EditProspect" {
       let targetView = segue.destinationViewController as! Prospect
       targetView.delegate = self
@@ -563,6 +569,8 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   }
   
   @IBAction func segmentClicked(sender: UISegmentedControl) {
+    isFiltered = false
+    searchBar.text = ""
     switch(sender.selectedSegmentIndex) {
     case 0:
       currentTab = PinStatus.All
