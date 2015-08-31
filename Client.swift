@@ -10,46 +10,43 @@ import UIKit
 
 class Client: UIViewController {
   var itemToView: [String: AnyObject]?
-  
-  
-  @IBOutlet weak var name: UILabel!
-  @IBOutlet weak var techStack: UILabel!
-  @IBOutlet weak var domain: UILabel!
-  @IBOutlet weak var buHead: UILabel!
-  @IBOutlet weak var teamSize: UILabel!
-  @IBOutlet weak var salesManager: UILabel!
-  @IBOutlet weak var notes: UILabel!
-  
+
+  @IBOutlet weak var name: UITextField!
+  @IBOutlet weak var techStack: UITextField!
+  @IBOutlet weak var domain: UITextField!
+  @IBOutlet weak var buHead: UITextField!
+  @IBOutlet weak var teamSize: UITextField!
+  @IBOutlet weak var salesManager: UITextField!
+  @IBOutlet weak var notes: UITextView!
+  @IBOutlet weak var notesLabel: UILabel!
+
   override func viewDidLoad() {
+    initMockData()
     stylizeControls()
     if let item = itemToView {
       showData(item)
     }
   }
+  
+  private func initMockData() {
+    for subView in view.subviews {
+        if let textfield = subView as? UITextField {
+            let rightView = UILabel(frame: CGRectZero)
+            rightView.text = " \(textfield.text) "
+            rightView.font = UIFont.systemFontOfSize(14)
+            rightView.sizeToFit()
+            rightView.textColor = UIColor(red: 0.000, green: 0.478, blue: 1.000, alpha: 0.50)
+            textfield.rightViewMode = UITextFieldViewMode.Always
+            textfield.rightView = rightView
+        }
+    }
+    notesLabel.textColor = UIColor(red: 0.000, green: 0.478, blue: 1.000, alpha: 0.50)
+  }
+    
   private func stylizeControls() {
-    navigationController?.navigationBar.backgroundColor = Theme.Clients.navBarBG
-    view.backgroundColor = Theme.Clients.formBG
-
-    Theme.applyLabelBorder(name)
-    name.backgroundColor = Theme.Clients.textFieldBG
-    
-    Theme.applyLabelBorder(techStack)
-    techStack.backgroundColor = Theme.Clients.textFieldBG
-    
-    Theme.applyLabelBorder(domain)
-    domain.backgroundColor = Theme.Clients.textFieldBG
-    
-    Theme.applyLabelBorder(buHead)
-    buHead.backgroundColor = Theme.Clients.textFieldBG
-    
-    Theme.applyLabelBorder(teamSize)
-    teamSize.backgroundColor = Theme.Clients.textFieldBG
-    
-    Theme.applyLabelBorder(salesManager)
-    salesManager.backgroundColor = Theme.Clients.textFieldBG
-    
-    Theme.applyLabelBorder(notes)
-    notes.backgroundColor = Theme.Clients.textFieldBG
+    notes.layer.borderWidth = 1.0
+    notes.layer.cornerRadius = 5.0
+    notes.layer.borderColor = UIColor(red: 0.835, green: 0.835, blue: 0.835, alpha: 1.00).CGColor
   }
   private func showData(dict: [String: AnyObject]) {
     
