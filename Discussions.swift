@@ -159,7 +159,7 @@ class Discussions: UITableViewController {
                 headerString.text = query
                 headerString.textColor = UIColor.brownColor()
             }
-            if let answer = qa["Answer"] as? String {
+            if let answer = qa["Answer"] as? [String] {
                 if answer.isEmpty {
                     let unansweredLabel = UILabel(frame: CGRectMake(40, 0, 75, 15))
                     unansweredLabel.text = "Unanswered"
