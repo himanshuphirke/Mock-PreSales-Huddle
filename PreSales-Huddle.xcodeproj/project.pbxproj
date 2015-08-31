@@ -34,6 +34,8 @@
 		A38CFB6F1B67724000B4A5CB /* AllClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38CFB6E1B67724000B4A5CB /* AllClients.swift */; };
 		A38CFB711B67782E00B4A5CB /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38CFB701B67782E00B4A5CB /* Client.swift */; };
 		A3B0036F1B67907400766E19 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B0036E1B67907400766E19 /* Login.swift */; };
+		A3C61D331B9454EF000D307D /* AllDead.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C61D321B9454EF000D307D /* AllDead.swift */; };
+		A3C61D351B945AF1000D307D /* DeadProspect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C61D341B945AF1000D307D /* DeadProspect.swift */; };
 		A3E79DA51B67F55A0044B85C /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E79DA41B67F55A0044B85C /* TabBar.swift */; };
 		A3E9A97D1B678279002AD280 /* Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9A97A1B678279002AD280 /* Charts.swift */; };
 		A3E9A97E1B678279002AD280 /* PieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9A97B1B678279002AD280 /* PieChart.swift */; };
@@ -84,6 +86,8 @@
 		A38CFB6E1B67724000B4A5CB /* AllClients.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllClients.swift; sourceTree = "<group>"; };
 		A38CFB701B67782E00B4A5CB /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		A3B0036E1B67907400766E19 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		A3C61D321B9454EF000D307D /* AllDead.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllDead.swift; sourceTree = "<group>"; };
+		A3C61D341B945AF1000D307D /* DeadProspect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeadProspect.swift; sourceTree = "<group>"; };
 		A3E79DA41B67F55A0044B85C /* TabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		A3E9A97A1B678279002AD280 /* Charts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Charts.swift; sourceTree = "<group>"; };
 		A3E9A97B1B678279002AD280 /* PieChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChart.swift; sourceTree = "<group>"; };
@@ -248,6 +252,8 @@
 		A3D197261B8F1F8C00509E7D /* Dead Prospects */ = {
 			isa = PBXGroup;
 			children = (
+				A3C61D321B9454EF000D307D /* AllDead.swift */,
+				A3C61D341B945AF1000D307D /* DeadProspect.swift */,
 			);
 			name = "Dead Prospects";
 			sourceTree = "<group>";
@@ -453,6 +459,7 @@
 				A3B0036F1B67907400766E19 /* Login.swift in Sources */,
 				A35BF7711B5F943300D78515 /* AppDelegate.swift in Sources */,
 				A34509B31B5FEBB800B7E017 /* Prospect.swift in Sources */,
+				A3C61D331B9454EF000D307D /* AllDead.swift in Sources */,
 				A35BF7941B5FB7EF00D78515 /* NetworkCommunication.swift in Sources */,
 				A3E9A97D1B678279002AD280 /* Charts.swift in Sources */,
 				A3426A641B6257ED00AD2D21 /* Discussions.swift in Sources */,
@@ -461,6 +468,7 @@
 				A3E79DA51B67F55A0044B85C /* TabBar.swift in Sources */,
 				A38CFB711B67782E00B4A5CB /* Client.swift in Sources */,
 				A33A86D01B87389800745E5A /* ParticipateInCall.swift in Sources */,
+				A3C61D351B945AF1000D307D /* DeadProspect.swift in Sources */,
 				A38CFB6F1B67724000B4A5CB /* AllClients.swift in Sources */,
 				A3E9A97E1B678279002AD280 /* PieChart.swift in Sources */,
 				A35BF7981B5FB81800D78515 /* CalendarNotification.swift in Sources */,

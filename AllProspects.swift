@@ -107,8 +107,6 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
 //    self.refreshControl?.backgroundColor = Theme.Prospects.RefreshControlBackground
 //    self.refreshControl?.tintColor = Theme.Prospects.RefreshControl
 //    self.refreshControl?.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-    
-    
 
   }
   
@@ -138,10 +136,6 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
     fetchData()
   }
   
-  override func viewWillDisappear(animated: Bool) {
-    super.viewWillDisappear(animated)
-  }
-
   // MARK: tableView Functions
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if tableView == self.tableView {
@@ -328,13 +322,17 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     let prospect3 = ["ProspectID": 3, "Name":"Tesla","Domain":"Automotive","DesiredTeamSize":5, "CreateDate":"1439373335.63184","TechStack":"C++, JavaScript","SalesID":"Himanshu","Notes":"Some Notes", "ConfDateStart": "1442229434.0", "ConfDateEnd": "1442232047.0", "CallStatus": "call-red", "Unread": "2 unread replies","Participants" : "3 participants",     "DesiredTeamDesc": "2 Dev, 1 Dev Ops & 1 QA", "ListOfContacts": "John - CTO"]
     
-        let prospect4 = ["ProspectID": 4, "Name":"QuickOffice","Domain":"Office Documents","BUHead":"Salil", "CreateDate":"1439373335.63184","TechStack":"C++, Java, JavaScript","SalesID":"Hemant","Notes":"Acquired by Google", "ConfDateStart": "1442229434.0", "ConfDateEnd": "1442232047.0", "TeamSize": 25]
+    let prospect4 = ["ProspectID": 4, "Name":"QuickOffice","Domain":"Office Documents","BUHead":"Salil", "CreateDate":"1439373335.63184","TechStack":"C++, Java, JavaScript","SalesID":"Hemant","Notes":"Acquired by Google", "ConfDateStart": "1442229434.0", "ConfDateEnd": "1442232047.0", "TeamSize": 25]
+    
+    
+    let prospect5 = ["ProspectID": 5, "Name":"ChaiOne","Domain":"Oil & Gas industry", "CreateDate":"1439373335.63184","TechStack":"Ruby on Rails, PostGreSQL, iOS, Android","SalesID":"Ashish","Notes":"Team is in Houston and another in Austin (focused on UX)", "ConfDateStart": "", "ConfDateEnd": "", "TeamSize": 0, "Status": "Dead"]
 
     var allPros = [[String: AnyObject]]()
     allPros.append(prospect1)
     allPros.append(prospect2)
     allPros.append(prospect3)
     allPros.append(prospect4)
+    allPros.append(prospect5)
     return allPros
   }
   func fetch_success() {
