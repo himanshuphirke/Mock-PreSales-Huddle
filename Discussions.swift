@@ -42,7 +42,6 @@ class Discussions: UITableViewController {
         tableView.scrollEnabled = true
         tableView.bounces = false
         stylize()
-        stylizeControls()
     }
     
     override func didReceiveMemoryWarning() {
@@ -144,7 +143,7 @@ class Discussions: UITableViewController {
         let hvHeight =  CGFloat(40)
         
         let headerView = UIView(frame: CGRectMake(0, 0, hVWidth, hvHeight))
-        headerView.backgroundColor = Theme.Prospects.cellBGEvenCell
+        headerView.backgroundColor = Appearance.tableheaderBG
         headerView.tag = section
         
         if let image = UIImage(named: "question_tag") {
@@ -212,6 +211,7 @@ class Discussions: UITableViewController {
                     cell.frame = labelFrame
                 }
                 cell.sizeToFit()
+                cell.textLabel?.textColor = Appearance.textViewTextColor
                 
             } else {
                 let answerblock = UITextView(frame: CGRect(x: 10, y: 10, width: tableView.frame.size.width-20, height: cell.bounds.height)) as UITextView
@@ -223,7 +223,7 @@ class Discussions: UITableViewController {
                 postButton.tag = indexPath.section + 1
                 answerblock.tag = indexPath.section + 1
                 postButton.setTitle("POST", forState: UIControlState.Normal)
-                postButton.backgroundColor = Theme.Prospects.cellBGEvenCell
+                postButton.backgroundColor = Appearance.tableheaderBG
                 postButton.setTitleColor(UIColor.brownColor(), forState: UIControlState.Normal)
                 postButton.titleLabel?.font = UIFont.systemFontOfSize(CGFloat(10))
                 postButton.layer.cornerRadius = 1.0
@@ -386,12 +386,11 @@ class Discussions: UITableViewController {
     
     
     struct Appearance {
-        static var includeBlur = true
-        static var tintColor = UIColor(red: 0.0, green: 120 / 255.0, blue: 255 / 255.0, alpha: 1.0)
+        static var tintColor = UIColor.grayColor()
         static var backgroundColor = UIColor.whiteColor()
-        static var textViewFont = UIFont.systemFontOfSize(17.0)
-        static var textViewTextColor = UIColor.darkTextColor()
+        static var textViewTextColor = UIColor(red: 0.0/255.0, green: 122.0/255.0, blue: 255.0/255.0, alpha: 1.00)
         static var textViewBackgroundColor = UIColor.whiteColor()
+        static var tableheaderBG = UIColor(red: 237.0/255.0, green: 247.0/255.0, blue: 250.0/255.0, alpha: 1.00)
     }
     
     func styleTheView(textView: UIView) {
@@ -406,26 +405,7 @@ class Discussions: UITableViewController {
         tableView.tintColor = Appearance.tintColor
         tableView.backgroundColor = Appearance.backgroundColor
     }
-    func applyGradient(cellView: UIView) {
-        var mGradient : CAGradientLayer = CAGradientLayer()
-        mGradient.frame = cellView.bounds
-        mGradient.frame.origin = CGPointMake(0.0,0.0)
-        
-        var colors = [CGColor]()
-        colors.append(UIColor(red: 255, green: 255, blue: 204, alpha: 1).CGColor)
-        colors.append(UIColor(red: 255 , green: 255, blue: 255, alpha: 0).CGColor)
-        mGradient.colors = colors
-        mGradient.locations = [0.0 , 1.0]
-        mGradient.startPoint = CGPointMake(0.1, 0.5)
-        mGradient.endPoint = CGPointMake(0.9, 0.5)
-        mGradient.frame = CGRect(x: 0.0, y: 0.0, width: cellView.frame.size.width, height: cellView.frame.size.height)
-        cellView.layer.insertSublayer(mGradient, atIndex: 0)
-    }
-    private func stylizeControls() {
-        navigationController?.navigationBar.backgroundColor = Theme.Prospects.navBarBG
-        tableView.separatorColor = Theme.Prospects.tableViewSeparator
-        tableView.backgroundColor = Theme.Prospects.cellBGOddCell
-    }
+    
     
     var fillData : [[String: AnyObject]] {
         get {
