@@ -331,7 +331,7 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
             var gCal = GoogleCalendarNotification(token: tokenstr)
             gCal.startDate = self.fromDate
             gCal.endDate = self.toDate
-            gCal.summary = "[\(prospectName)] \(callType) Call"
+            gCal.summary = "Prospect: \(prospectName) \(callType) Call"
             gCal.attendees = ["vinaya.mandke@synerzip.com","himanshu.phirke@synerzip.com"]
             gCal.createEventAndSendNotifications(self.eventSuccessHandler,
                 handleServiceError: self.eventServiceErrorHandler)

@@ -215,7 +215,7 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
         case 2:
           let prospectID = allProspects[rowTapped]["ProspectID"] as! Int
           let name = allProspects[rowTapped]["Name"] as! String
-          let idAndType = TupleWrapperSceduleCall(tuple: (prospectID, "Prep", name, allProspects[rowTapped]))
+          let idAndType = TupleWrapperSceduleCall(tuple: (prospectID, "Client", name, allProspects[rowTapped]))
           performSegueWithIdentifier("ContextMenuScheduleCall", sender: idAndType)
 
         case 3:
