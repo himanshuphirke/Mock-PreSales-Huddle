@@ -17,7 +17,8 @@ class Discussions: UITableViewController {
             fetchData()
         }
     }
-    
+
+    var imgData:NSData?
     let viewAllQA = "discussion/view/prospectid/"
     let updateQA = "discussion/update/"
     let addQURL = "discussion/add/"
@@ -28,16 +29,36 @@ class Discussions: UITableViewController {
             if var lastDiscussion = allQAs.last {
                 if lastDiscussion["DiscussionID"] == nil {
                     lastDiscussion["DiscussionID"] = 60 + allQAs.count
+                    lastDiscussion["UserID"] = currentUserEmail
                     allQAs.removeLast()
                     allQAs.append(lastDiscussion)
                 }
             }
         }
     }
+
+    var currentUser:GIDGoogleUser! {
+        return GIDSignIn.sharedInstance().currentUser
+    }
+
+    var currentUserEmail:String {
+        let user = currentUser
+        return user.profile.email
+    }
     var cachedAnswers = [Int: String]()
     var arrayForBool = [Bool]()
     
     override func viewDidLoad() {
+
+        // get user's profile pic
+        let user = currentUser
+        if(user.profile.hasImage) {
+            let imgURL = user.profile.imageURLWithDimension(35)
+            if let data = NSData(contentsOfURL: imgURL) {
+                imgData = data
+            }
+        }
+
         super.viewDidLoad()
         tableView.scrollEnabled = true
         tableView.bounces = false
@@ -65,7 +86,7 @@ class Discussions: UITableViewController {
                 if let id = NSUserDefaults.standardUserDefaults().stringForKey("userID") {
                     userID = id
                 }
-                var dataStore : [String:AnyObject] = ["UserID": userID, "ProspectID": self.prospectID,"Query":"\(question)", "Answer": [String]()]
+                var dataStore : [String:AnyObject] = ["UserID": userID, "ProspectID": self.prospectID,"Query":"\(question)", "Answer": [[String:AnyObject]]()]
                 //for mock-screens
                 self.allQAs.append(dataStore)
                 
@@ -95,7 +116,7 @@ class Discussions: UITableViewController {
         {
             if allQAs.count > section {
                 let qa = allQAs[section] as [String: AnyObject]
-                if let ans = qa["Answer"] as? [String] {
+                if let ans = qa["Answer"] as? [[String:AnyObject]] {
                     return ans.count + 1
                 }
                 
@@ -146,22 +167,18 @@ class Discussions: UITableViewController {
         headerView.backgroundColor = Appearance.tableheaderBG
         headerView.tag = section
         
-        if let image = UIImage(named: "question_tag") {
-            let imageView = UIImageView(frame: CGRect(x: 10, y: 11, width: 25, height: hvHeight - 15))
-            imageView.image = image
-            headerView.addSubview(imageView)
-        }
-        
-        let headerString = UILabel(frame: CGRect(x: 40, y: 10, width: hVWidth-50, height: hvHeight - 10)) as UILabel
+        let headerString = UILabel(frame: CGRect(x: 60, y: 15, width: hVWidth-50, height: hvHeight - 10)) as UILabel
         if allQAs.count > section {
             let qa = allQAs[section] as [String: AnyObject]
             if let query = qa["Query"] as? String {
                 headerString.text = query
                 headerString.textColor = UIColor.brownColor()
+                let userid = qa["UserID"] as! String
+                headerView.addSubview(getprofilePic(userid, frame: CGRect(x: 10, y: 15, width: 35, height: 35)))
             }
-            if let answer = qa["Answer"] as? [String] {
+            if let answer = qa["Answer"] as? [[String:AnyObject]] {
                 if answer.isEmpty {
-                    let unansweredLabel = UILabel(frame: CGRectMake(40, 0, 75, 15))
+                    let unansweredLabel = UILabel(frame: CGRectMake(60, 0, 75, 15))
                     unansweredLabel.text = "Unanswered"
                     unansweredLabel.textColor = UIColor.redColor()
                     unansweredLabel.font = UIFont.systemFontOfSize(10)
@@ -199,10 +216,10 @@ class Discussions: UITableViewController {
         let qa = allQAs[indexPath.section] as [String: AnyObject]
         
         //TODO (vinaya.mandke) currently if no ans provided answer is provided as empty string
-        if let ans = qa["Answer"] as? [String] {
+        if let ans = qa["Answer"] as? [[String:AnyObject]] {
             if ans.count > indexPath.row {
                 let query = ans[indexPath.row]
-                cell.textLabel?.text = query
+                cell.textLabel?.text = query["data"] as? String
                 cell.textLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
                 cell.textLabel?.numberOfLines = 0
                 cell.textLabel?.preferredMaxLayoutWidth = tableView.frame.size.width
@@ -212,6 +229,9 @@ class Discussions: UITableViewController {
                 }
                 cell.sizeToFit()
                 cell.textLabel?.textColor = Appearance.textViewTextColor
+                let userid = query["UserID"] as! String
+                let imageView = getprofilePic(userid, frame: CGRect(x: 10, y: 15, width: 35, height: 35))
+                cell.accessoryView = imageView
                 
             } else {
                 let answerblock = UITextView(frame: CGRect(x: 10, y: 10, width: tableView.frame.size.width-20, height: cell.bounds.height)) as UITextView
@@ -263,9 +283,9 @@ class Discussions: UITableViewController {
             let submitActionHandler = { (action:UIAlertAction!) -> Void in
                 //POST the discussion
                 var qa = self.allQAs[sectionID] as [String: AnyObject]
-                var allAns = qa["Answer"] as! [String]
+                var allAns = qa["Answer"] as! [[String:AnyObject]]
                 // for mock-screens add in qa
-                allAns.append(answer!)
+                allAns.append(["data":answer!, "UserID":self.currentUserEmail])
                 qa["Answer"] = allAns
                 self.allQAs[sectionID] = qa
                 
@@ -406,14 +426,42 @@ class Discussions: UITableViewController {
         tableView.backgroundColor = Appearance.backgroundColor
     }
     
-    
+    func getprofilePic(userid: String, frame: CGRect) -> UIImageView {
+        let img:UIImage?
+        if currentUserEmail == userid {
+            img = getprofilePicForMe()
+        } else {
+            img = UIImage(named: userid)
+        }
+        let imageView = UIImageView(frame: frame)
+        if let profielPic = img {
+            imageView.image = profielPic
+        }
+
+        // circle
+        imageView.layer.borderWidth=1.0
+        imageView.layer.masksToBounds = false
+        imageView.layer.borderColor = UIColor.whiteColor().CGColor
+        imageView.layer.cornerRadius = 13
+        imageView.layer.cornerRadius = imageView.frame.size.height/2
+        imageView.clipsToBounds = true
+        return imageView
+    }
+
+    private func getprofilePicForMe() -> UIImage? {
+        if let userImage = imgData {
+            return UIImage(data: userImage)
+        } else {
+            return UIImage(named: "Unknown")
+        }
+    }
     var fillData : [[String: AnyObject]] {
         get {
             if self.allQAs.isEmpty {
-                let discussion1 = ["DiscussionID":55,"ProspectID":53,"UserID":"Himanshu","Query":"What is the expected team size ?","Answer":["About 20 odd people", "Are any QAs required?"]]
-                let discussion2 = ["DiscussionID":56,"ProspectID":53,"UserID":"Vinaya","Query":"What is the expected start date ?","Answer":["End of this month"]]
-                let discussion3 = ["DiscussionID":57,"ProspectID":53,"UserID":"Uttam","Query":"What are the technologies involved ?","Answer":[String]()]
-                let discussion4 = ["DiscussionID":58,"ProspectID":53,"UserID":"Shaila","Query":"Is a webservice required ?","Answer":["Yes", "Using Go ?"]]
+                let discussion1 = ["DiscussionID":55,"ProspectID":53,"UserID":"himanshu.phirke@synerzip.com","Query":"What is the expected team size ?","Answer":[["UserID":"himanshu.phirke@synerzip.com","data":"About 20 odd people"], ["UserID":"uttam.gandhi@synerzip.com","data":"Are any QAs required?"]]]
+                let discussion2 = ["DiscussionID":56,"ProspectID":53,"UserID":"vinaya.mandke@synerzip.com","Query":"What is the expected start date ?","Answer":[["UserID":"sachin.avhad@synerzip.com","data":"End of this month"]]]
+                let discussion3 = ["DiscussionID":57,"ProspectID":53,"UserID":"uttam.gandhi@synerzip.com","Query":"What are the technologies involved ?","Answer":[String]()]
+                let discussion4 = ["DiscussionID":58,"ProspectID":53,"UserID":"sachin.avhad@synerzip.com","Query":"Is a webservice required ?","Answer":[["UserID":"himanshu.phirke@synerzip.com","data":"Yes"], ["UserID":"uttam.gandhi@synerzip.com","data":"Using Go?"]]]
                 
                 var fillData = [[String: AnyObject]]()
                 fillData.append(discussion1 as! [String : AnyObject])
