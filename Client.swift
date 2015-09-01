@@ -33,14 +33,13 @@ class Client: UIViewController {
         if let textfield = subView as? UITextField {
             let rightView = UILabel(frame: CGRectZero)
             rightView.text = " \(textfield.text) "
-            rightView.font = UIFont.systemFontOfSize(14)
+            rightView.font = UIFont.systemFontOfSize(12)
             rightView.sizeToFit()
             rightView.textColor = UIColor(red: 0.000, green: 0.478, blue: 1.000, alpha: 0.50)
-            textfield.rightViewMode = UITextFieldViewMode.Always
-            textfield.rightView = rightView
+            textfield.leftViewMode = UITextFieldViewMode.Always
+            textfield.leftView = rightView
         }
     }
-    notesLabel.textColor = UIColor(red: 0.000, green: 0.478, blue: 1.000, alpha: 0.50)
   }
     
   private func stylizeControls() {

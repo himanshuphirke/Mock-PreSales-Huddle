@@ -30,32 +30,32 @@ class DeadProspect: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     technologyLabel.text = " Technology "
     technologyLabel.sizeToFit()
     technologyLabel.textColor = UIColor(red: 0.000, green: 0.478, blue: 1.000, alpha: 0.50)
-    technology.rightViewMode = UITextFieldViewMode.Always
-    technology.rightView = technologyLabel
+    technology.leftViewMode = UITextFieldViewMode.Always
+    technology.leftView = technologyLabel
     
     let nameLabel = UILabel(frame: CGRectZero)
     nameLabel.font = UIFont.systemFontOfSize(12)
     nameLabel.text = " Name "
     nameLabel.sizeToFit()
     nameLabel.textColor = UIColor(red: 0.000, green: 0.478, blue: 1.000, alpha: 0.50)
-    name.rightViewMode = UITextFieldViewMode.Always
-    name.rightView = nameLabel
+    name.leftViewMode = UITextFieldViewMode.Always
+    name.leftView = nameLabel
     
     let salesIDLabel = UILabel(frame: CGRectZero)
     salesIDLabel.font = UIFont.systemFontOfSize(12)
     salesIDLabel.text = " Sales "
     salesIDLabel.sizeToFit()
     salesIDLabel.textColor = UIColor(red: 0.000, green: 0.478, blue: 1.000, alpha: 0.50)
-    salesID.rightViewMode = UITextFieldViewMode.Always
-    salesID.rightView = salesIDLabel
+    salesID.leftViewMode = UITextFieldViewMode.Always
+    salesID.leftView = salesIDLabel
     
     let domainLabel = UILabel(frame: CGRectZero)
     domainLabel.font = UIFont.systemFontOfSize(12)
     domainLabel.text = " Domain "
     domainLabel.sizeToFit()
     domainLabel.textColor = UIColor(red: 0.000, green: 0.478, blue: 1.000, alpha: 0.50)
-    domain.rightViewMode = UITextFieldViewMode.Always
-    domain.rightView = domainLabel
+    domain.leftViewMode = UITextFieldViewMode.Always
+    domain.leftView = domainLabel
     
     
     notes.layer.borderWidth = 1.0

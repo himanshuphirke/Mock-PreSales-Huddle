@@ -20,6 +20,7 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   var currentTab = PinStatus.All
 
   var rowTapped = -1
+  var indexTapped: NSIndexPath?
   // MARK: Outlets
   
   var contextMenu = ["Update prospect", "Schedule prep call", "Schedule client call ", "Setup follow-up reminders", "Dead prospect", "Contract signed"]
@@ -70,7 +71,10 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
       // Tapped outside table rows
       return
     }
-    
+    tableView.selectRowAtIndexPath(index, animated: true, scrollPosition: UITableViewScrollPosition.Top)
+    let cell = tableView.cellForRowAtIndexPath(index!)
+    cell?.contentView.backgroundColor = UIColor(red: 0.992, green: 0.757, blue: 0.176, alpha: 1.00)
+    indexTapped = index
     rowTapped = index!.row
     let trans = UIView(frame: self.view.frame)
     trans.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
@@ -119,6 +123,9 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   }
   
   func dismissContextMenu() {
+    if let indexTapped = indexTapped {
+      tableView.deselectRowAtIndexPath(indexTapped, animated: true)
+    }
     let tabView = self.view.viewWithTag(20)
     tabView?.removeFromSuperview()
 

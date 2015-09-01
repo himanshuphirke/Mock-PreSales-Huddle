@@ -252,72 +252,73 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, Parti
   
   private func initMockData() {
     date.text = DateHandler.getPrintDate(NSDate())
+
     let dateFieldLabel = UILabel(frame: CGRectZero)
     dateFieldLabel.text = " Date "
-    dateFieldLabel.font = UIFont.systemFontOfSize(14)
+    dateFieldLabel.font = UIFont.systemFontOfSize(12)
     dateFieldLabel.sizeToFit()
-    dateFieldLabel.textColor = UIColor.grayColor()
-    date.rightViewMode = UITextFieldViewMode.Always
-    date.rightView = dateFieldLabel
+    dateFieldLabel.textColor = UIColor(red: 0.000, green: 0.478, blue: 1.000, alpha: 0.50)
+    date.leftViewMode = UITextFieldViewMode.Always
+    date.leftView = dateFieldLabel
 
     
     let statusFieldLabel = UILabel(frame: CGRectZero)
     statusFieldLabel.text = " Status "
-    statusFieldLabel.font = UIFont.systemFontOfSize(14)
+    statusFieldLabel.font = UIFont.systemFontOfSize(12)
     statusFieldLabel.sizeToFit()
-    statusFieldLabel.textColor = UIColor.grayColor()
-    status.rightViewMode = UITextFieldViewMode.Always
-    status.rightView = statusFieldLabel
+    statusFieldLabel.textColor = UIColor(red: 0.000, green: 0.478, blue: 1.000, alpha: 0.50)
+    status.leftViewMode = UITextFieldViewMode.Always
+    status.leftView = statusFieldLabel
     
     let nameFieldLabel = UILabel(frame: CGRectZero)
     nameFieldLabel.text = " Name "
-    nameFieldLabel.font = UIFont.systemFontOfSize(14)
+    nameFieldLabel.font = UIFont.systemFontOfSize(12)
     nameFieldLabel.sizeToFit()
-    nameFieldLabel.textColor = UIColor.grayColor()
-    name.rightViewMode = UITextFieldViewMode.Always
-    name.rightView = nameFieldLabel
+    nameFieldLabel.textColor = UIColor(red: 0.000, green: 0.478, blue: 1.000, alpha: 0.50)
+    name.leftViewMode = UITextFieldViewMode.Always
+    name.leftView = nameFieldLabel
     
     
     let techStackFieldLabel = UILabel(frame: CGRectZero)
     techStackFieldLabel.text = " TechStack "
-    techStackFieldLabel.font = UIFont.systemFontOfSize(14)
+    techStackFieldLabel.font = UIFont.systemFontOfSize(12)
     techStackFieldLabel.sizeToFit()
-    techStackFieldLabel.textColor = UIColor.grayColor()
-    techStack.rightViewMode = UITextFieldViewMode.Always
-    techStack.rightView = techStackFieldLabel
+    techStackFieldLabel.textColor = UIColor(red: 0.000, green: 0.478, blue: 1.000, alpha: 0.50)
+    techStack.leftViewMode = UITextFieldViewMode.Always
+    techStack.leftView = techStackFieldLabel
     
     let desiredTeamSizeFieldLabel = UILabel(frame: CGRectZero)
     desiredTeamSizeFieldLabel.text = " Desired Team Size "
-    desiredTeamSizeFieldLabel.font = UIFont.systemFontOfSize(14)
+    desiredTeamSizeFieldLabel.font = UIFont.systemFontOfSize(12)
     desiredTeamSizeFieldLabel.sizeToFit()
-    desiredTeamSizeFieldLabel.textColor = UIColor.grayColor()
-    desiredTeamSize.rightViewMode = UITextFieldViewMode.Always
-    desiredTeamSize.rightView = desiredTeamSizeFieldLabel
+    desiredTeamSizeFieldLabel.textColor = UIColor(red: 0.000, green: 0.478, blue: 1.000, alpha: 0.50)
+    desiredTeamSize.leftViewMode = UITextFieldViewMode.Always
+    desiredTeamSize.leftView = desiredTeamSizeFieldLabel
     
     
     let listOfContactsFieldLabel = UILabel(frame: CGRectZero)
     listOfContactsFieldLabel.text = " List of Contacts "
-    listOfContactsFieldLabel.font = UIFont.systemFontOfSize(14)
+    listOfContactsFieldLabel.font = UIFont.systemFontOfSize(12)
     listOfContactsFieldLabel.sizeToFit()
-    listOfContactsFieldLabel.textColor = UIColor.grayColor()
-    listOfContacts.rightViewMode = UITextFieldViewMode.Always
-    listOfContacts.rightView = listOfContactsFieldLabel
+    listOfContactsFieldLabel.textColor = UIColor(red: 0.000, green: 0.478, blue: 1.000, alpha: 0.50)
+    listOfContacts.leftViewMode = UITextFieldViewMode.Always
+    listOfContacts.leftView = listOfContactsFieldLabel
     
     let domainFieldLabel = UILabel(frame: CGRectZero)
     domainFieldLabel.text = " Domain "
-    domainFieldLabel.font = UIFont.systemFontOfSize(14)
+    domainFieldLabel.font = UIFont.systemFontOfSize(12)
     domainFieldLabel.sizeToFit()
-    domainFieldLabel.textColor = UIColor.grayColor()
-    domain.rightViewMode = UITextFieldViewMode.Always
-    domain.rightView = domainFieldLabel
+    domainFieldLabel.textColor = UIColor(red: 0.000, green: 0.478, blue: 1.000, alpha: 0.50)
+    domain.leftViewMode = UITextFieldViewMode.Always
+    domain.leftView = domainFieldLabel
   
     let desiredtTeamDescFieldLabel = UILabel(frame: CGRectZero)
     desiredtTeamDescFieldLabel.text = " Team Composition "
-    desiredtTeamDescFieldLabel.font = UIFont.systemFontOfSize(14)
+    desiredtTeamDescFieldLabel.font = UIFont.systemFontOfSize(12)
     desiredtTeamDescFieldLabel.sizeToFit()
-    desiredtTeamDescFieldLabel.textColor = UIColor.grayColor()
-    desiredtTeamDesc.rightViewMode = UITextFieldViewMode.Always
-    desiredtTeamDesc.rightView = desiredtTeamDescFieldLabel
+    desiredtTeamDescFieldLabel.textColor = UIColor(red: 0.000, green: 0.478, blue: 1.000, alpha: 0.50)
+    desiredtTeamDesc.leftViewMode = UITextFieldViewMode.Always
+    desiredtTeamDesc.leftView = desiredtTeamDescFieldLabel
   }
   
   private func getUserRole() {
