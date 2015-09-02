@@ -14,17 +14,24 @@ protocol ParticipateInCallDelgate: class {
 
 class ParticipateInCall:UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate,
     DateSelectorDelegate {
-  let userRoles = ["Domain advisor", "Technical advisor","Probable team member"]
+  let userRoles = ["Domain Advisor", "Technical Advisor","Probable Team member"]
   var roleRow = 0
   var delegate: ParticipateInCallDelgate?
   @IBOutlet weak var rolePicker: UIPickerView!
-  @IBOutlet weak var date_label: UILabel!
   @IBOutlet weak var date: UITextField!
   @IBOutlet weak var save: UIButton!
   override func viewDidLoad() {
     super.viewDidLoad()
     date.hidden = true
-    date_label.hidden = true
+    
+    let dateFieldLabel = UILabel(frame: CGRectZero)
+    dateFieldLabel.text = " Earliest Availability Date "
+    dateFieldLabel.font = UIFont.systemFontOfSize(12)
+    dateFieldLabel.sizeToFit()
+    dateFieldLabel.textColor = UIColor(red: 0.000, green: 0.478, blue: 1.000, alpha: 0.50)
+    date.leftViewMode = UITextFieldViewMode.Always
+    date.leftView = dateFieldLabel
+
     // stylizeControls()
   }
   
@@ -36,7 +43,6 @@ class ParticipateInCall:UIViewController, UIPickerViewDataSource, UIPickerViewDe
     navigationController?.navigationBar.backgroundColor = Theme.Prospects.navBarBG
     view.backgroundColor = Theme.Prospects.cellBGOddCell
     date.hidden = true
-    date_label.hidden = true
     date.backgroundColor = Theme.Prospects.textFieldBG
     save.backgroundColor = Theme.Prospects.okButtonBG
     Theme.applyButtonBorder(save)
@@ -63,11 +69,10 @@ class ParticipateInCall:UIViewController, UIPickerViewDataSource, UIPickerViewDe
   func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
     if row == 2 {
       date.hidden = false
-      date_label.hidden = false
       save.enabled = false
     } else {
       date.hidden = true
-      date_label.hidden = true
+      date.text = ""
       save.enabled = true
     }
   }
