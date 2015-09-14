@@ -20,6 +20,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Prospect Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5m0-VS-NLN">
+                                <rect key="frame" x="16" y="74" width="383" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                             <textField opaque="NO" clipsSubviews="YES" tag="333" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kd5-Vp-LDP">
                                 <rect key="frame" x="16" y="112" width="383" height="30"/>
                                 <gestureRecognizers/>
@@ -156,11 +161,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Prospect Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="5m0-VS-NLN">
-                                <rect key="frame" x="16" y="74" width="383" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1737,12 +1737,12 @@
                                 <exclude reference="W3u-vK-Vcm"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="NVY-jh-bCG"/>
-                                <exclude reference="Ong-UN-qHN"/>
-                                <exclude reference="Y3x-Yh-BTV"/>
                                 <exclude reference="1MX-JY-eiW"/>
                                 <exclude reference="f60-rd-IRW"/>
                                 <exclude reference="x6s-ew-lKZ"/>
+                                <exclude reference="NVY-jh-bCG"/>
+                                <exclude reference="Ong-UN-qHN"/>
+                                <exclude reference="Y3x-Yh-BTV"/>
                                 <exclude reference="Y4o-ZL-TZk"/>
                                 <exclude reference="gpM-qt-EVd"/>
                                 <exclude reference="xau-tK-Ly1"/>
@@ -1756,12 +1756,12 @@
                                 <include reference="W3u-vK-Vcm"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="NVY-jh-bCG"/>
-                                <include reference="Ong-UN-qHN"/>
-                                <include reference="Y3x-Yh-BTV"/>
                                 <include reference="1MX-JY-eiW"/>
                                 <include reference="f60-rd-IRW"/>
                                 <exclude reference="x6s-ew-lKZ"/>
+                                <include reference="NVY-jh-bCG"/>
+                                <include reference="Ong-UN-qHN"/>
+                                <include reference="Y3x-Yh-BTV"/>
                                 <include reference="Y4o-ZL-TZk"/>
                                 <include reference="gpM-qt-EVd"/>
                                 <include reference="xau-tK-Ly1"/>

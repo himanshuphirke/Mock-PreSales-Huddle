@@ -22,8 +22,8 @@ class EmailNotification {
         access_token = accessToken
         emailBody = msgText
         sender = "\(signedInUser.profile.name) via PreSales-Huddle <\(signedInUser.profile.email)>"
-        receivers = "vinaya.mandke@synerzip.com"
-        receivers += ";himanshu.phirke@synerzip.com"
+//        receivers = "vinaya.mandke@synerzip.com"
+//        receivers += ";himanshu.phirke@synerzip.com"
     }
     
     func setTo(to: String) {
