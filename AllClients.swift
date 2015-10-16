@@ -43,11 +43,14 @@ class AllClients: UITableViewController {
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
-    let cell = tableView.dequeueReusableCellWithIdentifier("client-id") as! UITableViewCell
-    let client = allClients[indexPath.row] as [String: AnyObject]
-    populateCellData(cell, withProspectDictionary: client)
-    // stylizeCell(cell, index: indexPath.row)
-    return cell
+    if let cell = tableView.dequeueReusableCellWithIdentifier("client-id") {
+      let client = allClients[indexPath.row] as [String: AnyObject]
+      populateCellData(cell, withProspectDictionary: client)
+      // stylizeCell(cell, index: indexPath.row)
+      return cell
+    } else {
+      return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "client-id")
+    }
   }
   
   func refresh(sender:AnyObject) {
@@ -99,7 +102,6 @@ class AllClients: UITableViewController {
   }
   func fetch_success() -> Void {
     commonHandler()
-    var error: NSError?
     allClients = []
     for dict in AllProspects.fillData()  {
       if let teamSize = dict["TeamSize"] as? Int {

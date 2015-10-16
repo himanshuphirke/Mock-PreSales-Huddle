@@ -64,7 +64,7 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, Parti
         fetchParticipantDetails()
       }
       
-      if let isDead = isDead {
+      if let _ = isDead {
         status.text = "Dead Prospect"
         status.textColor = UIColor.redColor()
       }
@@ -360,14 +360,14 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, Parti
   }
   
   private func displayFormData(prospect: [String: AnyObject]) {
-    name.text = prospect["Name"] as! String
-    techStack.text = prospect["TechStack"] as! String
-    domain.text = prospect["Domain"] as! String
+    name.text = prospect["Name"] as? String
+    techStack.text = prospect["TechStack"] as? String
+    domain.text = prospect["Domain"] as? String
     if let teamSize = prospect["DesiredTeamSize"] as? Int {
       desiredTeamSize.text = "\(teamSize)"
     }
-    desiredtTeamDesc.text = prospect["DesiredTeamDesc"] as! String
-    listOfContacts.text =  prospect["ListOfContacts"] as! String
+    desiredtTeamDesc.text = prospect["DesiredTeamDesc"] as? String
+    listOfContacts.text =  prospect["ListOfContacts"] as? String
     notes.text = prospect["Notes"] as! String
 
   }
@@ -376,15 +376,19 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, Parti
     prospect["Name"] = name.text
     prospect["TechStack"] = techStack.text
     prospect["Domain"] = domain.text
-    prospect["DesiredTeamSize"] = desiredTeamSize.text.toInt()
+    prospect["DesiredTeamSize"] = Int(desiredTeamSize.text!)
     prospect["Notes"] = notes.text
     return prospect
   }
   
   private func getNSData(prospectDict: [String: AnyObject]) -> NSData? {
-    var jsonError:NSError?
-    var jsonData:NSData? = NSJSONSerialization.dataWithJSONObject(
-      prospectDict, options: nil, error: &jsonError)
+    var jsonData:NSData?
+    do {
+      jsonData = try NSJSONSerialization.dataWithJSONObject(
+            prospectDict, options: [])
+    } catch {
+      jsonData = nil
+    }
     return jsonData
   }
 
@@ -403,7 +407,7 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, Parti
   }
   
   private func saveProspectToWebService(dict: [String: AnyObject], method: String) {
-    println("Prospect save:  \(dict)")
+    print("Prospect save:  \(dict)")
     if let data = getNSData(dict) {
       let nc = NetworkCommunication()
       nc.postData(data,
@@ -418,8 +422,8 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, Parti
   }
   
   private func saveParticipantWebService(dict: [String: AnyObject], method: String) {
-    println("Participant operation:  \(method)")
-    println("Participant save:  \(dict)")
+    print("Participant operation:  \(method)")
+    print("Participant save:  \(dict)")
     participantSaveSuccess()
   }
   
@@ -457,18 +461,18 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, Parti
   func saveProspectSuccessMock() -> Void {
     commonHandler()
     self.navigationController?.popViewControllerAnimated(true)
-    delegate?.saveProspectFinish(name.text)
+    delegate?.saveProspectFinish(name.text!)
     // send an email
     let user = GIDSignIn.sharedInstance().currentUser
     let auth = user.authentication
     auth.getAccessTokenWithHandler({ (tokenstr, err) -> Void in
       if err == nil {
         let newData = self.getFormData()
-        var emailBody = "I have added a new Prospect. Please check it out.\n\n\(newData)\n\nRegards,\n\(user.profile.name)"
-        var draft = EmailNotification(accessToken: tokenstr, msgText: emailBody)
+        let emailBody = "I have added a new Prospect. Please check it out.\n\n\(newData)\n\nRegards,\n\(user.profile.name)"
+        let draft = EmailNotification(accessToken: tokenstr, msgText: emailBody)
         draft.addReceivers([user.profile.email])
         draft.subject = "[New Prospect]  \(self.name.text)"
-        if let prospect = self.itemToEdit {
+        if let _ = self.itemToEdit {
           draft.subject = "[Prospect Update]  \(self.name.text)"
         }
         draft.sendEmail(self.emailSuccessHandler, handleServiceError: self.emailServiceErrorHandler)
@@ -478,17 +482,17 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, Parti
 
   func emailSuccessHandler(data: NSData) -> Void {
     commonHandler()
-    println("Email sent successfully")
+    print("Email sent successfully")
   }
 
   func emailServiceErrorHandler(response: NSHTTPURLResponse) -> Void {
     commonHandler()
-    println("Email Failed to send. Statuc code: \(response.statusCode)")
+    print("Email Failed to send. Statuc code: \(response.statusCode)")
   }
   
   func saveProspectSuccess(data: NSData) -> Void {
     commonHandler()
-    delegate?.saveProspectFinish(name.text)
+    delegate?.saveProspectFinish(name.text!)
   }
   
   func networkError( error: NSError) -> Void {
@@ -542,7 +546,7 @@ class Prospect: UIViewController, UITextFieldDelegate, UITextViewDelegate, Parti
   
 
   private func fetchParticipantDetails() {
-    if let userName = NSUserDefaults.standardUserDefaults().stringForKey("userID") {
+    if let _ = NSUserDefaults.standardUserDefaults().stringForKey("userID") {
       fetchParticipantSuccess()
     }
   }

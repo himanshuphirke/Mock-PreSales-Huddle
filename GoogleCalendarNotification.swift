@@ -64,16 +64,17 @@ class GoogleCalendarNotification {
     }
     
     private func encodeJSON(dataString : [String:AnyObject]) -> NSData? {
-        var err: NSError?
-        return NSJSONSerialization.dataWithJSONObject(dataString, options: nil, error: &err)
+        do {
+            return try NSJSONSerialization.dataWithJSONObject(dataString, options: [])
+        } catch _ {
+            return nil
+        }
     }
     
     func createEventAndSendNotifications(successHandler:(NSData) -> Void, handleServiceError: (NSHTTPURLResponse) -> Void) {
         let config_ = NSURLSessionConfiguration.defaultSessionConfiguration()
         config_.timeoutIntervalForRequest = 10.0
-        let session = NSURLSession(configuration: config_)
         let nc = NetworkCommunication()
-        var successful = false
         let requestDataJSON = encodeJSON(requestBody)
         if let data = requestDataJSON {
             nc.postData(data, successHandler: successHandler,
@@ -84,7 +85,7 @@ class GoogleCalendarNotification {
     }
     
     func errorHandler(err: NSError) {
-        println("\(err)")
+        print("\(err)")
     }
 }
 

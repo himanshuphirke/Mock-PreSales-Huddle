@@ -21,7 +21,7 @@ class PieChart: UIViewController {
   }
   
   func CreatePieChart() {
-    var graph = CPTXYGraph(frame: self.graphView.bounds)
+    let graph = CPTXYGraph(frame: self.graphView.bounds)
     graph.title = "Pie Chart"
     graph.paddingLeft = 0
     graph.paddingTop = 0
@@ -29,14 +29,14 @@ class PieChart: UIViewController {
     graph.paddingBottom = 0
     
     // hide the axes
-    var axes = graph.axisSet as! CPTXYAxisSet
-    var lineStyle = CPTMutableLineStyle()
+    let axes = graph.axisSet as! CPTXYAxisSet
+    let lineStyle = CPTMutableLineStyle()
     lineStyle.lineWidth = 0
     axes.xAxis.axisLineStyle = lineStyle
     axes.yAxis.axisLineStyle = lineStyle
     
     // add a pie plot
-    var pie = CPTPieChart(frame: CGRectZero)
+    let pie = CPTPieChart(frame: CGRectZero)
     pie.dataSource = delegate
     pie.pieRadius = (min(self.graphView.bounds.size.height, self.graphView.bounds.size.width) * 0.7)/2
     pie.labelOffset = 2
@@ -46,7 +46,7 @@ class PieChart: UIViewController {
     self.graphView.hostedGraph = graph
     
     // configure legend
-    var theLegend = CPTLegend(graph: self.graphView.hostedGraph)
+    let theLegend = CPTLegend(graph: self.graphView.hostedGraph)
     theLegend.numberOfColumns = 1
     theLegend.fill = CPTFill(color:CPTColor.whiteColor())
     theLegend.borderLineStyle = CPTLineStyle()
@@ -54,7 +54,7 @@ class PieChart: UIViewController {
     let anchor:CPTRectAnchor = .BottomRight
     self.graphView.hostedGraph.legendAnchor = anchor
     self.graphView.hostedGraph.legend = theLegend
-    var legendPadding = -(self.view.bounds.size.width / 16)
+    let legendPadding = -(self.view.bounds.size.width / 16)
     
     self.graphView.hostedGraph.legendDisplacement = CGPointMake(legendPadding, 0.0);
   }

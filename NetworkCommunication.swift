@@ -38,7 +38,7 @@ class NetworkCommunication {
     errorHandler:(NSError) -> Void) -> Bool {
       let url = urlwithText(relativeURL)
       if (url == nil) {
-        println("Error: Unable to form a valid URL")
+        print("Error: Unable to form a valid URL")
         return false
       }
       config_.timeoutIntervalForRequest = requestTimeOut
@@ -104,7 +104,7 @@ class NetworkCommunication {
             }
         })
       } else {
-        println("PostTask Error: Unable to unwrap request from optional")
+        print("PostTask Error: Unable to unwrap request from optional")
         return false
       }
       postTask?.resume()
@@ -114,7 +114,7 @@ class NetworkCommunication {
   private func getRequest(relativeURL:String) -> NSMutableURLRequest? {
     let url = urlwithText(relativeURL)
     if (url == nil) {
-      println("Error: Unable to form a valid URL")
+      print("Error: Unable to form a valid URL")
       return nil
     }
     config_.timeoutIntervalForRequest = requestTimeOut

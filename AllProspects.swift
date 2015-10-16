@@ -151,8 +151,9 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
         rows = filteredProspects.count
       }
 
-      let item =  self.tabBarController?.tabBar.items as! [UITabBarItem]
-      item[0].badgeValue = "1"
+      if let item =  self.tabBarController?.tabBar.items {
+        item[0].badgeValue = "1"
+      }
       return rows
     } else {
       return contextMenu.count
@@ -192,7 +193,7 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   }
 
   func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-    if indexPath.row ==  (tableView.indexPathsForVisibleRows() as! [NSIndexPath]).last?.row {
+    if indexPath.row ==  (tableView.indexPathsForVisibleRows!).last?.row {
       setBadgeIcon()
     }
   }
@@ -231,7 +232,7 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
           performSegueWithIdentifier("ContextConvertToClient", sender: idAndName)
 
         default:
-        println("Unsupported menu clicked")
+        print("Unsupported menu clicked")
       }
       tableView.deselectRowAtIndexPath(indexPath, animated: true)
       dismissContextMenu()
@@ -354,7 +355,7 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     unScheduledProspect = 1
     for dict in AllProspects.fillData()  {
-      if let teamSize = dict["TeamSize"] as? Int {
+      if let _ = dict["TeamSize"] as? Int {
 
       } else {
         if currentTab == PinStatus.All {
@@ -406,7 +407,6 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
   
   private func fetch_success_notifications() -> Void {
     commonHandler()
-    var error: NSError?
     var addNotificatios = [Int]()
     
     if let user = NSUserDefaults.standardUserDefaults().stringForKey("userID") {
@@ -428,7 +428,7 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
           let confEndDate = prospect["ConfDateEnd"] as! String
           let confStartDate = prospect["ConfDateStart"] as! String
           let salesID = prospect["SalesID"] as! String
-          if (contains(addNotificatios, prospectID) || salesID == user) && !confEndDate.isEmpty
+          if (addNotificatios.contains(prospectID) || salesID == user) && !confEndDate.isEmpty
               && !confStartDate.isEmpty {
               // need to add notification for this
               let sd = DateHandler.getNSDate(confStartDate)
@@ -483,8 +483,8 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
       textField.placeholder = "Frequency in days"
     }
     let defaultAction = UIAlertAction(title: "Submit", style: .Default, handler: {
-      (action:UIAlertAction!) -> Void in
-      if let frequency = alert.textFields?.first as? UITextField {
+      (action:UIAlertAction) -> Void in
+      if let frequency = alert.textFields?.first {
         let hudMessage = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hudMessage.mode = MBProgressHUDMode.Text
         hudMessage.labelText = "Alert will be sent every \(frequency.text) days."
@@ -586,14 +586,14 @@ class AllProspects: UIViewController, UITableViewDataSource, UITableViewDelegate
     case 2:
       currentTab = PinStatus.UnPin
     default:
-      println("unsupported tab clicked")
+      print("unsupported tab clicked")
     }
     fetchData()
     tableView.reloadData()
   }
   
   func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-    if count(searchText) == 0 {
+    if searchText.characters.count == 0 {
       isFiltered = false
     } else {
       isFiltered = true

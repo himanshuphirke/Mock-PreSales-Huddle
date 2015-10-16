@@ -35,7 +35,7 @@ class DateSelector: UIViewController {
   
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    stylizeControls()
+    // calestylizeControls()
   }
 
   private func stylizeControls() {
@@ -52,8 +52,7 @@ class DateSelector: UIViewController {
     toolBar.layer.borderColor = UIColor.whiteColor().CGColor
     toolBar.layer.masksToBounds = true
     
-    
-    if let senderFrame = senderFrame {
+    if let _ = senderFrame {
       UIView.animateWithDuration(0.4, animations: {
         if let senderFrame = self.senderFrame {
           self.toolBar.frame = CGRectMake(0, senderFrame.origin.y + senderFrame.height + 10,

@@ -59,7 +59,7 @@ class CalendarNotification {
   func requestAuth(){
     if status == EKAuthorizationStatus.NotDetermined {
       let store = EKEventStore()
-      store.requestAccessToEntityType(EKEntityTypeEvent, completion: { (granted, error: NSError?) -> Void in
+      store.requestAccessToEntityType(EKEntityType.Event, completion: { (granted, error: NSError?) -> Void in
         if granted {
           self.status = EKAuthorizationStatus.Authorized
         } else {
@@ -74,13 +74,13 @@ class CalendarNotification {
   }
   
   func getAuthStatus() -> EKAuthorizationStatus {
-    return EKEventStore.authorizationStatusForEntityType(EKEntityTypeEvent)
+    return EKEventStore.authorizationStatusForEntityType(EKEntityType.Event)
   }
   
   
   // MARK: EKCalendar
   func findCalendarByTitle(store: EKEventStore, title: String) -> EKCalendar? {
-    let calendars = store.calendarsForEntityType(EKEntityTypeEvent) as! [EKCalendar]
+    let calendars = store.calendarsForEntityType(EKEntityType.Event) 
     for calendar in calendars {
       if calendar.title == title {
         return calendar
@@ -117,11 +117,18 @@ class CalendarNotification {
   // MARK: Save Event
   private func saveEvent(event: EKEvent) -> EKEvent? {
     var error: NSError?
-    let result = store.saveEvent(event, span: EKSpanThisEvent, error: &error)
+    let result: Bool
+    do {
+      try store.saveEvent(event, span: EKSpan.ThisEvent)
+      result = true
+    } catch let error1 as NSError {
+      error = error1
+      result = false
+    }
     if result == false {
       if let theError = error {
-        println("An error occured \(theError)")
-        println("\(event)")
+        print("An error occured \(theError)")
+        print("\(event)")
       }
       return nil
     }

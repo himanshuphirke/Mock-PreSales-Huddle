@@ -56,7 +56,7 @@ class ParticipateInCall:UIViewController, UIPickerViewDataSource, UIPickerViewDe
     return 1
   }
     
-  func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView!) -> UIView {
+  func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
     var lView = view as? UILabel
     if lView == nil {
       lView = UILabel()

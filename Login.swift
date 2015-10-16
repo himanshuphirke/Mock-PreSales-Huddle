@@ -58,7 +58,7 @@ class Login : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UI
   
   private func initGoogleSignIn() {
     let apiScopes = ["https://www.googleapis.com/auth/gmail.send", "https://www.googleapis.com/auth/calendar"]
-    var currentScopes = GIDSignIn.sharedInstance().scopes as NSArray
+    let currentScopes = GIDSignIn.sharedInstance().scopes as NSArray
     GIDSignIn.sharedInstance().scopes = currentScopes.arrayByAddingObjectsFromArray(apiScopes)
     // Initialize sign-in
     var configureError: NSError?
@@ -76,9 +76,11 @@ class Login : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UI
     return userRoles.count
   }
   
-  func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+  func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
     return userRoles[row]
   }
+  
+  
   
   func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
     roleRow = row
@@ -94,7 +96,7 @@ class Login : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UI
   
   func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange,
     replacementString string: String) -> Bool {
-      let oldString: NSString = userName.text
+      let oldString: NSString = userName.text!
       let newString: NSString = oldString.stringByReplacingCharactersInRange(
         range, withString: string)
       enter.enabled = newString.length > 0
@@ -132,9 +134,9 @@ class Login : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UI
     var uName = userName.text;
     var uRole = userRoles[roleRow]
     if (gPlusSignInEnabled) {
-      var user = GIDSignIn.sharedInstance().currentUser
+      let user = GIDSignIn.sharedInstance().currentUser
       uName = user.profile.name
-      uRole = contains(salesRepresenatives, user.profile.email) ? "Sales" : "User"
+      uRole = salesRepresenatives.contains(user.profile.email) ? "Sales" : "User"
     }
     
     NSUserDefaults.standardUserDefaults().setObject(uName, forKey: "userID")
@@ -151,13 +153,13 @@ class Login : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UI
         let signIn = self.view.viewWithTag(10)
         signIn?.removeFromSuperview()
       }
-      var user = GIDSignIn.sharedInstance().currentUser
-      var email = user.profile.email as NSString
+      let user = GIDSignIn.sharedInstance().currentUser
+      let email = user.profile.email as NSString
       let r = email.rangeOfString("@synerzip.com", options: NSStringCompareOptions.CaseInsensitiveSearch)
       
       if r.location == NSNotFound {
         GIDSignIn.sharedInstance().signOut()
-        println("Sign-In Validation: Login from non-synerzip id")
+        print("Sign-In Validation: Login from non-synerzip id")
         let name = user.profile.name as String
         let msg = "Dear \(name) \nPlease login using synerzip email"
         let alert = UIAlertController(title: "Invalid Login", message: msg, preferredStyle: .Alert)
@@ -172,7 +174,7 @@ class Login : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UI
       }
     } else {
       enableGoogleSignIn()
-      println("Sign-In Error: \(error.localizedDescription)")
+      print("Sign-In Error: \(error.localizedDescription)")
     }
   }  
 }

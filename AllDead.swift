@@ -36,11 +36,13 @@ class AllDead: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    
-    let cell = tableView.dequeueReusableCellWithIdentifier("dead") as! UITableViewCell
-    let client = deadClients[indexPath.row] as [String: AnyObject]
-    populateCellData(cell, withProspectDictionary: client)
-    return cell
+    if let cell = tableView.dequeueReusableCellWithIdentifier("dead") {
+      let client = deadClients[indexPath.row] as [String: AnyObject]
+      populateCellData(cell, withProspectDictionary: client)
+      return cell
+    } else {
+      return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "dead")
+    }
   }
   
   private func populateCellData(cell: UITableViewCell,

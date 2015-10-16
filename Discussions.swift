@@ -77,8 +77,8 @@ class Discussions: UITableViewController {
         alert.addTextFieldWithConfigurationHandler { (textField: UITextField!) -> Void in
             textField.placeholder = "Enter a Question"
         }
-        let defaultAction = UIAlertAction(title: "Submit", style: .Default, handler: { (action:UIAlertAction!) -> Void in
-            if let questionField = alert.textFields?.first as? UITextField {
+        let defaultAction = UIAlertAction(title: "Submit", style: .Default, handler: { (action:UIAlertAction) -> Void in
+            if let questionField = alert.textFields?.first {
                 let question = questionField.text
                 
                 // Take user id from NSDefaults; currently defaulting to "USER1"
@@ -86,7 +86,7 @@ class Discussions: UITableViewController {
                 if let id = NSUserDefaults.standardUserDefaults().stringForKey("userID") {
                     userID = id
                 }
-                var dataStore : [String:AnyObject] = ["UserID": userID, "ProspectID": self.prospectID,"Query":"\(question)", "Answer": [[String:AnyObject]]()]
+                let dataStore : [String:AnyObject] = ["UserID": userID, "ProspectID": self.prospectID,"Query":"\(question)", "Answer": [[String:AnyObject]]()]
                 //for mock-screens
                 self.allQAs.append(dataStore)
                 
@@ -197,15 +197,15 @@ class Discussions: UITableViewController {
     func sectionHeaderTapped(recognizer: UITapGestureRecognizer) {
         cacheAnswers()
         
-        var indexPath : NSIndexPath = NSIndexPath(forRow: 0, inSection:(recognizer.view?.tag as Int!)!)
+        let indexPath : NSIndexPath = NSIndexPath(forRow: 0, inSection:(recognizer.view?.tag as Int!)!)
         if (indexPath.row == 0) {
             var collapsed = arrayForBool[indexPath.section]
             collapsed       = !collapsed;
             arrayForBool[indexPath.section] = collapsed
             
             //reload specific section animated
-            var range = NSMakeRange(indexPath.section, 1)
-            var sectionToReload = NSIndexSet(indexesInRange: range)
+            let range = NSMakeRange(indexPath.section, 1)
+            let sectionToReload = NSIndexSet(indexesInRange: range)
             self.tableView.reloadSections(sectionToReload, withRowAnimation:UITableViewRowAnimation.Fade)
         }
         
@@ -290,8 +290,8 @@ class Discussions: UITableViewController {
                 self.allQAs[sectionID] = qa
                 
                 
-                var range = NSMakeRange(sectionID, 1)
-                var sectionToReload = NSIndexSet(indexesInRange: range)
+                let range = NSMakeRange(sectionID, 1)
+                let sectionToReload = NSIndexSet(indexesInRange: range)
                 dispatch_async(dispatch_get_main_queue()) {
                     var collapsed = self.arrayForBool[sectionID]
                     collapsed       = !collapsed;
@@ -301,10 +301,10 @@ class Discussions: UITableViewController {
             }
             
             let defaultAction = UIAlertAction(title: "Submit", style: .Default, handler: submitActionHandler)
-            let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: {(action:UIAlertAction!) -> Void in
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: {(action:UIAlertAction) -> Void in
                 self.cacheAnswers()
-                var range = NSMakeRange(sectionID, 1)
-                var sectionToReload = NSIndexSet(indexesInRange: range)
+                let range = NSMakeRange(sectionID, 1)
+                let sectionToReload = NSIndexSet(indexesInRange: range)
                 dispatch_async(dispatch_get_main_queue()) {
                     var collapsed = self.arrayForBool[sectionID]
                     collapsed       = !collapsed;
@@ -327,7 +327,6 @@ class Discussions: UITableViewController {
         // for mock-screens
         let dataToFill = fillData
         allQAs.removeAll(keepCapacity: true)
-        var error: NSError?
         for item in dataToFill  {
             let dict = item as [String: AnyObject]
             allQAs.append(dict)
@@ -378,7 +377,7 @@ class Discussions: UITableViewController {
     func postUpdate(dataEncoded: NSData, url: String) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         let nc = NetworkCommunication()
-        let retValue = nc.postData(dataEncoded,
+        let _ = nc.postData(dataEncoded,
             successHandler: service_success_post,
             serviceErrorHandler: service_error,
             errorHandler: network_error,
@@ -458,16 +457,16 @@ class Discussions: UITableViewController {
     var fillData : [[String: AnyObject]] {
         get {
             if self.allQAs.isEmpty {
-                let discussion1 = ["DiscussionID":55,"ProspectID":53,"UserID":"himanshu.phirke@synerzip.com","Query":"What is the expected team size ?","Answer":[["UserID":"himanshu.phirke@synerzip.com","data":"About 20 odd people"], ["UserID":"uttam.gandhi@synerzip.com","data":"Are any QAs required?"]]]
-                let discussion2 = ["DiscussionID":56,"ProspectID":53,"UserID":"vinaya.mandke@synerzip.com","Query":"What is the expected start date ?","Answer":[["UserID":"sachin.avhad@synerzip.com","data":"End of this month"]]]
-                let discussion3 = ["DiscussionID":57,"ProspectID":53,"UserID":"uttam.gandhi@synerzip.com","Query":"What are the technologies involved ?","Answer":[String]()]
-                let discussion4 = ["DiscussionID":58,"ProspectID":53,"UserID":"sachin.avhad@synerzip.com","Query":"Is a webservice required ?","Answer":[["UserID":"himanshu.phirke@synerzip.com","data":"Yes"], ["UserID":"uttam.gandhi@synerzip.com","data":"Using Go?"]]]
+              let discussion1:[String : AnyObject] = ["DiscussionID":55,"ProspectID":53,"UserID":"himanshu.phirke@synerzip.com","Query":"What is the expected team size ?","Answer":[["UserID":"himanshu.phirke@synerzip.com","data":"About 20 odd people"], ["UserID":"uttam.gandhi@synerzip.com","data":"Are any QAs required?"]]]
+                let discussion2:[String : AnyObject] = ["DiscussionID":56,"ProspectID":53,"UserID":"vinaya.mandke@synerzip.com","Query":"What is the expected start date ?","Answer":[["UserID":"sachin.avhad@synerzip.com","data":"End of this month"]]]
+                let discussion3:[String : AnyObject] = ["DiscussionID":57,"ProspectID":53,"UserID":"uttam.gandhi@synerzip.com","Query":"What are the technologies involved ?","Answer":[String]()]
+                let discussion4:[String : AnyObject] = ["DiscussionID":58,"ProspectID":53,"UserID":"sachin.avhad@synerzip.com","Query":"Is a webservice required ?","Answer":[["UserID":"himanshu.phirke@synerzip.com","data":"Yes"], ["UserID":"uttam.gandhi@synerzip.com","data":"Using Go?"]]]
                 
                 var fillData = [[String: AnyObject]]()
-                fillData.append(discussion1 as! [String : AnyObject])
-                fillData.append(discussion2 as! [String : AnyObject])
-                fillData.append(discussion3 as! [String : AnyObject])
-                fillData.append(discussion4 as! [String : AnyObject])
+                fillData.append(discussion1)
+                fillData.append(discussion2)
+                fillData.append(discussion3)
+                fillData.append(discussion4)
                 return fillData
             } else {
                 return self.allQAs

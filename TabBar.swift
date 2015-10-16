@@ -13,7 +13,7 @@ class TabBar: UITabBarController {
     super.viewWillAppear(animated)
     if let userRole = NSUserDefaults.standardUserDefaults().stringForKey("userRole") {
       if userRole == "User" {
-        if let items = tabBar.items as? [UITabBarItem] {
+        if let items = tabBar.items {
           for item in items {
             if item.title != "Prospects" {
               item.enabled = false

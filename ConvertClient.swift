@@ -79,7 +79,7 @@ class ConvertClient: UIViewController, DateSelectorDelegate {
   }
 
   private func saveProspectToWebService(dict: [String: AnyObject], method: String) {
-    println("Prospect save:  \(dict)")
+    print("Prospect save:  \(dict)")
     saveProspectSuccess()
   }
   
@@ -87,7 +87,7 @@ class ConvertClient: UIViewController, DateSelectorDelegate {
     var prospect = [String: AnyObject]()
     prospect["StartDate"] = DateHandler.getDBDate(startDate)
     prospect["BUHead"] = bu_head.text
-    prospect["TeamSize"] = team_size.text.toInt()
+    prospect["TeamSize"] = Int(team_size.text!)
     prospect["Name"] = prospect_name.text
     if let id = prospectID {
       prospect["ProspectID"] = id
@@ -96,14 +96,18 @@ class ConvertClient: UIViewController, DateSelectorDelegate {
   }
 
   private func getNSData(prospectDict: [String: AnyObject]) -> NSData? {
-    var jsonError:NSError?
-    var jsonData:NSData? = NSJSONSerialization.dataWithJSONObject(
-      prospectDict, options: nil, error: &jsonError)
+    var jsonData:NSData?
+    do {
+      jsonData = try NSJSONSerialization.dataWithJSONObject(
+            prospectDict, options: [])
+    } catch {
+      jsonData = nil
+    }
     return jsonData
   }
   
   private func updateProspectToWebService(operation: String) {
-    var prospect = getFormData()
+    let prospect = getFormData()
     saveProspectToWebService(prospect, method:operation)
   }
 

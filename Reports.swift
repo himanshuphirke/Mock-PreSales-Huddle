@@ -49,7 +49,7 @@ class Reports: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("ReportCell", forIndexPath: indexPath) as! UITableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier("ReportCell", forIndexPath: indexPath) 
     cell.textLabel?.text = data[indexPath.row]
     // stylizeCell(cell, index: indexPath.row)
     return cell
@@ -105,11 +105,11 @@ class Reports: UITableViewController {
       return ""
     }
     var result:String = ""
-    var value = source.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-    let separated = split(value, allowEmptySlices: false, isSeparator: {$0==" "})
+    let value = source.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+    let separated = value.characters.split(allowEmptySlices: false, isSeparator: {$0==" "}).map { String($0) }
     for key in separated {
-      var first = key.substringToIndex(advance(value.startIndex, 1)).uppercaseString
-      let rest = dropFirst(key).lowercaseString
+      let first = key.substringToIndex(value.startIndex.advancedBy(1)).uppercaseString
+      let rest = String(key.characters.dropFirst()).lowercaseString
       if (result.isEmpty == false) {
         result += " "
       }
@@ -122,10 +122,10 @@ class Reports: UITableViewController {
     if (techValue.isEmpty) {
       return;
     }
-    let separated = split(techValue, allowEmptySlices: false, isSeparator: {$0==","})
+    let separated = techValue.characters.split(allowEmptySlices: false, isSeparator: {$0==","}).map { String($0) }
     for source in separated {
-      var key  = camelCaseString(source)
-      if let value = techStackData_[key] {
+      let key  = camelCaseString(source)
+      if let _ = techStackData_[key] {
         techStackData_[key]!.count_++
       } else {
         techStackData_[key] = PieChartData(key: key, count: 1, selected: false)
@@ -138,10 +138,10 @@ class Reports: UITableViewController {
     if (domainValue.isEmpty) {
       return;
     }
-    let separated = split(domainValue, allowEmptySlices: false, isSeparator: {$0==","})
+    let separated = domainValue.characters.split(allowEmptySlices: false, isSeparator: {$0==","}).map { String($0) }
     for source in separated {
-      var key  = camelCaseString(source)
-      if let value = domainData_[key] {
+      let key  = camelCaseString(source)
+      if let _ = domainData_[key] {
         domainData_[key]!.count_++
       } else {
         domainData_[key] = PieChartData(key: key, count: 1, selected: false)

@@ -38,7 +38,7 @@ class EmailNotification {
     
     private func handleError(err: NSError) {
         //error handler
-        println("\(err)")
+        print("\(err)")
     }
     
     private func getMimetextArray(recs: String, sender: String, sub: String, emailText: String) -> [String] {
@@ -60,7 +60,7 @@ class EmailNotification {
     }
     
     private func makeAString(arr: [String]) -> String {
-        return join("\n", arr)
+        return arr.joinWithSeparator("\n")
     }
     
     private func encode(str: String) -> String {
@@ -69,8 +69,11 @@ class EmailNotification {
     }
     
     private func encodeJSON(dataString : [String:AnyObject]) -> NSData? {
-       var err: NSError?
-       return NSJSONSerialization.dataWithJSONObject(dataString, options: nil, error: &err)
+       do {
+           return try NSJSONSerialization.dataWithJSONObject(dataString, options: [])
+       } catch _ {
+           return nil
+       }
     }
     
     private func getMailerRequest() -> NSMutableURLRequest {
@@ -92,11 +95,8 @@ class EmailNotification {
         let request = getMailerRequest()
         let config_ = NSURLSessionConfiguration.defaultSessionConfiguration()
         config_.timeoutIntervalForRequest = 10.0
-        let session = NSURLSession(configuration: config_)
-        
         let requestBody = encodeJSON(["raw":encodedMsg])
         let nc = NetworkCommunication()
-        var successful = false
         if let data = requestBody {
           nc.postData(data, successHandler: successHandler,
             serviceErrorHandler: handleServiceError,
@@ -106,6 +106,6 @@ class EmailNotification {
     }
     
     func errorHandler(err: NSError) {
-        println("\(err)")
+        print("\(err)")
     }
 }

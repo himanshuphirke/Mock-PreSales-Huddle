@@ -90,12 +90,15 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
   }
 
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("participant") as! UITableViewCell
-    let participant = allParticipants[indexPath.row]
-    populateCellData(cell, withParticipant: participant)
-    configureSelectionLabel()
-    // stylizeCell(cell,index: indexPath.row)
-    return cell
+    if let cell = tableView.dequeueReusableCellWithIdentifier("participant") {
+      let participant = allParticipants[indexPath.row]
+      populateCellData(cell, withParticipant: participant)
+      configureSelectionLabel()
+      // stylizeCell(cell,index: indexPath.row)
+      return cell
+    } else {
+      return UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "participant")
+    }
   }
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -134,9 +137,13 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
   }
   
   private func getNSData(prospectDict: [String: AnyObject]) -> NSData? {
-    var jsonError:NSError?
-    var jsonData:NSData? = NSJSONSerialization.dataWithJSONObject(
-      prospectDict, options: nil, error: &jsonError)
+    var jsonData:NSData?
+    do {
+      jsonData = try NSJSONSerialization.dataWithJSONObject(
+            prospectDict, options: [])
+    } catch {
+      jsonData = nil
+    }
     return jsonData
   }
 
@@ -145,7 +152,7 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
     if let id = prospectID {
       dict["ProspectID"] = id
     }
-    println(dict)
+    print(dict)
     if let data = getNSData(dict) {
       saveToWebService(data, operation: updateParticipantURL)
     } else {
@@ -298,7 +305,7 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
   }
   
   private func saveToWebService(data: NSData, operation: String) {
-    println("Operation:  \(operation)")
+    print("Operation:  \(operation)")
     selectionSaveSuccess()
   }
   
@@ -324,11 +331,9 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
     let auth = user.authentication
     auth.getAccessTokenWithHandler({ (tokenstr, err) -> Void in
         if err == nil {
-            var prospectName = self.mockProspectData["ProspectName"] as! String
-            var callType = self.mockProspectData["Type"] as! String
-            var prospect = self.mockProspectData["Prospect"] as! [String:AnyObject]
-            
-            var gCal = GoogleCalendarNotification(token: tokenstr)
+            let prospectName = self.mockProspectData["ProspectName"] as! String
+            let callType = self.mockProspectData["Type"] as! String            
+            let gCal = GoogleCalendarNotification(token: tokenstr)
             gCal.startDate = self.fromDate
             gCal.endDate = self.toDate
             gCal.summary = "Prospect: \(prospectName) \(callType) Call"
@@ -348,7 +353,7 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
     func eventServiceErrorHandler(response: NSHTTPURLResponse) -> Void {
         commonHandler()
         // handle service error
-        println(response.description)
+        print(response.description)
     }
   
   func saveProspectSuccess(data: NSData) -> Void {
@@ -376,7 +381,7 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
   }
   
   private func saveProspectToWebService(dict: [String: AnyObject], method: String) {
-    println("Prospect save:  \(dict)")
+    print("Prospect save:  \(dict)")
     if let data = getNSData(dict) {
       let nc = NetworkCommunication()
       nc.postData(data,
@@ -391,7 +396,7 @@ class ScheduleCall: UIViewController, UITableViewDataSource, UITableViewDelegate
   }
   
   private func updateProspectToWebService(operation: String) {
-    var prospect = getFormData()
+    let prospect = getFormData()
     saveProspectToWebService(prospect, method:operation)
   }
   

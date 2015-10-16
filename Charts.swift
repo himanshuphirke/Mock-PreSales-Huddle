@@ -17,7 +17,7 @@ class Charts: UITableViewController, CPTPlotDataSource, CPTPieChartDataSource, C
   var selectedValueCount:Int = 0
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
-    self.keys = sorted(Array(pieChartData.keys))
+    self.keys = Array(pieChartData.keys).sort()
   }
   
   override func viewDidLoad() {
@@ -71,7 +71,7 @@ class Charts: UITableViewController, CPTPlotDataSource, CPTPieChartDataSource, C
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("ChartCell", forIndexPath: indexPath) as! UITableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier("ChartCell", forIndexPath: indexPath) 
     if (indexPath.row < keys.count) {
       cell.textLabel?.text = self.keys[indexPath.row]
     }
@@ -88,7 +88,7 @@ class Charts: UITableViewController, CPTPlotDataSource, CPTPieChartDataSource, C
   }
   
   func numberForPlot(plot: CPTPlot!, field fieldEnum: UInt, recordIndex idx: UInt) -> AnyObject! {
-    var index = Int(idx)
+    let index = Int(idx)
     
     if (index < selectedKeys.count) {
       return pieChartData[selectedKeys[index]]?.count_
@@ -105,10 +105,10 @@ class Charts: UITableViewController, CPTPlotDataSource, CPTPieChartDataSource, C
     let count:Double = Double(pieChartData[key]!.count_)
     let percent:Double = count * 100.0 / Double(selectedValueCount)
     let label = String(format: "%.1f", percent) + "%"
-    var textStyle = CPTMutableTextStyle()
+    let textStyle = CPTMutableTextStyle()
     textStyle.color = CPTColor.blackColor()
     textStyle.fontSize = 15.0
-    var textLayer = CPTTextLayer(text: label, style: textStyle)
+    let textLayer = CPTTextLayer(text: label, style: textStyle)
     return textLayer
   }
   func legendTitleForPieChart(pieChart:CPTPieChart!, recordIndex idx:UInt) ->String! {
